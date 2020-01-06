@@ -1,0 +1,406 @@
+###############################################################################
+#
+# IAR C/C++ Compiler V10.30.1.6000 for 8051               06/Jan/2020  18:45:33
+# Copyright 2004-2018 IAR Systems AB.
+# PC-locked license - IAR Embedded Workbench for 8051
+#
+#    Core               =  plain
+#    Code model         =  banked
+#    Data model         =  large
+#    Calling convention =  xdata reentrant
+#    Constant location  =  data_rom
+#    Dptr setup         =  1,16
+#                          
+#    Source file        =  
+#        D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\ZMain\TI2530DB\Theme_switch\keusactions.c
+#    Command line       =  
+#        -f C:\Users\Souvik\AppData\Local\Temp\EWBB39.tmp ("D:\VB_Shared\Zigbee
+#        Resources\CC2530
+#        Development\Projects\zstack\ZMain\TI2530DB\Theme_switch\keusactions.c"
+#        -D SECURE=1 -D TC_LINKKEY_JOIN -D NV_INIT -D NV_RESTORE -D
+#        HAL_KEY=FALSE -D HAL_LCD=FALSE -D HAL_LED=FALSE -D
+#        MULTICAST_ENABLED=FALSE -D ZCL_READ -D ZCL_WRITE -D ZCL_BASIC -D
+#        ZCL_IDENTIFY -D KEUS_GPIO_INTERRUPT_HANDLER_DISABLE -D HAL_UART=TRUE
+#        -D HAL_UART_ISR=1 -D HAL_UART_DMA=2 -D HAL_UART_DMA_RX_MAX=64 -D
+#        HAL_UART_DMA_TX_MAX=64 -D INT_HEAP_LEN=3172 -lC "D:\VB_Shared\Zigbee
+#        Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\EndDeviceEB\List"
+#        -lA "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\EndDeviceEB\List"
+#        --diag_suppress Pe001,Pa010 -o "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\EndDeviceEB\Obj"
+#        -e --debug --core=plain --dptr=16,1 --data_model=large
+#        --code_model=banked --calling_convention=xdata_reentrant
+#        --place_constants=data_rom --nr_virtual_regs 16 -f
+#        "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\Tools\CC2530DB\f8wEndev.cfg"
+#        (-DCPU32MHZ -DROOT=__near_func -DMAC_CFG_TX_DATA_MAX=3
+#        -DMAC_CFG_TX_MAX=6 -DMAC_CFG_RX_MAX=3) -f "D:\VB_Shared\Zigbee
+#        Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\Tools\CC2530DB\f8wConfig.cfg"
+#        (-DZIGBEEPRO -DSECURE=1 -DZG_SECURE_DYNAMIC=0 -DREFLECTOR
+#        -DDEFAULT_CHANLIST=0x00000800 -DZDAPP_CONFIG_PAN_ID=0xFFFF
+#        -DNWK_START_DELAY=100 -DEXTENDED_JOINING_RANDOM_MASK=0x007F
+#        -DBEACON_REQUEST_DELAY=100 -DBEACON_REQ_DELAY_MASK=0x00FF
+#        -DLINK_STATUS_JITTER_MASK=0x007F -DROUTE_EXPIRY_TIME=30
+#        -DAPSC_ACK_WAIT_DURATION_POLLED=3000 -DNWK_INDIRECT_MSG_TIMEOUT=7
+#        -DMAX_RREQ_ENTRIES=8 -DAPSC_MAX_FRAME_RETRIES=3
+#        -DNWK_MAX_DATA_RETRIES=2 -DMAX_POLL_FAILURE_RETRIES=2 -DMAX_BCAST=9
+#        -DAPS_MAX_GROUPS=16 -DMAX_RTG_ENTRIES=40 -DNWK_MAX_BINDING_ENTRIES=4
+#        -DMAX_BINDING_CLUSTER_IDS=4 -DDEFAULT_KEY={0} -DMAC_MAX_FRAME_SIZE=116
+#        -DZDNWKMGR_MIN_TRANSMISSIONS=20 "-DCONST=const __code"
+#        -DGENERIC=__generic -DRFD_RCVC_ALWAYS_ON=FALSE -DPOLL_RATE=1000
+#        -DQUEUED_POLL_RATE=100 -DRESPONSE_POLL_RATE=100 -DREJOIN_POLL_RATE=440
+#        -DREJOIN_BACKOFF=900000 -DREJOIN_SCAN=900000 -DENABLE_LED4_DISABLE_S1)
+#        -f "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\Tools\CC2530DB\f8wZCL.cfg"
+#        -I "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\" -I
+#        "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\Source\"
+#        -I "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\Source\"
+#        -I "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\ZMain\TI2530DB\"
+#        -I "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\hal\include\"
+#        -I "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\hal\target\CC2530EB\"
+#        -I "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\mac\include\"
+#        -I "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\mac\high_level\"
+#        -I "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\mac\low_level\srf04\"
+#        -I "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\mac\low_level\srf04\single_chip\"
+#        -I "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\mt\"
+#        -I "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\osal\include\"
+#        -I "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\services\saddr\"
+#        -I "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\services\sdata\"
+#        -I "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\stack\af\"
+#        -I "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\stack\bdb\"
+#        -I "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\stack\gp\"
+#        -I "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\stack\nwk\"
+#        -I "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\stack\sapi\"
+#        -I "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\stack\sec\"
+#        -I "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\stack\sys\"
+#        -I "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\stack\zcl\"
+#        -I "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\stack\zdo\"
+#        -I "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\zmac\"
+#        -I "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\zmac\f8w\"
+#        -I "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\keus\"
+#        -Ohz --require_prototypes)
+#    Locale             =  English_USA.1252
+#    List file          =  
+#        D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\EndDeviceEB\List\keusactions.lst
+#    Object file        =  
+#        D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\EndDeviceEB\Obj\keusactions.r51
+#
+###############################################################################
+
+D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack\ZMain\TI2530DB\Theme_switch\keusactions.c
+      1          #include "hal_adc.h"
+      2          #include "hal_flash.h"
+      3          #include "hal_lcd.h"
+      4          #include "hal_led.h"
+      5          #include "hal_uart.h"
+      6          #include "hal_drivers.h"
+      7          #include "OnBoard.h"
+      8          #include "OSAL.h"
+      9          #include "OSAL_Nv.h"
+     10          #include "ZComDef.h"
+     11          #include "ZMAC.h"
+     12          #include "keusactions.h"
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
+   \   uint8 commandId
+   \                     commandId:
+   \   000000                DS 1
+   \   000001                REQUIRE __INIT_XDATA_Z
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
+   \   uint8 uartDataBuffer[12]
+   \                     uartDataBuffer:
+   \   000000                DS 12
+   \   00000C                REQUIRE __INIT_XDATA_Z
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
+   \   uint8 scene_arr[4]
+   \                     scene_arr:
+   \   000000                DS 4
+   \   000004                REQUIRE __INIT_XDATA_Z
+     13          
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     14          void parseUart(void)
+   \                     parseUart:
+     15          {
+   \   000000   C082         PUSH      DPL
+   \   000002   C083         PUSH      DPH
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 0
+     16              int i = 0;
+   \   000004   7800         MOV       R0,#0x0
+   \   000006   7900         MOV       R1,#0x0
+     17              commandId = g0_u8RecData[0];
+   \   000008   90....       MOV       DPTR,#g0_u8RecData
+   \   00000B   E0           MOVX      A,@DPTR
+   \   00000C   90....       MOV       DPTR,#commandId
+   \   00000F   F0           MOVX      @DPTR,A
+     18          
+     19              for (i = 0; i < MAX_UART_DATA_BUFFER; i++)
+     20              {
+     21                  uartDataBuffer[i] = g0_u8RecData[i + 1];
+   \                     ??parseUart_0:
+   \   000010   74..         MOV       A,#(g0_u8RecData + 1) & 0xff
+   \   000012   28           ADD       A,R0
+   \   000013   F582         MOV       DPL,A
+   \   000015   74..         MOV       A,#((g0_u8RecData + 1) >> 8) & 0xff
+   \   000017   39           ADDC      A,R1
+   \   000018   F583         MOV       DPH,A
+   \   00001A   E0           MOVX      A,@DPTR
+   \   00001B   C0E0         PUSH      A
+   \   00001D   74..         MOV       A,#uartDataBuffer & 0xff
+   \   00001F   28           ADD       A,R0
+   \   000020   F582         MOV       DPL,A
+   \   000022   74..         MOV       A,#(uartDataBuffer >> 8) & 0xff
+   \   000024   39           ADDC      A,R1
+   \   000025   F583         MOV       DPH,A
+   \   000027   D0E0         POP       A
+   \   000029   F0           MOVX      @DPTR,A
+     22              }
+   \   00002A   08           INC       R0
+   \   00002B   E8           MOV       A,R0
+   \   00002C   7001         JNZ       ??parseUart_1
+   \   00002E   09           INC       R1
+   \                     ??parseUart_1:
+   \   00002F   C3           CLR       C
+   \   000030   940C         SUBB      A,#0xc
+   \   000032   E9           MOV       A,R1
+   \   000033   9400         SUBB      A,#0x0
+   \   000035   A2D2         MOV       C,0xD0 /* PSW */.2
+   \   000037   65D0         XRL       A,PSW
+   \   000039   33           RLC       A
+   \   00003A   40D4         JC        ??parseUart_0
+     23          
+     24              taskHandler();
+   \   00003C   90....       MOV       DPTR,#commandId
+   \   00003F   E0           MOVX      A,@DPTR
+   \   000040   6401         XRL       A,#0x1
+   \   000042   7003         JNZ       ??parseUart_2
+   \   000044                ; Setup parameters for call to function mapSwitch
+   \   000044   12....       LCALL     `??mapSwitch::?relay`; Banked call to: mapSwitch
+     25          }
+   \                     ??parseUart_2:
+   \   000047                REQUIRE ?Subroutine0
+   \   000047                ; // Fall through to label ?Subroutine0
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine0:
+   \   000000   D083         POP       DPH
+   \   000002   D082         POP       DPL
+   \   000004   02....       LJMP      ?BRET
+     26          
+     27          //Calls the required function as needed by UART received message
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     28          void taskHandler(void)
+   \                     taskHandler:
+     29          {
+   \   000000   C082         PUSH      DPL
+   \   000002   C083         PUSH      DPH
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 0
+     30              switch (commandId)
+   \   000004   90....       MOV       DPTR,#commandId
+   \   000007   E0           MOVX      A,@DPTR
+   \   000008   6401         XRL       A,#0x1
+   \   00000A   7003         JNZ       ??taskHandler_0
+     31              {
+     32              case TASK_MAP_SWITCH:
+     33                  mapSwitch();
+   \   00000C                ; Setup parameters for call to function mapSwitch
+   \   00000C   12....       LCALL     `??mapSwitch::?relay`; Banked call to: mapSwitch
+     34                  break;
+     35          
+     36              default:
+     37                  break;
+     38              }
+     39          }
+   \                     ??taskHandler_0:
+   \   00000F   80..         SJMP      ?Subroutine0
+     40          
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     41          void mapSwitch(void)
+   \                     mapSwitch:
+     42          {
+   \   000000                REQUIRE ?V0
+   \   000000   74F7         MOV       A,#-0x9
+   \   000002   12....       LCALL     ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 9
+   \   000005                ; Auto size: 0
+     43              //Example msg: 28 06 01 | 02 01 54 02 64 | 29
+     44              int noOfSwitch = uartDataBuffer[0];
+   \   000005   90....       MOV       DPTR,#uartDataBuffer
+   \   000008   E0           MOVX      A,@DPTR
+   \   000009   FE           MOV       R6,A
+     45              uint8 position = 0, switchId, sceneID;
+   \   00000A   7A00         MOV       R2,#0x0
+     46          
+     47              for (int i = 0; i < noOfSwitch; i++)
+   \   00000C   7C00         MOV       R4,#0x0
+   \   00000E   7D00         MOV       R5,#0x0
+   \   000010   800A         SJMP      ??mapSwitch_0
+     48              {
+     49                  switchId = uartDataBuffer[position + 1];
+     50                  sceneID = uartDataBuffer[position + 2];
+     51                  position += 2;
+     52                  switch (switchId)
+     53                  {
+     54                  case BUTTON1_ID:
+     55                      scene_arr[0] = sceneID;
+     56                      break;
+     57                  case BUTTON2_ID:
+     58                      scene_arr[1] = sceneID;
+     59                      break;
+     60                  case BUTTON3_ID:
+     61                      scene_arr[2] = sceneID;
+     62                      break;
+     63                  case BUTTON4_ID:
+     64                      scene_arr[3] = sceneID;
+   \                     ??mapSwitch_1:
+   \   000012   E8           MOV       A,R0
+   \   000013   90....       MOV       DPTR,#scene_arr + 3
+   \                     ??mapSwitch_2:
+   \   000016   F0           MOVX      @DPTR,A
+     65                      break;
+   \                     ??mapSwitch_3:
+   \   000017   0C           INC       R4
+   \   000018   EC           MOV       A,R4
+   \   000019   7001         JNZ       ??mapSwitch_0
+   \   00001B   0D           INC       R5
+   \                     ??mapSwitch_0:
+   \   00001C   C3           CLR       C
+   \   00001D   EC           MOV       A,R4
+   \   00001E   9E           SUBB      A,R6
+   \   00001F   ED           MOV       A,R5
+   \   000020   9400         SUBB      A,#0x0
+   \   000022   A2D2         MOV       C,0xD0 /* PSW */.2
+   \   000024   65D0         XRL       A,PSW
+   \   000026   33           RLC       A
+   \   000027   503C         JNC       ??mapSwitch_4
+   \   000029   EA           MOV       A,R2
+   \   00002A   F8           MOV       R0,A
+   \   00002B   74..         MOV       A,#uartDataBuffer & 0xff
+   \   00002D   28           ADD       A,R0
+   \   00002E   F8           MOV       R0,A
+   \   00002F   E4           CLR       A
+   \   000030   34..         ADDC      A,#(uartDataBuffer >> 8) & 0xff
+   \   000032   F9           MOV       R1,A
+   \   000033   8882         MOV       DPL,R0
+   \   000035   F583         MOV       DPH,A
+   \   000037   A3           INC       DPTR
+   \   000038   E0           MOVX      A,@DPTR
+   \   000039   FB           MOV       R3,A
+   \   00003A   8882         MOV       DPL,R0
+   \   00003C   8983         MOV       DPH,R1
+   \   00003E   A3           INC       DPTR
+   \   00003F   A3           INC       DPTR
+   \   000040   E0           MOVX      A,@DPTR
+   \   000041   F8           MOV       R0,A
+   \   000042   0A           INC       R2
+   \   000043   0A           INC       R2
+   \   000044   EB           MOV       A,R3
+   \   000045   14           DEC       A
+   \   000046   600B         JZ        ??mapSwitch_5
+   \   000048   14           DEC       A
+   \   000049   600E         JZ        ??mapSwitch_6
+   \   00004B   14           DEC       A
+   \   00004C   6011         JZ        ??mapSwitch_7
+   \   00004E   14           DEC       A
+   \   00004F   60C1         JZ        ??mapSwitch_1
+   \   000051   80C4         SJMP      ??mapSwitch_3
+   \                     ??mapSwitch_5:
+   \   000053   E8           MOV       A,R0
+   \   000054   90....       MOV       DPTR,#scene_arr
+   \   000057   80BD         SJMP      ??mapSwitch_2
+   \                     ??mapSwitch_6:
+   \   000059   E8           MOV       A,R0
+   \   00005A   90....       MOV       DPTR,#scene_arr + 1
+   \   00005D   80B7         SJMP      ??mapSwitch_2
+   \                     ??mapSwitch_7:
+   \   00005F   E8           MOV       A,R0
+   \   000060   90....       MOV       DPTR,#scene_arr + 2
+   \   000063   80B1         SJMP      ??mapSwitch_2
+     66          
+     67                  default:
+     68                      break;
+     69                  }
+     70              }
+     71          
+     72              KeusUartAckMsg(KEUS_UART_MSG_ACK);
+   \                     ??mapSwitch_4:
+   \   000065                ; Setup parameters for call to function KeusUartAckMsg
+   \   000065   7905         MOV       R1,#0x5
+   \   000067   12....       LCALL     `??KeusUartAckMsg::?relay`; Banked call to: KeusUartAckMsg
+     73          }
+   \   00006A   7F01         MOV       R7,#0x1
+   \   00006C   02....       LJMP      ?BANKED_LEAVE_XDATA
+
+   Maximum stack usage in bytes:
+
+   ISTACK XSTACK Function
+   ------ ------ --------
+      0      9   mapSwitch
+        0      9   -> KeusUartAckMsg
+      3      0   parseUart
+        2      0   -> mapSwitch
+      2      0   taskHandler
+        2      0   -> mapSwitch
+
+
+   Segment part sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       7  ?Subroutine0
+       1  commandId
+     111  mapSwitch
+      71  parseUart
+       4  scene_arr
+      17  taskHandler
+      12  uartDataBuffer
+      18  -- Other
+
+ 
+ 206 bytes in segment BANKED_CODE
+  18 bytes in segment BANK_RELAYS
+  17 bytes in segment XDATA_Z
+ 
+  18 bytes of CODE     memory
+ 206 bytes of HUGECODE memory
+  17 bytes of XDATA    memory
+
+Errors: none
+Warnings: none

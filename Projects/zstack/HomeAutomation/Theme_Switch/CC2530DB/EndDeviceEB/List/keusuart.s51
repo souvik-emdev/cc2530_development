@@ -1,0 +1,824 @@
+///////////////////////////////////////////////////////////////////////////////
+//
+// IAR C/C++ Compiler V10.30.1.6000 for 8051              06/Jan/2020  17:05:22
+// Copyright 2004-2018 IAR Systems AB.
+// PC-locked license - IAR Embedded Workbench for 8051
+//
+//    Core               =  plain
+//    Code model         =  banked
+//    Data model         =  large
+//    Calling convention =  xdata reentrant
+//    Constant location  =  data_rom
+//    Dptr setup         =  1,16
+//                          
+//    Source file        =  
+//        D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\ZMain\TI2530DB\Theme_switch\keusuart.c
+//    Command line       =  
+//        -f C:\Users\Souvik\AppData\Local\Temp\EW5AB.tmp ("D:\VB_Shared\Zigbee
+//        Resources\CC2530
+//        Development\Projects\zstack\ZMain\TI2530DB\Theme_switch\keusuart.c"
+//        -D SECURE=1 -D TC_LINKKEY_JOIN -D NV_INIT -D NV_RESTORE -D
+//        HAL_KEY=FALSE -D HAL_LCD=FALSE -D HAL_LED=FALSE -D
+//        MULTICAST_ENABLED=FALSE -D ZCL_READ -D ZCL_WRITE -D ZCL_BASIC -D
+//        ZCL_IDENTIFY -D KEUS_GPIO_INTERRUPT_HANDLER_DISABLE -D HAL_UART=TRUE
+//        -D HAL_UART_ISR=1 -D HAL_UART_DMA=2 -D HAL_UART_DMA_RX_MAX=64 -D
+//        HAL_UART_DMA_TX_MAX=64 -D INT_HEAP_LEN=3172 -lC "D:\VB_Shared\Zigbee
+//        Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\EndDeviceEB\List"
+//        -lA "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\EndDeviceEB\List"
+//        --diag_suppress Pe001,Pa010 -o "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\EndDeviceEB\Obj"
+//        -e --debug --core=plain --dptr=16,1 --data_model=large
+//        --code_model=banked --calling_convention=xdata_reentrant
+//        --place_constants=data_rom --nr_virtual_regs 16 -f
+//        "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\Tools\CC2530DB\f8wEndev.cfg"
+//        (-DCPU32MHZ -DROOT=__near_func -DMAC_CFG_TX_DATA_MAX=3
+//        -DMAC_CFG_TX_MAX=6 -DMAC_CFG_RX_MAX=3) -f "D:\VB_Shared\Zigbee
+//        Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\Tools\CC2530DB\f8wConfig.cfg"
+//        (-DZIGBEEPRO -DSECURE=1 -DZG_SECURE_DYNAMIC=0 -DREFLECTOR
+//        -DDEFAULT_CHANLIST=0x00000800 -DZDAPP_CONFIG_PAN_ID=0xFFFF
+//        -DNWK_START_DELAY=100 -DEXTENDED_JOINING_RANDOM_MASK=0x007F
+//        -DBEACON_REQUEST_DELAY=100 -DBEACON_REQ_DELAY_MASK=0x00FF
+//        -DLINK_STATUS_JITTER_MASK=0x007F -DROUTE_EXPIRY_TIME=30
+//        -DAPSC_ACK_WAIT_DURATION_POLLED=3000 -DNWK_INDIRECT_MSG_TIMEOUT=7
+//        -DMAX_RREQ_ENTRIES=8 -DAPSC_MAX_FRAME_RETRIES=3
+//        -DNWK_MAX_DATA_RETRIES=2 -DMAX_POLL_FAILURE_RETRIES=2 -DMAX_BCAST=9
+//        -DAPS_MAX_GROUPS=16 -DMAX_RTG_ENTRIES=40 -DNWK_MAX_BINDING_ENTRIES=4
+//        -DMAX_BINDING_CLUSTER_IDS=4 -DDEFAULT_KEY={0}
+//        -DMAC_MAX_FRAME_SIZE=116 -DZDNWKMGR_MIN_TRANSMISSIONS=20
+//        "-DCONST=const __code" -DGENERIC=__generic -DRFD_RCVC_ALWAYS_ON=FALSE
+//        -DPOLL_RATE=1000 -DQUEUED_POLL_RATE=100 -DRESPONSE_POLL_RATE=100
+//        -DREJOIN_POLL_RATE=440 -DREJOIN_BACKOFF=900000 -DREJOIN_SCAN=900000
+//        -DENABLE_LED4_DISABLE_S1) -f "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\Tools\CC2530DB\f8wZCL.cfg"
+//        -I "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\" -I
+//        "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\Source\"
+//        -I "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\Source\"
+//        -I "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\ZMain\TI2530DB\"
+//        -I "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\hal\include\"
+//        -I "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\hal\target\CC2530EB\"
+//        -I "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\mac\include\"
+//        -I "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\mac\high_level\"
+//        -I "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\mac\low_level\srf04\"
+//        -I "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\mac\low_level\srf04\single_chip\"
+//        -I "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\mt\"
+//        -I "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\osal\include\"
+//        -I "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\services\saddr\"
+//        -I "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\services\sdata\"
+//        -I "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\stack\af\"
+//        -I "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\stack\bdb\"
+//        -I "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\stack\gp\"
+//        -I "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\stack\nwk\"
+//        -I "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\stack\sapi\"
+//        -I "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\stack\sec\"
+//        -I "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\stack\sys\"
+//        -I "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\stack\zcl\"
+//        -I "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\stack\zdo\"
+//        -I "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\zmac\"
+//        -I "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\zmac\f8w\"
+//        -I "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\keus\"
+//        -Ohz --require_prototypes)
+//    Locale             =  English_USA.1252
+//    List file          =  
+//        D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\Theme_Switch\CC2530DB\EndDeviceEB\List\keusuart.s51
+//
+///////////////////////////////////////////////////////////////////////////////
+
+        NAME keusuart
+
+        RTMODEL "__SystemLibrary", "CLib"
+        RTMODEL "__calling_convention", "xdata_reentrant"
+        RTMODEL "__code_model", "banked"
+        RTMODEL "__core", "plain"
+        RTMODEL "__data_model", "large"
+        RTMODEL "__dptr_size", "16"
+        RTMODEL "__extended_stack", "disabled"
+        RTMODEL "__location_for_constants", "data"
+        RTMODEL "__number_of_dptrs", "1"
+        RTMODEL "__register_banks", "*"
+        RTMODEL "__rt_version", "1"
+
+        RSEG DOVERLAY:DATA:NOROOT(0)
+        RSEG IOVERLAY:IDATA:NOROOT(0)
+        RSEG ISTACK:IDATA:NOROOT(0)
+        RSEG PSTACK:XDATA:NOROOT(0)
+        RSEG XSTACK:XDATA:NOROOT(0)
+
+        EXTERN ?V0
+        EXTERN ?V1
+        EXTERN ?V2
+        EXTERN ?V3
+        EXTERN ?ALLOC_XSTACK8
+        EXTERN ?BANKED_ENTER_XDATA
+        EXTERN ?BANKED_LEAVE_XDATA
+        EXTERN ?BDISPATCH
+        EXTERN ?BRET
+        EXTERN ?DEALLOC_XSTACK8
+        EXTERN ?L_IOR_TO_X
+        EXTERN ?L_MOV_X
+        EXTERN ?XSP
+        EXTERN ?XSTACK_DISP0_8
+        EXTERN __INIT_XDATA_Z
+
+        PUBLIC `??KeusUartAckMsg::?relay`
+        FUNCTION `??KeusUartAckMsg::?relay`,0203H
+        PUBLIC `??initUart::?relay`
+        FUNCTION `??initUart::?relay`,0203H
+        PUBLIC `??uartRxCb::?relay`
+        FUNCTION `??uartRxCb::?relay`,0203H
+        PUBLIC KeusUartAckMsg
+        FUNCTION KeusUartAckMsg,021203H
+        ARGFRAME XSTACK, 0, STACK
+        LOCFRAME ISTACK, 1, STACK
+        LOCFRAME XSTACK, 41, STACK
+        PUBWEAK __Constant_10
+        PUBLIC g0_bufferCounter
+        PUBLIC g0_endMessageIndex
+        PUBLIC g0_shouldSaveToBuffer
+        PUBLIC g0_u8RecData
+        PUBLIC initUart
+        FUNCTION initUart,021203H
+        ARGFRAME XSTACK, 0, STACK
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME XSTACK, 29, STACK
+        PUBLIC message_received
+        PUBLIC uartRxCb
+        FUNCTION uartRxCb,0a1603H
+        ARGFRAME XSTACK, 0, STACK
+        LOCFRAME ISTACK, 1, STACK
+        LOCFRAME XSTACK, 13, STACK
+        
+          CFI Names cfiNames0
+          CFI StackFrame CFA_SP SP IDATA
+          CFI StackFrame CFA_PSP16 PSP16 XDATA
+          CFI StackFrame CFA_XSP16 XSP16 XDATA
+          CFI StaticOverlayFrame CFA_IOVERLAY IOVERLAY
+          CFI StaticOverlayFrame CFA_DOVERLAY DOVERLAY
+          CFI Resource `PSW.CY`:1, `B.BR0`:1, `B.BR1`:1, `B.BR2`:1, `B.BR3`:1
+          CFI Resource `B.BR4`:1, `B.BR5`:1, `B.BR6`:1, `B.BR7`:1, `VB.BR8`:1
+          CFI Resource `VB.BR9`:1, `VB.BR10`:1, `VB.BR11`:1, `VB.BR12`:1
+          CFI Resource `VB.BR13`:1, `VB.BR14`:1, `VB.BR15`:1, VB:8, B:8, A:8
+          CFI Resource PSW:8, DPL0:8, DPH0:8, R0:8, R1:8, R2:8, R3:8, R4:8, R5:8
+          CFI Resource R6:8, R7:8, V0:8, V1:8, V2:8, V3:8, V4:8, V5:8, V6:8, V7:8
+          CFI Resource V8:8, V9:8, V10:8, V11:8, V12:8, V13:8, V14:8, V15:8, SP:8
+          CFI Resource PSPH:8, PSPL:8, PSP16:16, XSPH:8, XSPL:8, XSP16:16
+          CFI VirtualResource ?RET:24
+          CFI Resource ?BRET_EXT:8
+          CFI VirtualResource ?RET_HIGH:8, ?RET_LOW:8
+          CFI ResourceParts PSP16 PSPH, PSPL
+          CFI ResourceParts XSP16 XSPH, XSPL
+          CFI ResourceParts ?RET ?BRET_EXT, ?RET_HIGH, ?RET_LOW
+          CFI EndNames cfiNames0
+        
+          CFI Common cfiCommon0 Using cfiNames0
+          CFI CodeAlign 1
+          CFI DataAlign -1
+          CFI ReturnAddress ?RET CODE
+          CFI CFA_DOVERLAY Used
+          CFI CFA_IOVERLAY Used
+          CFI CFA_SP SP+-3
+          CFI CFA_PSP16 PSP16+0
+          CFI CFA_XSP16 XSP16+0
+          CFI `PSW.CY` SameValue
+          CFI `B.BR0` SameValue
+          CFI `B.BR1` SameValue
+          CFI `B.BR2` SameValue
+          CFI `B.BR3` SameValue
+          CFI `B.BR4` SameValue
+          CFI `B.BR5` SameValue
+          CFI `B.BR6` SameValue
+          CFI `B.BR7` SameValue
+          CFI `VB.BR8` SameValue
+          CFI `VB.BR9` SameValue
+          CFI `VB.BR10` SameValue
+          CFI `VB.BR11` SameValue
+          CFI `VB.BR12` SameValue
+          CFI `VB.BR13` SameValue
+          CFI `VB.BR14` SameValue
+          CFI `VB.BR15` SameValue
+          CFI VB SameValue
+          CFI B Undefined
+          CFI A Undefined
+          CFI PSW SameValue
+          CFI DPL0 SameValue
+          CFI DPH0 SameValue
+          CFI R0 Undefined
+          CFI R1 Undefined
+          CFI R2 Undefined
+          CFI R3 Undefined
+          CFI R4 Undefined
+          CFI R5 Undefined
+          CFI R6 SameValue
+          CFI R7 SameValue
+          CFI V0 SameValue
+          CFI V1 SameValue
+          CFI V2 SameValue
+          CFI V3 SameValue
+          CFI V4 SameValue
+          CFI V5 SameValue
+          CFI V6 SameValue
+          CFI V7 SameValue
+          CFI V8 SameValue
+          CFI V9 SameValue
+          CFI V10 SameValue
+          CFI V11 SameValue
+          CFI V12 SameValue
+          CFI V13 SameValue
+          CFI V14 SameValue
+          CFI V15 SameValue
+          CFI PSPH Undefined
+          CFI PSPL Undefined
+          CFI XSPH Undefined
+          CFI XSPL Undefined
+          CFI ?RET Concat
+          CFI ?BRET_EXT Frame(CFA_SP, 3)
+          CFI ?RET_HIGH Frame(CFA_SP, 2)
+          CFI ?RET_LOW Frame(CFA_SP, 1)
+          CFI EndCommon cfiCommon0
+        
+HalUARTOpen         SYMBOL "HalUARTOpen"
+`??HalUARTOpen::?relay` SYMBOL "?relay", HalUARTOpen
+HalUARTRead         SYMBOL "HalUARTRead"
+`??HalUARTRead::?relay` SYMBOL "?relay", HalUARTRead
+HalUARTWrite        SYMBOL "HalUARTWrite"
+`??HalUARTWrite::?relay` SYMBOL "?relay", HalUARTWrite
+Hal_UART_RxBufLen   SYMBOL "Hal_UART_RxBufLen"
+`??Hal_UART_RxBufLen::?relay` SYMBOL "?relay", Hal_UART_RxBufLen
+KeusUartAckMsg      SYMBOL "KeusUartAckMsg"
+`??KeusUartAckMsg::?relay` SYMBOL "?relay", KeusUartAckMsg
+initUart            SYMBOL "initUart"
+`??initUart::?relay` SYMBOL "?relay", initUart
+uartRxCb            SYMBOL "uartRxCb"
+`??uartRxCb::?relay` SYMBOL "?relay", uartRxCb
+
+        EXTERN `??HalUARTOpen::?relay`
+        FUNCTION `??HalUARTOpen::?relay`,00H
+        EXTERN `??HalUARTRead::?relay`
+        FUNCTION `??HalUARTRead::?relay`,00H
+        EXTERN `??HalUARTWrite::?relay`
+        FUNCTION `??HalUARTWrite::?relay`,00H
+        EXTERN `??Hal_UART_RxBufLen::?relay`
+        FUNCTION `??Hal_UART_RxBufLen::?relay`,00H
+        EXTERN HalUARTOpen
+        FUNCTION HalUARTOpen,0202H
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 29, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN HalUARTRead
+        FUNCTION HalUARTRead,0202H
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 13, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN HalUARTWrite
+        FUNCTION HalUARTWrite,0202H
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 41, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN Hal_UART_RxBufLen
+        FUNCTION Hal_UART_RxBufLen,0202H
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 13, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN keusAppEvents
+
+// D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack\ZMain\TI2530DB\Theme_switch\keusuart.c
+//    1 #include "hal_adc.h"
+//    2 #include "hal_flash.h"
+//    3 #include "hal_lcd.h"
+//    4 #include "hal_led.h"
+//    5 #include "hal_uart.h"
+//    6 #include "hal_drivers.h"
+//    7 #include "OnBoard.h"
+//    8 #include "OSAL.h"
+//    9 #include "OSAL_Nv.h"
+//   10 #include "ZComDef.h"
+//   11 #include "ZMAC.h"
+//   12 #include "keusuart.h"
+
+        RSEG XDATA_Z:XDATA:NOROOT(0)
+        DATA8
+// uint8 g0_u8RecData[32]
+g0_u8RecData:
+        DS 32
+        REQUIRE __INIT_XDATA_Z
+
+        RSEG XDATA_Z:XDATA:NOROOT(0)
+        DATA8
+// uint8 g0_bufferCounter
+g0_bufferCounter:
+        DS 1
+        REQUIRE __INIT_XDATA_Z
+
+        RSEG XDATA_Z:XDATA:NOROOT(0)
+        DATA8
+// uint8 g0_shouldSaveToBuffer
+g0_shouldSaveToBuffer:
+        DS 1
+        REQUIRE __INIT_XDATA_Z
+
+        RSEG XDATA_Z:XDATA:NOROOT(0)
+        DATA8
+// uint8 g0_endMessageIndex
+g0_endMessageIndex:
+        DS 1
+        REQUIRE __INIT_XDATA_Z
+
+        RSEG XDATA_Z:XDATA:NOROOT(0)
+        DATA8
+// uint8 message_received
+message_received:
+        DS 1
+        REQUIRE __INIT_XDATA_Z
+//   13 
+
+        RSEG BANKED_CODE:HUGECODE:NOROOT(0)
+//   14 void initUart()
+initUart:
+          CFI Block cfiBlock0 Using cfiCommon0
+          CFI Function initUart
+        CODE
+//   15 {
+        FUNCALL initUart, HalUARTOpen
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 29, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 29, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        PUSH      DPL
+          CFI DPL0 Frame(CFA_SP, 4)
+          CFI CFA_SP SP+-4
+        PUSH      DPH
+          CFI DPH0 Frame(CFA_SP, 5)
+          CFI CFA_SP SP+-5
+        ; Saved register size: 2
+        ; Auto size: 29
+        MOV       A,#-0x1d
+        LCALL     ?ALLOC_XSTACK8
+          CFI CFA_XSP16 add(XSP16, 29)
+//   16   halUARTCfg_t uartConfig;
+//   17   uartConfig.configured = TRUE;
+        MOV       DPL,?XSP + 0
+        MOV       DPH,?XSP + 1
+        MOV       A,#0x1
+        MOVX      @DPTR,A
+//   18   uartConfig.baudRate = HAL_UART_BR_115200;
+        LCALL     ?XSTACK_DISP0_8
+        MOV       A,#0x4
+        MOVX      @DPTR,A
+//   19   uartConfig.flowControl = FALSE;
+        MOV       A,#0x2
+        LCALL     ?XSTACK_DISP0_8
+        CLR       A
+        MOVX      @DPTR,A
+//   20   uartConfig.flowControlThreshold = 48;
+        MOV       A,#0x3
+        LCALL     ?XSTACK_DISP0_8
+        MOV       A,#0x30
+        MOVX      @DPTR,A
+        INC       DPTR
+        CLR       A
+        MOVX      @DPTR,A
+//   21   uartConfig.rx.maxBufSize = 128;
+        MOV       A,#0xa
+        LCALL     ?XSTACK_DISP0_8
+        MOV       A,#-0x80
+        MOVX      @DPTR,A
+        INC       DPTR
+        CLR       A
+        MOVX      @DPTR,A
+//   22   uartConfig.tx.maxBufSize = 128;
+        MOV       A,#0x12
+        LCALL     ?XSTACK_DISP0_8
+        MOV       A,#-0x80
+        MOVX      @DPTR,A
+        INC       DPTR
+        CLR       A
+        MOVX      @DPTR,A
+//   23   uartConfig.idleTimeout = 6;
+        MOV       A,#0x5
+        LCALL     ?XSTACK_DISP0_8
+        MOV       A,#0x6
+        MOVX      @DPTR,A
+//   24   uartConfig.intEnable = TRUE;
+        MOV       A,#0x16
+        LCALL     ?XSTACK_DISP0_8
+        MOV       A,#0x1
+        MOVX      @DPTR,A
+//   25   uartConfig.callBackFunc = uartRxCb;
+        MOV       A,#0x1b
+        LCALL     ?XSTACK_DISP0_8
+        MOV       A,#`??uartRxCb::?relay` & 0xff
+        MOVX      @DPTR,A
+        INC       DPTR
+        MOV       A,#(`??uartRxCb::?relay` >> 8) & 0xff
+        MOVX      @DPTR,A
+//   26   HalUARTOpen(HAL_UART_PORT_0, &uartConfig);
+        ; Setup parameters for call to function HalUARTOpen
+        MOV       R2,?XSP + 0
+        MOV       R3,?XSP + 1
+        MOV       R1,#0x0
+        LCALL     `??HalUARTOpen::?relay`; Banked call to: HalUARTOpen
+//   27 }
+        MOV       A,#0x1d
+        LCALL     ?DEALLOC_XSTACK8
+          CFI CFA_XSP16 XSP16+0
+        POP       DPH
+          CFI DPH0 SameValue
+          CFI CFA_SP SP+-4
+        POP       DPL
+          CFI DPL0 SameValue
+          CFI CFA_SP SP+-3
+        LJMP      ?BRET
+          CFI EndBlock cfiBlock0
+//   28 
+//   29 
+
+        RSEG BANKED_CODE:HUGECODE:NOROOT(0)
+//   30 void uartRxCb(uint8 port, uint8 event)
+uartRxCb:
+          CFI Block cfiBlock1 Using cfiCommon0
+          CFI Function uartRxCb
+        CODE
+//   31 { 
+        FUNCALL uartRxCb, Hal_UART_RxBufLen
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 13, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 13, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL uartRxCb, HalUARTRead
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 13, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 13, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        REQUIRE ?V0
+        REQUIRE ?V1
+        REQUIRE ?V2
+        REQUIRE ?V3
+        MOV       A,#-0xc
+        LCALL     ?BANKED_ENTER_XDATA
+          CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+          CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+          CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+          CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+          CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+          CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+          CFI V3 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+          CFI V2 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+          CFI V1 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+          CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+          CFI VB load(1, XDATA, add(CFA_XSP16, literal(-11)))
+          CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-12)))
+          CFI CFA_SP SP+0
+          CFI CFA_XSP16 add(XSP16, 12)
+        ; Saved register size: 12
+        ; Auto size: 1
+        MOV       A,#-0x1
+        LCALL     ?ALLOC_XSTACK8
+          CFI CFA_XSP16 add(XSP16, 13)
+        MOV       A,R1
+        MOV       R6,A
+        SJMP      ??uartRxCb_0
+//   32   //Example syntax: 28 03 01 03 01 29
+//   33   uint8 u8InChar;
+//   34 
+//   35   while (Hal_UART_RxBufLen(port))
+//   36   {
+//   37     // Read one byte from UART to ch
+//   38     HalUARTRead(port, &u8InChar, 1);
+//   39 
+//   40     // if (u8InChar == 's')
+//   41     // {
+//   42     //   ledPin.state = LED_ON;
+//   43     //   KeusGPIOSetPinValue(&ledPin);
+//   44     // }
+//   45     // else if (u8InChar == 'r')
+//   46     // {
+//   47     //   ledPin.state = LED_OFF;
+//   48     //   KeusGPIOSetPinValue(&ledPin);
+//   49     // }
+//   50 
+//   51     if (u8InChar == KEUS_UART_MSG_INITIATOR && g0_endMessageIndex == 0)
+//   52     {
+//   53       g0_shouldSaveToBuffer = 1;
+??uartRxCb_1:
+        MOV       DPTR,#g0_shouldSaveToBuffer
+        MOV       A,#0x1
+        MOVX      @DPTR,A
+//   54       g0_bufferCounter = 0;
+        MOV       DPTR,#g0_bufferCounter
+??uartRxCb_2:
+        CLR       A
+??uartRxCb_3:
+        MOVX      @DPTR,A
+//   55     }
+??uartRxCb_0:
+        ; Setup parameters for call to function Hal_UART_RxBufLen
+        MOV       A,R6
+        MOV       R1,A
+        LCALL     `??Hal_UART_RxBufLen::?relay`; Banked call to: Hal_UART_RxBufLen
+        MOV       A,R2
+        ORL       A,R3
+        JNZ       $+5
+        LJMP      ??uartRxCb_4 & 0xFFFF
+        ; Setup parameters for call to function HalUARTRead
+        MOV       R4,#0x1
+        MOV       R5,#0x0
+        MOV       R2,?XSP + 0
+        MOV       R3,?XSP + 1
+        MOV       A,R6
+        MOV       R1,A
+        LCALL     `??HalUARTRead::?relay`; Banked call to: HalUARTRead
+        MOV       DPL,?XSP + 0
+        MOV       DPH,?XSP + 1
+        MOVX      A,@DPTR
+        XRL       A,#0x28
+        JNZ       ??uartRxCb_5
+        MOV       DPTR,#g0_endMessageIndex
+        MOVX      A,@DPTR
+        JZ        ??uartRxCb_1
+//   56     else if (g0_endMessageIndex == 0 && g0_shouldSaveToBuffer)
+??uartRxCb_5:
+        MOV       DPTR,#g0_endMessageIndex
+        MOVX      A,@DPTR
+        JNZ       ??uartRxCb_6
+        MOV       DPTR,#g0_shouldSaveToBuffer
+        MOVX      A,@DPTR
+        JZ        ??uartRxCb_6
+//   57     {
+//   58       g0_endMessageIndex = u8InChar;
+        MOV       DPL,?XSP + 0
+        MOV       DPH,?XSP + 1
+        MOVX      A,@DPTR
+??uartRxCb_7:
+        MOV       DPTR,#g0_endMessageIndex
+        SJMP      ??uartRxCb_3
+//   59     }
+//   60     else if (u8InChar == KEUS_UART_MSG_TERMINATOR && g0_endMessageIndex == g0_bufferCounter)
+??uartRxCb_6:
+        MOV       DPL,?XSP + 0
+        MOV       DPH,?XSP + 1
+        MOVX      A,@DPTR
+        XRL       A,#0x29
+        JNZ       ??uartRxCb_8
+        MOV       DPTR,#g0_endMessageIndex
+        MOVX      A,@DPTR
+        MOV       R0,A
+        MOV       DPTR,#g0_bufferCounter
+        MOVX      A,@DPTR
+        XRL       A,R0
+        JNZ       ??uartRxCb_8
+//   61     {
+//   62       g0_shouldSaveToBuffer = 0;
+        MOV       DPTR,#g0_shouldSaveToBuffer
+        CLR       A
+        MOVX      @DPTR,A
+//   63       g0_endMessageIndex = 0;
+        MOV       DPTR,#g0_endMessageIndex
+        MOVX      @DPTR,A
+//   64 
+//   65       //message_received = 1; //flag to process data
+//   66       keusAppEvents |= KEUS_UART;
+        MOV       DPTR,#__Constant_10
+        MOV       R0,#?V0
+        LCALL     ?L_MOV_X
+        MOV       DPTR,#keusAppEvents
+        MOV       R0,#?V0
+        LCALL     ?L_IOR_TO_X
+        SJMP      ??uartRxCb_0
+//   67     }
+//   68     else if (g0_bufferCounter > g0_endMessageIndex)
+??uartRxCb_8:
+        MOV       DPTR,#g0_bufferCounter
+        MOVX      A,@DPTR
+        MOV       R0,A
+        MOV       DPTR,#g0_endMessageIndex
+        MOVX      A,@DPTR
+        CLR       C
+        SUBB      A,R0
+        MOV       DPTR,#g0_shouldSaveToBuffer
+        JNC       ??uartRxCb_9
+//   69     {
+//   70       g0_shouldSaveToBuffer = 0;
+        CLR       A
+        MOVX      @DPTR,A
+//   71       g0_endMessageIndex = 0;
+        SJMP      ??uartRxCb_7
+//   72     }
+//   73 
+//   74     else if (g0_shouldSaveToBuffer)
+??uartRxCb_9:
+        MOVX      A,@DPTR
+        JZ        ??uartRxCb_10
+//   75     {
+//   76       g0_u8RecData[g0_bufferCounter++] = u8InChar;
+        MOV       DPL,?XSP + 0
+        MOV       DPH,?XSP + 1
+        MOVX      A,@DPTR
+        PUSH      A
+          CFI CFA_SP SP+-1
+        MOV       A,#g0_u8RecData & 0xff
+        ADD       A,R0
+        MOV       DPL,A
+        CLR       A
+        ADDC      A,#(g0_u8RecData >> 8) & 0xff
+        MOV       DPH,A
+        POP       A
+          CFI CFA_SP SP+0
+        MOVX      @DPTR,A
+        MOV       DPTR,#g0_bufferCounter
+        MOVX      A,@DPTR
+        INC       A
+        LJMP      ??uartRxCb_3 & 0xFFFF
+//   77     }
+//   78     else
+//   79       g0_endMessageIndex = 0;
+??uartRxCb_10:
+        MOV       DPTR,#g0_endMessageIndex
+        LJMP      ??uartRxCb_2 & 0xFFFF
+//   80   }
+//   81 }
+??uartRxCb_4:
+        MOV       A,#0x1
+        LCALL     ?DEALLOC_XSTACK8
+          CFI CFA_XSP16 add(XSP16, 12)
+        MOV       R7,#0x4
+        LJMP      ?BANKED_LEAVE_XDATA
+          CFI EndBlock cfiBlock1
+//   82 
+
+        RSEG BANKED_CODE:HUGECODE:NOROOT(0)
+//   83 void KeusUartAckMsg(uint8 data)
+KeusUartAckMsg:
+          CFI Block cfiBlock2 Using cfiCommon0
+          CFI Function KeusUartAckMsg
+        CODE
+//   84 {
+        FUNCALL KeusUartAckMsg, HalUARTWrite
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 41, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 41, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        MOV       A,#-0x9
+        LCALL     ?BANKED_ENTER_XDATA
+          CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+          CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+          CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+          CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+          CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+          CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+          CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+          CFI VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+          CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+          CFI CFA_SP SP+0
+          CFI CFA_XSP16 add(XSP16, 9)
+        ; Saved register size: 9
+        ; Auto size: 32
+        MOV       A,#-0x20
+        LCALL     ?ALLOC_XSTACK8
+          CFI CFA_XSP16 add(XSP16, 41)
+//   85   uint8 ackMsgData[32];
+//   86   uint8 dataLen = 0;
+//   87 
+//   88   ackMsgData[dataLen++] = KEUS_UART_MSG_INITIATOR;
+        MOV       DPL,?XSP + 0
+        MOV       DPH,?XSP + 1
+        MOV       A,#0x28
+        MOVX      @DPTR,A
+//   89 
+//   90   ackMsgData[dataLen++] = 0x01; //one byte of ackdata
+        MOV       A,#0x1
+        LCALL     ?XSTACK_DISP0_8
+        MOV       A,#0x1
+        MOVX      @DPTR,A
+//   91 
+//   92   ackMsgData[dataLen++] = data;
+        MOV       A,#0x2
+        LCALL     ?XSTACK_DISP0_8
+        MOV       A,R1
+        MOVX      @DPTR,A
+//   93 
+//   94   ackMsgData[dataLen++] = KEUS_UART_MSG_TERMINATOR;
+        MOV       A,#0x3
+        LCALL     ?XSTACK_DISP0_8
+        MOV       A,#0x29
+        MOVX      @DPTR,A
+//   95 
+//   96   //UART_Write(UART0, ackMsgData, dataLen);
+//   97   HalUARTWrite(HAL_UART_PORT_0, ackMsgData, dataLen);
+        ; Setup parameters for call to function HalUARTWrite
+        MOV       R4,#0x4
+        MOV       R5,#0x0
+        MOV       R2,?XSP + 0
+        MOV       R3,?XSP + 1
+        MOV       R1,#0x0
+        LCALL     `??HalUARTWrite::?relay`; Banked call to: HalUARTWrite
+//   98 }
+        MOV       A,#0x20
+        LCALL     ?DEALLOC_XSTACK8
+          CFI CFA_XSP16 add(XSP16, 9)
+        MOV       R7,#0x1
+        LJMP      ?BANKED_LEAVE_XDATA
+          CFI EndBlock cfiBlock2
+
+        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
+        DATA32
+__Constant_10:
+        DD 16
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+`??initUart::?relay`:
+        CODE
+        LCALL   ?BDISPATCH
+        DATA24
+        DC24    initUart
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+`??uartRxCb::?relay`:
+        CODE
+        LCALL   ?BDISPATCH
+        DATA24
+        DC24    uartRxCb
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+`??KeusUartAckMsg::?relay`:
+        CODE
+        LCALL   ?BDISPATCH
+        DATA24
+        DC24    KeusUartAckMsg
+
+        END
+// 
+// 388 bytes in segment BANKED_CODE
+//  18 bytes in segment BANK_RELAYS
+//   4 bytes in segment XDATA_ROM_C
+//  36 bytes in segment XDATA_Z
+// 
+//  18 bytes of CODE     memory
+//   0 bytes of CONST    memory (+ 4 bytes shared)
+// 388 bytes of HUGECODE memory
+//  36 bytes of XDATA    memory
+//
+//Errors: none
+//Warnings: none

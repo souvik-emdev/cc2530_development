@@ -1,0 +1,1555 @@
+///////////////////////////////////////////////////////////////////////////////
+//
+// IAR C/C++ Compiler V10.30.1.6000 for 8051              06/Jan/2020  13:53:00
+// Copyright 2004-2018 IAR Systems AB.
+// PC-locked license - IAR Embedded Workbench for 8051
+//
+//    Core               =  plain
+//    Code model         =  banked
+//    Data model         =  large
+//    Calling convention =  xdata reentrant
+//    Constant location  =  data_rom
+//    Dptr setup         =  1,16
+//                          
+//    Source file        =  
+//        D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\COMPONENTS\keus\keus_timer_util.c
+//    Command line       =  
+//        -f C:\Users\Souvik\AppData\Local\Temp\EWE883.tmp
+//        ("D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\COMPONENTS\keus\keus_timer_util.c" -D SECURE=1 -D
+//        TC_LINKKEY_JOIN -D NV_INIT -D NV_RESTORE -D HAL_KEY=FALSE -D
+//        HAL_LCD=FALSE -D HAL_LED=FALSE -D MULTICAST_ENABLED=FALSE -D ZCL_READ
+//        -D ZCL_WRITE -D ZCL_BASIC -D ZCL_IDENTIFY -D
+//        KEUS_GPIO_INTERRUPT_HANDLER_DISABLE -D HAL_UART=TRUE -D
+//        HAL_UART_ISR=1 -D HAL_UART_DMA=2 -D HAL_UART_DMA_RX_MAX=64 -D
+//        HAL_UART_DMA_TX_MAX=64 -D INT_HEAP_LEN=3172 -lC "D:\VB_Shared\Zigbee
+//        Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\EndDeviceEB\List" -lA "D:\VB_Shared\Zigbee
+//        Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\EndDeviceEB\List" --diag_suppress Pe001,Pa010 -o
+//        "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\EndDeviceEB\Obj" -e --debug --core=plain --dptr=16,1
+//        --data_model=large --code_model=banked
+//        --calling_convention=xdata_reentrant --place_constants=data_rom
+//        --nr_virtual_regs 16 -f "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\..\Tools\CC2530DB\f8wEndev.cfg" (-DCPU32MHZ
+//        -DROOT=__near_func -DMAC_CFG_TX_DATA_MAX=3 -DMAC_CFG_TX_MAX=6
+//        -DMAC_CFG_RX_MAX=3) -f "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\..\Tools\CC2530DB\f8wConfig.cfg" (-DZIGBEEPRO
+//        -DSECURE=1 -DZG_SECURE_DYNAMIC=0 -DREFLECTOR
+//        -DDEFAULT_CHANLIST=0x00000800 -DZDAPP_CONFIG_PAN_ID=0xFFFF
+//        -DNWK_START_DELAY=100 -DEXTENDED_JOINING_RANDOM_MASK=0x007F
+//        -DBEACON_REQUEST_DELAY=100 -DBEACON_REQ_DELAY_MASK=0x00FF
+//        -DLINK_STATUS_JITTER_MASK=0x007F -DROUTE_EXPIRY_TIME=30
+//        -DAPSC_ACK_WAIT_DURATION_POLLED=3000 -DNWK_INDIRECT_MSG_TIMEOUT=7
+//        -DMAX_RREQ_ENTRIES=8 -DAPSC_MAX_FRAME_RETRIES=3
+//        -DNWK_MAX_DATA_RETRIES=2 -DMAX_POLL_FAILURE_RETRIES=2 -DMAX_BCAST=9
+//        -DAPS_MAX_GROUPS=16 -DMAX_RTG_ENTRIES=40 -DNWK_MAX_BINDING_ENTRIES=4
+//        -DMAX_BINDING_CLUSTER_IDS=4 -DDEFAULT_KEY={0}
+//        -DMAC_MAX_FRAME_SIZE=116 -DZDNWKMGR_MIN_TRANSMISSIONS=20
+//        "-DCONST=const __code" -DGENERIC=__generic -DRFD_RCVC_ALWAYS_ON=FALSE
+//        -DPOLL_RATE=1000 -DQUEUED_POLL_RATE=100 -DRESPONSE_POLL_RATE=100
+//        -DREJOIN_POLL_RATE=440 -DREJOIN_BACKOFF=900000 -DREJOIN_SCAN=900000
+//        -DENABLE_LED4_DISABLE_S1) -f "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\..\Tools\CC2530DB\f8wZCL.cfg" -I
+//        "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\" -I "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\Source\" -I "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\Source\" -I "D:\VB_Shared\Zigbee
+//        Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\..\ZMain\TI2530DB\" -I "D:\VB_Shared\Zigbee
+//        Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\..\..\..\Components\hal\include\" -I
+//        "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\..\..\..\Components\hal\target\CC2530EB\" -I
+//        "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\..\..\..\Components\mac\include\" -I
+//        "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\..\..\..\Components\mac\high_level\" -I
+//        "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\..\..\..\Components\mac\low_level\srf04\" -I
+//        "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\..\..\..\Components\mac\low_level\srf04\single_chip\"
+//        -I "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\..\..\..\Components\mt\" -I
+//        "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\..\..\..\Components\osal\include\" -I
+//        "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\..\..\..\Components\services\saddr\" -I
+//        "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\..\..\..\Components\services\sdata\" -I
+//        "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\..\..\..\Components\stack\af\" -I
+//        "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\..\..\..\Components\stack\bdb\" -I
+//        "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\..\..\..\Components\stack\gp\" -I
+//        "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\..\..\..\Components\stack\nwk\" -I
+//        "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\..\..\..\Components\stack\sapi\" -I
+//        "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\..\..\..\Components\stack\sec\" -I
+//        "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\..\..\..\Components\stack\sys\" -I
+//        "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\..\..\..\Components\stack\zcl\" -I
+//        "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\..\..\..\Components\stack\zdo\" -I
+//        "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\..\..\..\Components\zmac\" -I
+//        "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\..\..\..\Components\zmac\f8w\" -I
+//        "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\..\..\..\Components\keus\" -Ohz
+//        --require_prototypes)
+//    Locale             =  English_USA.1252
+//    List file          =  
+//        D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\EndDeviceEB\List\keus_timer_util.s51
+//
+///////////////////////////////////////////////////////////////////////////////
+
+        NAME keus_timer_util
+
+        RTMODEL "__SystemLibrary", "CLib"
+        RTMODEL "__calling_convention", "xdata_reentrant"
+        RTMODEL "__code_model", "banked"
+        RTMODEL "__core", "plain"
+        RTMODEL "__data_model", "large"
+        RTMODEL "__dptr_size", "16"
+        RTMODEL "__extended_stack", "disabled"
+        RTMODEL "__location_for_constants", "data"
+        RTMODEL "__number_of_dptrs", "1"
+        RTMODEL "__register_banks", "*"
+        RTMODEL "__rt_version", "1"
+
+        RSEG DOVERLAY:DATA:NOROOT(0)
+        RSEG IOVERLAY:IDATA:NOROOT(0)
+        RSEG ISTACK:IDATA:NOROOT(0)
+        RSEG PSTACK:XDATA:NOROOT(0)
+        RSEG XSTACK:XDATA:NOROOT(0)
+
+        EXTERN ?V0
+        EXTERN ?V1
+        EXTERN ?BANKED_ENTER_XDATA
+        EXTERN ?BANKED_LEAVE_XDATA
+        EXTERN ?BDISPATCH
+        EXTERN ?BRET
+        EXTERN ?CALL_IND
+        EXTERN ?INTERRUPT_ENTER_XSP
+        EXTERN ?INTERRUPT_LEAVE_XSP
+        EXTERN __INIT_XDATA_Z
+
+        PUBLIC `??KeusTimerUtilAddTimer::?relay`
+        FUNCTION `??KeusTimerUtilAddTimer::?relay`,0203H
+        PUBLIC `??KeusTimerUtilClearTimer::?relay`
+        FUNCTION `??KeusTimerUtilClearTimer::?relay`,0203H
+        PUBLIC `??KeusTimerUtilGetNumActiveTimers::?relay`
+        FUNCTION `??KeusTimerUtilGetNumActiveTimers::?relay`,0203H
+        PUBLIC `??KeusTimerUtilInit::?relay`
+        FUNCTION `??KeusTimerUtilInit::?relay`,0203H
+        PUBLIC `??KeusTimerUtilInterruptHandler::?relay`
+        FUNCTION `??KeusTimerUtilInterruptHandler::?relay`,0203H
+        PUBLIC `??KeusTimerUtilRemoveTimer::?relay`
+        FUNCTION `??KeusTimerUtilRemoveTimer::?relay`,0203H
+        PUBLIC `??KeusTimerUtilStartTimer::?relay`
+        FUNCTION `??KeusTimerUtilStartTimer::?relay`,0203H
+        PUBLIC `??KeusTimerUtilStopTimer::?relay`
+        FUNCTION `??KeusTimerUtilStopTimer::?relay`,0203H
+        PUBLIC `??KeusTimerUtilTicker::?relay`
+        FUNCTION `??KeusTimerUtilTicker::?relay`,0203H
+        PUBWEAK `??halTimer1Isr::??INTVEC 75`
+        PUBLIC KeusTimerUtilAddTimer
+        FUNCTION KeusTimerUtilAddTimer,021203H
+        ARGFRAME XSTACK, 0, STACK
+        LOCFRAME ISTACK, 1, STACK
+        LOCFRAME XSTACK, 9, STACK
+        PUBLIC KeusTimerUtilClearTimer
+        FUNCTION KeusTimerUtilClearTimer,0203H
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        LOCFRAME ISTACK, 2, STACK
+        PUBLIC KeusTimerUtilGetNumActiveTimers
+        FUNCTION KeusTimerUtilGetNumActiveTimers,0203H
+        ARGFRAME XSTACK, 0, STACK
+        LOCFRAME ISTACK, 2, STACK
+        PUBLIC KeusTimerUtilInit
+        FUNCTION KeusTimerUtilInit,021203H
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        LOCFRAME XSTACK, 9, STACK
+        PUBLIC KeusTimerUtilInterruptHandler
+        FUNCTION KeusTimerUtilInterruptHandler,021203H
+        ARGFRAME XSTACK, 14, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        LOCFRAME ISTACK, 2, STACK
+        PUBLIC KeusTimerUtilRemoveTimer
+        FUNCTION KeusTimerUtilRemoveTimer,021203H
+        ARGFRAME XSTACK, 0, STACK
+        LOCFRAME ISTACK, 2, STACK
+        PUBLIC KeusTimerUtilStartTimer
+        FUNCTION KeusTimerUtilStartTimer,0203H
+        ARGFRAME XSTACK, 0, STACK
+        PUBLIC KeusTimerUtilStopTimer
+        FUNCTION KeusTimerUtilStopTimer,0203H
+        ARGFRAME XSTACK, 0, STACK
+        PUBLIC KeusTimerUtilTicker
+        FUNCTION KeusTimerUtilTicker,080203H
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME XSTACK, 10, STACK
+        PUBWEAK T1CC0H
+        PUBWEAK T1CC0L
+        PUBWEAK T1CCTL0
+        PUBWEAK T1CCTL1
+        PUBWEAK T1CCTL2
+        PUBWEAK T1CTL
+        PUBWEAK T1STAT
+        PUBWEAK _A_IEN1
+        PUBLIC halTimer1Isr
+        FUNCTION halTimer1Isr,021233H
+        ARGFRAME XSTACK, 0, STACK
+        LOCFRAME XSTACK, 14, STACK
+        PUBLIC initGaurd
+        
+          CFI Names cfiNames0
+          CFI StackFrame CFA_SP SP IDATA
+          CFI StackFrame CFA_PSP16 PSP16 XDATA
+          CFI StackFrame CFA_XSP16 XSP16 XDATA
+          CFI StaticOverlayFrame CFA_IOVERLAY IOVERLAY
+          CFI StaticOverlayFrame CFA_DOVERLAY DOVERLAY
+          CFI Resource `PSW.CY`:1, `B.BR0`:1, `B.BR1`:1, `B.BR2`:1, `B.BR3`:1
+          CFI Resource `B.BR4`:1, `B.BR5`:1, `B.BR6`:1, `B.BR7`:1, `VB.BR8`:1
+          CFI Resource `VB.BR9`:1, `VB.BR10`:1, `VB.BR11`:1, `VB.BR12`:1
+          CFI Resource `VB.BR13`:1, `VB.BR14`:1, `VB.BR15`:1, VB:8, B:8, A:8
+          CFI Resource PSW:8, DPL0:8, DPH0:8, R0:8, R1:8, R2:8, R3:8, R4:8, R5:8
+          CFI Resource R6:8, R7:8, V0:8, V1:8, V2:8, V3:8, V4:8, V5:8, V6:8, V7:8
+          CFI Resource V8:8, V9:8, V10:8, V11:8, V12:8, V13:8, V14:8, V15:8, SP:8
+          CFI Resource PSPH:8, PSPL:8, PSP16:16, XSPH:8, XSPL:8, XSP16:16
+          CFI VirtualResource ?RET:24
+          CFI Resource ?BRET_EXT:8
+          CFI VirtualResource ?RET_HIGH:8, ?RET_LOW:8
+          CFI ResourceParts PSP16 PSPH, PSPL
+          CFI ResourceParts XSP16 XSPH, XSPL
+          CFI ResourceParts ?RET ?BRET_EXT, ?RET_HIGH, ?RET_LOW
+          CFI EndNames cfiNames0
+        
+          CFI Common cfiCommon0 Using cfiNames0
+          CFI CodeAlign 1
+          CFI DataAlign -1
+          CFI ReturnAddress ?RET CODE
+          CFI CFA_DOVERLAY Used
+          CFI CFA_IOVERLAY Used
+          CFI CFA_SP SP+-3
+          CFI CFA_PSP16 PSP16+0
+          CFI CFA_XSP16 XSP16+0
+          CFI `PSW.CY` SameValue
+          CFI `B.BR0` SameValue
+          CFI `B.BR1` SameValue
+          CFI `B.BR2` SameValue
+          CFI `B.BR3` SameValue
+          CFI `B.BR4` SameValue
+          CFI `B.BR5` SameValue
+          CFI `B.BR6` SameValue
+          CFI `B.BR7` SameValue
+          CFI `VB.BR8` SameValue
+          CFI `VB.BR9` SameValue
+          CFI `VB.BR10` SameValue
+          CFI `VB.BR11` SameValue
+          CFI `VB.BR12` SameValue
+          CFI `VB.BR13` SameValue
+          CFI `VB.BR14` SameValue
+          CFI `VB.BR15` SameValue
+          CFI VB SameValue
+          CFI B Undefined
+          CFI A Undefined
+          CFI PSW SameValue
+          CFI DPL0 SameValue
+          CFI DPH0 SameValue
+          CFI R0 Undefined
+          CFI R1 Undefined
+          CFI R2 Undefined
+          CFI R3 Undefined
+          CFI R4 Undefined
+          CFI R5 Undefined
+          CFI R6 SameValue
+          CFI R7 SameValue
+          CFI V0 SameValue
+          CFI V1 SameValue
+          CFI V2 SameValue
+          CFI V3 SameValue
+          CFI V4 SameValue
+          CFI V5 SameValue
+          CFI V6 SameValue
+          CFI V7 SameValue
+          CFI V8 SameValue
+          CFI V9 SameValue
+          CFI V10 SameValue
+          CFI V11 SameValue
+          CFI V12 SameValue
+          CFI V13 SameValue
+          CFI V14 SameValue
+          CFI V15 SameValue
+          CFI PSPH Undefined
+          CFI PSPL Undefined
+          CFI XSPH Undefined
+          CFI XSPL Undefined
+          CFI ?RET Concat
+          CFI ?BRET_EXT Frame(CFA_SP, 3)
+          CFI ?RET_HIGH Frame(CFA_SP, 2)
+          CFI ?RET_LOW Frame(CFA_SP, 1)
+          CFI EndCommon cfiCommon0
+        
+        
+          CFI Common cfiCommon1 Using cfiNames0
+          CFI CodeAlign 1
+          CFI DataAlign -1
+          CFI ReturnAddress ?RET CODE
+          CFI CFA_DOVERLAY Used
+          CFI CFA_IOVERLAY Used
+          CFI CFA_SP SP+-2
+          CFI CFA_PSP16 PSP16+0
+          CFI CFA_XSP16 XSP16+0
+          CFI `PSW.CY` SameValue
+          CFI `B.BR0` SameValue
+          CFI `B.BR1` SameValue
+          CFI `B.BR2` SameValue
+          CFI `B.BR3` SameValue
+          CFI `B.BR4` SameValue
+          CFI `B.BR5` SameValue
+          CFI `B.BR6` SameValue
+          CFI `B.BR7` SameValue
+          CFI `VB.BR8` SameValue
+          CFI `VB.BR9` SameValue
+          CFI `VB.BR10` SameValue
+          CFI `VB.BR11` SameValue
+          CFI `VB.BR12` SameValue
+          CFI `VB.BR13` SameValue
+          CFI `VB.BR14` SameValue
+          CFI `VB.BR15` SameValue
+          CFI VB SameValue
+          CFI B SameValue
+          CFI A SameValue
+          CFI PSW SameValue
+          CFI DPL0 SameValue
+          CFI DPH0 SameValue
+          CFI R0 SameValue
+          CFI R1 SameValue
+          CFI R2 SameValue
+          CFI R3 SameValue
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R6 SameValue
+          CFI R7 SameValue
+          CFI V0 SameValue
+          CFI V1 SameValue
+          CFI V2 SameValue
+          CFI V3 SameValue
+          CFI V4 SameValue
+          CFI V5 SameValue
+          CFI V6 SameValue
+          CFI V7 SameValue
+          CFI V8 SameValue
+          CFI V9 SameValue
+          CFI V10 SameValue
+          CFI V11 SameValue
+          CFI V12 SameValue
+          CFI V13 SameValue
+          CFI V14 SameValue
+          CFI V15 SameValue
+          CFI PSPH Undefined
+          CFI PSPL Undefined
+          CFI XSPH Undefined
+          CFI XSPL Undefined
+          CFI ?RET Concat
+          CFI ?BRET_EXT SameValue
+          CFI ?RET_HIGH Frame(CFA_SP, 2)
+          CFI ?RET_LOW Frame(CFA_SP, 1)
+          CFI EndCommon cfiCommon1
+        
+KeusTimerUtilAddTimer SYMBOL "KeusTimerUtilAddTimer"
+`??KeusTimerUtilAddTimer::?relay` SYMBOL "?relay", KeusTimerUtilAddTimer
+KeusTimerUtilClearTimer SYMBOL "KeusTimerUtilClearTimer"
+`??KeusTimerUtilClearTimer::?relay` SYMBOL "?relay", KeusTimerUtilClearTimer
+KeusTimerUtilGetNumActiveTimers SYMBOL "KeusTimerUtilGetNumActiveTimers"
+`??KeusTimerUtilGetNumActiveTimers::?relay` SYMBOL "?relay", KeusTimerUtilGetNumActiveTimers
+KeusTimerUtilInit   SYMBOL "KeusTimerUtilInit"
+`??KeusTimerUtilInit::?relay` SYMBOL "?relay", KeusTimerUtilInit
+KeusTimerUtilInterruptHandler SYMBOL "KeusTimerUtilInterruptHandler"
+`??KeusTimerUtilInterruptHandler::?relay` SYMBOL "?relay", KeusTimerUtilInterruptHandler
+KeusTimerUtilRemoveTimer SYMBOL "KeusTimerUtilRemoveTimer"
+`??KeusTimerUtilRemoveTimer::?relay` SYMBOL "?relay", KeusTimerUtilRemoveTimer
+KeusTimerUtilStartTimer SYMBOL "KeusTimerUtilStartTimer"
+`??KeusTimerUtilStartTimer::?relay` SYMBOL "?relay", KeusTimerUtilStartTimer
+KeusTimerUtilStopTimer SYMBOL "KeusTimerUtilStopTimer"
+`??KeusTimerUtilStopTimer::?relay` SYMBOL "?relay", KeusTimerUtilStopTimer
+KeusTimerUtilTicker SYMBOL "KeusTimerUtilTicker"
+`??KeusTimerUtilTicker::?relay` SYMBOL "?relay", KeusTimerUtilTicker
+halTimer1Isr        SYMBOL "halTimer1Isr"
+`??halTimer1Isr::??INTVEC 75` SYMBOL "??INTVEC 75", halTimer1Isr
+
+// D:\VB_Shared\Zigbee Resources\CC2530 Development\COMPONENTS\keus\keus_timer_util.c
+//    1 #include "keus_timer_util.h"
+
+        ASEGN SFR_AN:DATA:NOROOT,0afH
+// unsigned char volatile __sfr T1STAT
+T1STAT:
+        DATA8
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,0b8H
+// union <unnamed> volatile __sfr _A_IEN1
+_A_IEN1:
+        DATA8
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,0daH
+// unsigned char volatile __sfr T1CC0L
+T1CC0L:
+        DATA8
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,0dbH
+// unsigned char volatile __sfr T1CC0H
+T1CC0H:
+        DATA8
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,0e4H
+// unsigned char volatile __sfr T1CTL
+T1CTL:
+        DATA8
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,0e5H
+// unsigned char volatile __sfr T1CCTL0
+T1CCTL0:
+        DATA8
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,0e6H
+// unsigned char volatile __sfr T1CCTL1
+T1CCTL1:
+        DATA8
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,0e7H
+// unsigned char volatile __sfr T1CCTL2
+T1CCTL2:
+        DATA8
+        DS 1
+//    2 #include  "hal_mcu.h"
+//    3 #include  "hal_defs.h"
+//    4 #include  "hal_types.h"
+//    5 
+//    6 #define T1STAT_CH0IF BV(0)
+//    7 #define MAX_TIMERS 15
+//    8 
+//    9 // in ms
+//   10 #define TIMER_UNIT 25
+//   11 
+
+        RSEG XDATA_Z:XDATA:NOROOT(0)
+        DATA8
+//   12 static KeusTimerConfig *timersInfo[MAX_TIMERS];
+timersInfo:
+        DS 30
+        REQUIRE __INIT_XDATA_Z
+
+        RSEG XDATA_Z:XDATA:NOROOT(0)
+        DATA8
+//   13 bool initGaurd = false;
+initGaurd:
+        DS 1
+        REQUIRE __INIT_XDATA_Z
+//   14 
+//   15 // valid timerIds are from 0 - (MAX_TIMERS-1)
+//   16 // Local Functions
+//   17 void KeusTimerUtilClearTimer(uint8 timerNo);
+//   18 void KeusTimerUtilTicker(void);
+//   19 void KeusTimerUtilInterruptHandler(void);
+//   20 
+
+        RSEG BANKED_CODE:HUGECODE:NOROOT(0)
+//   21 void KeusTimerUtilClearTimer(uint8 timerNo) {
+KeusTimerUtilClearTimer:
+          CFI Block cfiBlock0 Using cfiCommon0
+          CFI Function KeusTimerUtilClearTimer
+        CODE
+        PUSH      DPL
+          CFI DPL0 Frame(CFA_SP, 4)
+          CFI CFA_SP SP+-4
+        PUSH      DPH
+          CFI DPH0 Frame(CFA_SP, 5)
+          CFI CFA_SP SP+-5
+        ; Saved register size: 2
+        ; Auto size: 0
+//   22   if (timersInfo[timerNo] != NULL) {
+        MOV       A,R1
+        ADD       A,R1
+        MOV       R2,A
+        CLR       A
+        RLC       A
+        MOV       R3,A
+        MOV       A,#timersInfo & 0xff
+        ADD       A,R2
+        MOV       R2,A
+        MOV       A,#(timersInfo >> 8) & 0xff
+        ADDC      A,R3
+        MOV       R3,A
+        MOV       A,R2
+        MOV       R4,A
+        MOV       A,R3
+        MOV       R5,A
+        MOV       DPL,R2
+        LCALL     ?Subroutine4 & 0xFFFF
+??CrossCallReturnLabel_4:
+        JZ        ??KeusTimerUtilClearTimer_0
+//   23     timersInfo[timerNo]->timerId = -1;
+        INC       DPTR
+        INC       DPTR
+        INC       DPTR
+        INC       DPTR
+        INC       DPTR
+        MOV       A,#-0x1
+        MOVX      @DPTR,A
+//   24     timersInfo[timerNo]->currentTimerVal = 0;
+        MOV       DPL,R4
+        MOV       DPH,R3
+        MOVX      A,@DPTR
+        MOV       R2,A
+        INC       DPTR
+        MOVX      A,@DPTR
+        MOV       R3,A
+        MOV       DPL,R2
+        MOV       DPH,A
+        INC       DPTR
+        INC       DPTR
+        INC       DPTR
+        INC       DPTR
+        INC       DPTR
+        INC       DPTR
+        CLR       A
+        MOVX      @DPTR,A
+        INC       DPTR
+        MOVX      @DPTR,A
+//   25     timersInfo[timerNo]->active = false;
+        MOV       DPL,R2
+        MOV       DPH,R3
+        INC       DPTR
+        INC       DPTR
+        INC       DPTR
+        INC       DPTR
+        MOVX      @DPTR,A
+//   26   }
+//   27 
+//   28   timersInfo[timerNo] = NULL;
+??KeusTimerUtilClearTimer_0:
+        MOV       DPL,R4
+        MOV       DPH,R5
+        CLR       A
+        MOVX      @DPTR,A
+        INC       DPTR
+        MOVX      @DPTR,A
+//   29 }
+        LJMP      ?Subroutine0 & 0xFFFF
+          CFI EndBlock cfiBlock0
+//   30 
+
+        RSEG BANKED_CODE:HUGECODE:NOROOT(0)
+//   31 uint8 KeusTimerUtilGetNumActiveTimers(void) {
+KeusTimerUtilGetNumActiveTimers:
+          CFI Block cfiBlock1 Using cfiCommon0
+          CFI Function KeusTimerUtilGetNumActiveTimers
+        CODE
+        PUSH      DPL
+          CFI DPL0 Frame(CFA_SP, 4)
+          CFI CFA_SP SP+-4
+        PUSH      DPH
+          CFI DPH0 Frame(CFA_SP, 5)
+          CFI CFA_SP SP+-5
+        ; Saved register size: 2
+        ; Auto size: 0
+//   32   uint8 totalActiveTimers = 0;
+        MOV       R1,#0x0
+//   33 
+//   34   for (uint8 i = 0; i < MAX_TIMERS; i++) {
+        MOV       R0,#0x0
+//   35     if (timersInfo[i] != NULL) {
+??KeusTimerUtilGetNumActiveTimers_0:
+        MOV       A,R0
+        ADD       A,0xE0 /* A   */
+        MOV       R2,A
+        CLR       A
+        RLC       A
+        MOV       R3,A
+        MOV       A,#timersInfo & 0xff
+        ADD       A,R2
+        MOV       DPL,A
+        MOV       A,#(timersInfo >> 8) & 0xff
+        ADDC      A,R3
+        LCALL     ?Subroutine4 & 0xFFFF
+??CrossCallReturnLabel_5:
+        JZ        ??KeusTimerUtilGetNumActiveTimers_1
+//   36       if (timersInfo[i]->active) {
+        INC       DPTR
+        INC       DPTR
+        INC       DPTR
+        INC       DPTR
+        MOVX      A,@DPTR
+        JZ        ??KeusTimerUtilGetNumActiveTimers_1
+//   37         totalActiveTimers += 1;
+        INC       R1
+//   38       }
+//   39     }
+//   40   }
+??KeusTimerUtilGetNumActiveTimers_1:
+        INC       R0
+        MOV       A,R0
+        CLR       C
+        SUBB      A,#0xf
+        JC        ??KeusTimerUtilGetNumActiveTimers_0
+//   41   
+//   42   return totalActiveTimers;
+        LJMP      ?Subroutine0 & 0xFFFF
+//   43 }
+          CFI EndBlock cfiBlock1
+
+        RSEG BANKED_CODE:HUGECODE:NOROOT(0)
+?Subroutine4:
+          CFI Block cfiCond2 Using cfiCommon0
+          CFI Function KeusTimerUtilClearTimer
+          CFI Conditional ??CrossCallReturnLabel_4
+          CFI DPL0 Frame(CFA_SP, 4)
+          CFI DPH0 Frame(CFA_SP, 5)
+          CFI CFA_SP SP+-7
+          CFI Block cfiCond3 Using cfiCommon0
+          CFI (cfiCond3) Function KeusTimerUtilGetNumActiveTimers
+          CFI (cfiCond3) Conditional ??CrossCallReturnLabel_5
+          CFI (cfiCond3) DPL0 Frame(CFA_SP, 4)
+          CFI (cfiCond3) DPH0 Frame(CFA_SP, 5)
+          CFI (cfiCond3) CFA_SP SP+-7
+          CFI Block cfiPicker4 Using cfiCommon1
+          CFI (cfiPicker4) NoFunction
+          CFI (cfiPicker4) Picker
+        MOV       DPH,A
+        MOVX      A,@DPTR
+        MOV       R2,A
+        INC       DPTR
+        MOVX      A,@DPTR
+        MOV       DPL,R2
+        MOV       DPH,A
+        MOV       A,DPL
+        ORL       A,DPH
+        RET
+          CFI EndBlock cfiCond2
+          CFI EndBlock cfiCond3
+          CFI EndBlock cfiPicker4
+//   44 
+
+        RSEG BANKED_CODE:HUGECODE:NOROOT(0)
+//   45 void KeusTimerUtilInit() {
+KeusTimerUtilInit:
+          CFI Block cfiBlock5 Using cfiCommon0
+          CFI Function KeusTimerUtilInit
+        CODE
+        FUNCALL KeusTimerUtilInit, KeusTimerUtilClearTimer
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        MOV       A,#-0x9
+        LCALL     ?BANKED_ENTER_XDATA
+          CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+          CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+          CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+          CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+          CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+          CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+          CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+          CFI VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+          CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+          CFI CFA_SP SP+0
+          CFI CFA_XSP16 add(XSP16, 9)
+        ; Saved register size: 9
+        ; Auto size: 0
+//   46   if (!initGaurd) {
+        MOV       DPTR,#initGaurd
+        MOVX      A,@DPTR
+        JNZ       ??KeusTimerUtilInit_0
+//   47     initGaurd = true;
+        MOV       A,#0x1
+        MOVX      @DPTR,A
+//   48     
+//   49     for (uint8 i = 0; i < MAX_TIMERS; i++) {
+        MOV       R6,#0x0
+//   50       KeusTimerUtilClearTimer(i);
+??KeusTimerUtilInit_1:
+        ; Setup parameters for call to function KeusTimerUtilClearTimer
+        MOV       A,R6
+        MOV       R1,A
+        LCALL     `??KeusTimerUtilClearTimer::?relay`; Banked call to: KeusTimerUtilClearTimer
+//   51     }
+        INC       R6
+        MOV       A,R6
+        CLR       C
+        SUBB      A,#0xf
+        JC        ??KeusTimerUtilInit_1
+//   52     
+//   53     T1CCTL0 = 0;    /* Make sure interrupts are disabled */
+        MOV       0xe5,#0x0
+//   54     T1CCTL1 = 0;    /* Make sure interrupts are disabled */
+        MOV       0xe6,#0x0
+//   55     T1CCTL2 = 0;    /* Make sure interrupts are disabled */
+        MOV       0xe7,#0x0
+//   56     T1CCTL3 = 0;    /* Make sure interrupts are disabled */
+        MOV       DPTR,#0x62a3
+        CLR       A
+        MOVX      @DPTR,A
+//   57     T1CCTL4 = 0;    /* Make sure interrupts are disabled */
+        INC       DPTR
+        MOVX      @DPTR,A
+//   58 
+//   59     // SET TIMER1 TO MODULO MODE
+//   60     T1CTL &= ~(BV(0));
+        ANL       0xe4,#0xfe
+//   61     T1CTL &= ~(BV(1));
+        ANL       0xe4,#0xfd
+//   62     
+//   63     // PRESCALAR 128 - (1 tick = 4 microseconds)
+//   64     T1CTL |= BV(2);
+        ORL       0xe4,#0x4
+//   65     T1CTL |= BV(3);
+        ORL       0xe4,#0x8
+//   66     
+//   67     // 0b01001100 - SETTING OUTPUT COMPARE/CAPTURE REGISTER TO COMPARE MODE
+//   68     T1CCTL0 = 0x4C;
+        MOV       0xe5,#0x4c
+//   69     
+//   70     // SETTING COMPARE VALUE TO 25 MICROSECONDS
+//   71     uint16 count = 0x186A;
+//   72     T1CC0H = (uint8) (count >> 8);
+        MOV       0xdb,#0x18
+//   73     T1CC0L = (uint8) count;
+        MOV       0xda,#0x6a
+//   74     
+//   75     // GLOBAL CPU INTERRUPT ENABLE
+//   76     IEN1 |= BV(1);
+        SETB      0xb8.1
+//   77   }
+//   78 }
+??KeusTimerUtilInit_0:
+          CFI EndBlock cfiBlock5
+        REQUIRE ?Subroutine1
+        REQUIRE T1CCTL0
+        REQUIRE T1CCTL1
+        REQUIRE T1CCTL2
+        REQUIRE T1CTL
+        REQUIRE T1CC0H
+        REQUIRE T1CC0L
+        REQUIRE _A_IEN1
+        ; // Fall through to label ?Subroutine1
+
+        RSEG BANKED_CODE:HUGECODE:NOROOT(0)
+?Subroutine1:
+          CFI Block cfiBlock6 Using cfiCommon0
+          CFI NoFunction
+          CFI CFA_SP SP+0
+          CFI CFA_XSP16 add(XSP16, 9)
+          CFI VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+          CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+          CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+          CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+          CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+          CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+          CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+          CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+          CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        MOV       R7,#0x1
+        LJMP      ?BANKED_LEAVE_XDATA
+          CFI EndBlock cfiBlock6
+//   79 
+
+        RSEG BANKED_CODE:HUGECODE:NOROOT(0)
+//   80 void KeusTimerUtilStartTimer() {
+KeusTimerUtilStartTimer:
+          CFI Block cfiBlock7 Using cfiCommon0
+          CFI Function KeusTimerUtilStartTimer
+        CODE
+        ; Saved register size: 0
+        ; Auto size: 0
+//   81   // modulo mode of timer 1 - (10)
+//   82   T1CTL |= BV(1);
+        ORL       0xe4,#0x2
+//   83 }
+        LJMP      ?BRET
+          CFI EndBlock cfiBlock7
+        REQUIRE T1CTL
+//   84 
+
+        RSEG BANKED_CODE:HUGECODE:NOROOT(0)
+//   85 void KeusTimerUtilStopTimer() {
+KeusTimerUtilStopTimer:
+          CFI Block cfiBlock8 Using cfiCommon0
+          CFI Function KeusTimerUtilStopTimer
+        CODE
+        ; Saved register size: 0
+        ; Auto size: 0
+//   86   // operation suspended mode of timer1 - (00)
+//   87   T1CTL &= ~(BV(1));
+        ANL       0xe4,#0xfd
+//   88 }
+        LJMP      ?BRET
+          CFI EndBlock cfiBlock8
+        REQUIRE T1CTL
+//   89 
+
+        RSEG BANKED_CODE:HUGECODE:NOROOT(0)
+//   90 bool KeusTimerUtilAddTimer(KeusTimerConfig *configObj) {
+KeusTimerUtilAddTimer:
+          CFI Block cfiBlock9 Using cfiCommon0
+          CFI Function KeusTimerUtilAddTimer
+        CODE
+        FUNCALL KeusTimerUtilAddTimer, KeusTimerUtilInit
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        MOV       A,#-0x9
+        LCALL     ?BANKED_ENTER_XDATA
+          CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+          CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+          CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+          CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+          CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+          CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+          CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+          CFI VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+          CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+          CFI CFA_SP SP+0
+          CFI CFA_XSP16 add(XSP16, 9)
+        ; Saved register size: 9
+        ; Auto size: 0
+        MOV       A,R2
+        MOV       R6,A
+        MOV       A,R3
+        MOV       R7,A
+//   91   if (!initGaurd) {
+        MOV       DPTR,#initGaurd
+        MOVX      A,@DPTR
+        JNZ       ??KeusTimerUtilAddTimer_0
+//   92     KeusTimerUtilInit();
+        ; Setup parameters for call to function KeusTimerUtilInit
+        LCALL     `??KeusTimerUtilInit::?relay`; Banked call to: KeusTimerUtilInit
+//   93   }
+//   94   
+//   95   int8 currentAvailableTimer = -1;
+//   96   
+//   97   for (uint8 i = 0; i < MAX_TIMERS; i++) {
+??KeusTimerUtilAddTimer_0:
+        MOV       R2,#0x0
+//   98     if (timersInfo[i] == NULL || timersInfo[i]->timerId == -1) {
+??KeusTimerUtilAddTimer_1:
+        MOV       A,R2
+        LCALL     ?Subroutine3 & 0xFFFF
+??CrossCallReturnLabel_2:
+        MOV       R0,A
+        INC       DPTR
+        MOVX      A,@DPTR
+        MOV       DPL,R0
+        MOV       DPH,A
+        MOV       A,DPL
+        ORL       A,DPH
+        JZ        ??KeusTimerUtilAddTimer_2
+        INC       DPTR
+        INC       DPTR
+        INC       DPTR
+        INC       DPTR
+        INC       DPTR
+        MOVX      A,@DPTR
+        CPL       A
+        JNZ       ??KeusTimerUtilAddTimer_3
+//   99       currentAvailableTimer = i;
+??KeusTimerUtilAddTimer_2:
+        MOV       A,R2
+        MOV       R3,A
+//  100       break;
+//  101     }
+//  102   }
+//  103   
+//  104   if (currentAvailableTimer > -1) {
+        CLR       C
+        SUBB      A,#0x0
+        MOV       C,0xD0 /* PSW */.2
+        XRL       A,PSW
+        RLC       A
+        JC        ??KeusTimerUtilAddTimer_4
+//  105     timersInfo[currentAvailableTimer] = configObj;
+        MOV       A,R3
+        RLC       A
+        SUBB      A,0xE0 /* A   */
+        MOV       R1,A
+        MOV       A,R3
+        ADD       A,R3
+        MOV       R0,A
+        MOV       A,R1
+        RLC       A
+        MOV       R1,A
+        MOV       A,#timersInfo & 0xff
+        ADD       A,R0
+        MOV       R0,A
+        MOV       A,#(timersInfo >> 8) & 0xff
+        ADDC      A,R1
+        MOV       R1,A
+        MOV       DPL,R0
+        MOV       DPH,A
+        MOV       A,R6
+        MOVX      @DPTR,A
+        INC       DPTR
+        MOV       A,R7
+        LCALL     ?Subroutine2 & 0xFFFF
+//  106     timersInfo[currentAvailableTimer]->active = true;
+??CrossCallReturnLabel_0:
+        MOV       A,#0x1
+        LCALL     ?Subroutine2 & 0xFFFF
+//  107     timersInfo[currentAvailableTimer]->timerId = currentAvailableTimer;
+??CrossCallReturnLabel_1:
+        INC       DPTR
+        MOV       A,R3
+        LCALL     ?Subroutine5 & 0xFFFF
+//  108     timersInfo[currentAvailableTimer]->currentTimerVal = 0;
+??CrossCallReturnLabel_6:
+        MOV       R0,A
+        INC       DPTR
+        MOVX      A,@DPTR
+        XCH       A,R0
+        ADD       A,#0x6
+        MOV       DPL,A
+        CLR       A
+        ADDC      A,R0
+        MOV       DPH,A
+        CLR       A
+        MOVX      @DPTR,A
+        INC       DPTR
+        MOVX      @DPTR,A
+//  109 
+//  110     return true;
+        MOV       R1,#0x1
+        SJMP      ??KeusTimerUtilAddTimer_5
+//  111   } else {
+??KeusTimerUtilAddTimer_3:
+        INC       R2
+        MOV       A,R2
+        CLR       C
+        SUBB      A,#0xf
+        JC        ??KeusTimerUtilAddTimer_1
+//  112     return false;
+??KeusTimerUtilAddTimer_4:
+        MOV       R1,#0x0
+//  113   }
+??KeusTimerUtilAddTimer_5:
+        LJMP      ?Subroutine1 & 0xFFFF
+//  114 }
+          CFI EndBlock cfiBlock9
+
+        RSEG BANKED_CODE:HUGECODE:NOROOT(0)
+?Subroutine2:
+          CFI Block cfiCond10 Using cfiCommon0
+          CFI Function KeusTimerUtilAddTimer
+          CFI Conditional ??CrossCallReturnLabel_0
+          CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+          CFI VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+          CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+          CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+          CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+          CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+          CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+          CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+          CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+          CFI CFA_SP SP+-2
+          CFI CFA_XSP16 add(XSP16, 9)
+          CFI Block cfiCond11 Using cfiCommon0
+          CFI (cfiCond11) Function KeusTimerUtilAddTimer
+          CFI (cfiCond11) Conditional ??CrossCallReturnLabel_1
+          CFI (cfiCond11) R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+          CFI (cfiCond11) VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+          CFI (cfiCond11) V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+          CFI (cfiCond11) R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+          CFI (cfiCond11) ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+          CFI (cfiCond11) ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+          CFI (cfiCond11) ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+          CFI (cfiCond11) DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+          CFI (cfiCond11) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+          CFI (cfiCond11) CFA_SP SP+-2
+          CFI (cfiCond11) CFA_XSP16 add(XSP16, 9)
+          CFI Block cfiPicker12 Using cfiCommon1
+          CFI (cfiPicker12) NoFunction
+          CFI (cfiPicker12) Picker
+        LCALL     ?Subroutine5 & 0xFFFF
+??CrossCallReturnLabel_7:
+        MOV       R2,A
+        INC       DPTR
+        MOVX      A,@DPTR
+        MOV       DPH,A
+        MOV       DPL,R2
+        INC       DPTR
+        INC       DPTR
+        INC       DPTR
+        INC       DPTR
+        RET
+          CFI EndBlock cfiCond10
+          CFI EndBlock cfiCond11
+          CFI EndBlock cfiPicker12
+
+        RSEG BANKED_CODE:HUGECODE:NOROOT(0)
+?Subroutine5:
+          CFI Block cfiCond13 Using cfiCommon0
+          CFI Function KeusTimerUtilAddTimer
+          CFI Conditional ??CrossCallReturnLabel_6
+          CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+          CFI VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+          CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+          CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+          CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+          CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+          CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+          CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+          CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+          CFI CFA_SP SP+-2
+          CFI CFA_XSP16 add(XSP16, 9)
+          CFI Block cfiCond14 Using cfiCommon0
+          CFI (cfiCond14) Function KeusTimerUtilAddTimer
+          CFI (cfiCond14) Conditional ??CrossCallReturnLabel_7, ??CrossCallReturnLabel_0
+          CFI (cfiCond14) R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+          CFI (cfiCond14) VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+          CFI (cfiCond14) V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+          CFI (cfiCond14) R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+          CFI (cfiCond14) ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+          CFI (cfiCond14) ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+          CFI (cfiCond14) ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+          CFI (cfiCond14) DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+          CFI (cfiCond14) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+          CFI (cfiCond14) CFA_SP SP+-4
+          CFI (cfiCond14) CFA_XSP16 add(XSP16, 9)
+          CFI Block cfiCond15 Using cfiCommon0
+          CFI (cfiCond15) Function KeusTimerUtilAddTimer
+          CFI (cfiCond15) Conditional ??CrossCallReturnLabel_7, ??CrossCallReturnLabel_1
+          CFI (cfiCond15) R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+          CFI (cfiCond15) VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+          CFI (cfiCond15) V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+          CFI (cfiCond15) R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+          CFI (cfiCond15) ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+          CFI (cfiCond15) ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+          CFI (cfiCond15) ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+          CFI (cfiCond15) DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+          CFI (cfiCond15) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+          CFI (cfiCond15) CFA_SP SP+-4
+          CFI (cfiCond15) CFA_XSP16 add(XSP16, 9)
+          CFI Block cfiCond16 Using cfiCommon0
+          CFI (cfiCond16) Function KeusTimerUtilTicker
+          CFI (cfiCond16) Conditional ??CrossCallReturnLabel_8
+          CFI (cfiCond16) R6 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+          CFI (cfiCond16) VB load(1, XDATA, add(CFA_XSP16, literal(-9)))
+          CFI (cfiCond16) V0 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+          CFI (cfiCond16) V1 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+          CFI (cfiCond16) R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+          CFI (cfiCond16) ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+          CFI (cfiCond16) ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+          CFI (cfiCond16) ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+          CFI (cfiCond16) DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+          CFI (cfiCond16) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+          CFI (cfiCond16) CFA_SP SP+-2
+          CFI (cfiCond16) CFA_XSP16 add(XSP16, 10)
+          CFI Block cfiPicker17 Using cfiCommon1
+          CFI (cfiPicker17) NoFunction
+          CFI (cfiPicker17) Picker
+        MOVX      @DPTR,A
+        ; Setup parameters for indirect call
+        MOV       DPL,R0
+        MOV       DPH,R1
+        MOVX      A,@DPTR
+        RET
+          CFI EndBlock cfiCond13
+          CFI EndBlock cfiCond14
+          CFI EndBlock cfiCond15
+          CFI EndBlock cfiCond16
+          CFI EndBlock cfiPicker17
+//  115 
+
+        RSEG BANKED_CODE:HUGECODE:NOROOT(0)
+//  116 bool KeusTimerUtilRemoveTimer(KeusTimerConfig *configObj) {
+KeusTimerUtilRemoveTimer:
+          CFI Block cfiBlock18 Using cfiCommon0
+          CFI Function KeusTimerUtilRemoveTimer
+        CODE
+        FUNCALL KeusTimerUtilRemoveTimer, KeusTimerUtilClearTimer
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        PUSH      DPL
+          CFI DPL0 Frame(CFA_SP, 4)
+          CFI CFA_SP SP+-4
+        PUSH      DPH
+          CFI DPH0 Frame(CFA_SP, 5)
+          CFI CFA_SP SP+-5
+        ; Saved register size: 2
+        ; Auto size: 0
+//  117   int8 timerId = configObj->timerId;
+        MOV       DPL,R2
+        MOV       DPH,R3
+        INC       DPTR
+        INC       DPTR
+        INC       DPTR
+        INC       DPTR
+        INC       DPTR
+        MOVX      A,@DPTR
+        MOV       R1,A
+//  118   
+//  119   if (timerId > -1 && timerId < MAX_TIMERS) {
+        CLR       C
+        SUBB      A,#0xf
+        JNC       ??KeusTimerUtilRemoveTimer_0
+//  120     KeusTimerUtilClearTimer(timerId);
+        ; Setup parameters for call to function KeusTimerUtilClearTimer
+        LCALL     `??KeusTimerUtilClearTimer::?relay`; Banked call to: KeusTimerUtilClearTimer
+//  121     return true;
+        MOV       R1,#0x1
+        SJMP      ??KeusTimerUtilRemoveTimer_1
+//  122   } else {
+//  123     return false;
+??KeusTimerUtilRemoveTimer_0:
+        MOV       R1,#0x0
+//  124   }
+??KeusTimerUtilRemoveTimer_1:
+          CFI EndBlock cfiBlock18
+        REQUIRE ?Subroutine0
+        ; // Fall through to label ?Subroutine0
+//  125 }
+
+        RSEG BANKED_CODE:HUGECODE:NOROOT(0)
+?Subroutine0:
+          CFI Block cfiBlock19 Using cfiCommon0
+          CFI NoFunction
+          CFI CFA_SP SP+-5
+          CFI DPL0 Frame(CFA_SP, 4)
+          CFI DPH0 Frame(CFA_SP, 5)
+        POP       DPH
+          CFI CFA_SP SP+-4
+          CFI DPH0 SameValue
+        POP       DPL
+          CFI CFA_SP SP+-3
+          CFI DPL0 SameValue
+        LJMP      ?BRET
+          CFI EndBlock cfiBlock19
+//  126 
+
+        RSEG BANKED_CODE:HUGECODE:NOROOT(0)
+//  127 void KeusTimerUtilTicker() {
+KeusTimerUtilTicker:
+          CFI Block cfiBlock20 Using cfiCommon0
+          CFI Function KeusTimerUtilTicker
+        CODE
+        REQUIRE ?V0
+        REQUIRE ?V1
+        MOV       A,#-0xa
+        LCALL     ?BANKED_ENTER_XDATA
+          CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+          CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+          CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+          CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+          CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+          CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+          CFI V1 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+          CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+          CFI VB load(1, XDATA, add(CFA_XSP16, literal(-9)))
+          CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+          CFI CFA_SP SP+0
+          CFI CFA_XSP16 add(XSP16, 10)
+        ; Saved register size: 10
+        ; Auto size: 0
+//  128   for (uint8 i = 0; i < MAX_TIMERS; i++) {
+        MOV       R6,#0x0
+//  129     if (timersInfo[i] != NULL && timersInfo[i]->active && timersInfo[i]->timerId != -1) {
+??KeusTimerUtilTicker_0:
+        MOV       A,R6
+        LCALL     ?Subroutine3 & 0xFFFF
+??CrossCallReturnLabel_3:
+        MOV       R2,A
+        INC       DPTR
+        MOVX      A,@DPTR
+        MOV       R3,A
+        MOV       A,R2
+        ORL       A,R3
+        JZ        ??KeusTimerUtilTicker_1
+        MOV       DPL,R2
+        MOV       DPH,R3
+        INC       DPTR
+        INC       DPTR
+        INC       DPTR
+        INC       DPTR
+        MOVX      A,@DPTR
+        JZ        ??KeusTimerUtilTicker_1
+        MOV       A,R2
+        ADD       A,#0x5
+        MOV       R0,A
+        CLR       A
+        ADDC      A,R3
+        MOV       R1,A
+        MOV       DPL,R0
+        MOV       DPH,A
+        MOVX      A,@DPTR
+        CPL       A
+        JZ        ??KeusTimerUtilTicker_1
+//  130       timersInfo[i]->currentTimerVal += TIMER_UNIT;
+        MOV       A,R2
+        ADD       A,#0x6
+        MOV       R4,A
+        CLR       A
+        ADDC      A,R3
+        MOV       R5,A
+        MOV       DPL,R4
+        MOV       DPH,A
+        MOVX      A,@DPTR
+        ADD       A,#0x19
+        MOVX      @DPTR,A
+        INC       DPTR
+        MOVX      A,@DPTR
+        ADDC      A,#0x0
+        MOVX      @DPTR,A
+//  131       
+//  132       if (timersInfo[i]->currentTimerVal >= timersInfo[i]->timerInterval) {
+        MOV       DPL,R2
+        MOV       DPH,R3
+        INC       DPTR
+        INC       DPTR
+        MOVX      A,@DPTR
+        MOV       ?V0,A
+        INC       DPTR
+        MOVX      A,@DPTR
+        MOV       ?V1,A
+        MOV       DPH,R5
+        MOV       DPL,R4
+        CLR       C
+        MOVX      A,@DPTR
+        SUBB      A,?V0
+        INC       DPTR
+        MOVX      A,@DPTR
+        SUBB      A,?V1
+        JC        ??KeusTimerUtilTicker_1
+//  133         timersInfo[i]->currentTimerVal = 0;
+        MOV       DPL,R4
+        MOV       DPH,R5
+        CLR       A
+        MOVX      @DPTR,A
+        INC       DPTR
+        LCALL     ?Subroutine5 & 0xFFFF
+//  134         timersInfo[i]->cbk(timersInfo[i]->timerId);
+//  135       }
+//  136     }
+//  137   }
+??CrossCallReturnLabel_8:
+        MOV       R1,A
+        MOV       DPL,R2
+        MOV       DPH,R3
+        MOVX      A,@DPTR
+        MOV       R0,A
+        INC       DPTR
+        MOVX      A,@DPTR
+        MOV       DPH,A
+        MOV       DPL,R0
+        LCALL     ?CALL_IND
+??KeusTimerUtilTicker_1:
+        INC       R6
+        MOV       A,R6
+        CLR       C
+        SUBB      A,#0xf
+        JC        ??KeusTimerUtilTicker_0
+//  138 }
+        MOV       R7,#0x2
+        LJMP      ?BANKED_LEAVE_XDATA
+          CFI EndBlock cfiBlock20
+
+        RSEG BANKED_CODE:HUGECODE:NOROOT(0)
+?Subroutine3:
+          CFI Block cfiCond21 Using cfiCommon0
+          CFI Function KeusTimerUtilAddTimer
+          CFI Conditional ??CrossCallReturnLabel_2
+          CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+          CFI VB load(1, XDATA, add(CFA_XSP16, literal(-8)))
+          CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+          CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+          CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+          CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+          CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+          CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+          CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+          CFI CFA_SP SP+-2
+          CFI CFA_XSP16 add(XSP16, 9)
+          CFI Block cfiCond22 Using cfiCommon0
+          CFI (cfiCond22) Function KeusTimerUtilTicker
+          CFI (cfiCond22) Conditional ??CrossCallReturnLabel_3
+          CFI (cfiCond22) R6 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+          CFI (cfiCond22) VB load(1, XDATA, add(CFA_XSP16, literal(-9)))
+          CFI (cfiCond22) V0 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+          CFI (cfiCond22) V1 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+          CFI (cfiCond22) R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+          CFI (cfiCond22) ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+          CFI (cfiCond22) ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+          CFI (cfiCond22) ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+          CFI (cfiCond22) DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+          CFI (cfiCond22) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+          CFI (cfiCond22) CFA_SP SP+-2
+          CFI (cfiCond22) CFA_XSP16 add(XSP16, 10)
+          CFI Block cfiPicker23 Using cfiCommon1
+          CFI (cfiPicker23) NoFunction
+          CFI (cfiPicker23) Picker
+        ADD       A,0xE0 /* A   */
+        MOV       R0,A
+        CLR       A
+        RLC       A
+        MOV       R1,A
+        MOV       A,#timersInfo & 0xff
+        ADD       A,R0
+        MOV       DPL,A
+        MOV       A,#(timersInfo >> 8) & 0xff
+        ADDC      A,R1
+        MOV       DPH,A
+        MOVX      A,@DPTR
+        RET
+          CFI EndBlock cfiCond21
+          CFI EndBlock cfiCond22
+          CFI EndBlock cfiPicker23
+//  139 
+
+        RSEG BANKED_CODE:HUGECODE:NOROOT(0)
+//  140 void KeusTimerUtilInterruptHandler() {
+KeusTimerUtilInterruptHandler:
+          CFI Block cfiBlock24 Using cfiCommon0
+          CFI Function KeusTimerUtilInterruptHandler
+        CODE
+        FUNCALL KeusTimerUtilInterruptHandler, KeusTimerUtilTicker
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        PUSH      DPL
+          CFI DPL0 Frame(CFA_SP, 4)
+          CFI CFA_SP SP+-4
+        PUSH      DPH
+          CFI DPH0 Frame(CFA_SP, 5)
+          CFI CFA_SP SP+-5
+        ; Saved register size: 2
+        ; Auto size: 0
+//  141   if (T1STAT & T1STAT_CH0IF) {
+        MOV       A,0xaf
+        MOV       C,0xE0 /* A   */.0
+        JNC       ??KeusTimerUtilInterruptHandler_0
+//  142     T1STAT &= ~(T1STAT_CH0IF);
+        ANL       0xaf,#0xfe
+//  143     KeusTimerUtilTicker();
+        ; Setup parameters for call to function KeusTimerUtilTicker
+        LCALL     `??KeusTimerUtilTicker::?relay`; Banked call to: KeusTimerUtilTicker
+//  144   }
+//  145 }
+??KeusTimerUtilInterruptHandler_0:
+        LJMP      ?Subroutine0 & 0xFFFF
+          CFI EndBlock cfiBlock24
+        REQUIRE T1STAT
+//  146 
+
+        RSEG NEAR_CODE:CODE:NOROOT(0)
+//  147 HAL_ISR_FUNCTION( halTimer1Isr, T1_VECTOR ) {
+halTimer1Isr:
+          CFI Block cfiBlock25 Using cfiCommon1
+          CFI Function halTimer1Isr
+        CODE
+        FUNCALL halTimer1Isr, KeusTimerUtilInterruptHandler
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 14, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 14, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        PUSH      A
+          CFI A Frame(CFA_SP, 3)
+          CFI CFA_SP SP+-3
+        MOV       A,#-0xe
+        LCALL     ?INTERRUPT_ENTER_XSP
+          CFI B load(1, XDATA, add(CFA_XSP16, literal(-1)))
+          CFI VB load(1, XDATA, add(CFA_XSP16, literal(-2)))
+          CFI PSW load(1, XDATA, add(CFA_XSP16, literal(-3)))
+          CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-4)))
+          CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-5)))
+          CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+          CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+          CFI R5 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+          CFI R4 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+          CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+          CFI R3 load(1, XDATA, add(CFA_XSP16, literal(-11)))
+          CFI R2 load(1, XDATA, add(CFA_XSP16, literal(-12)))
+          CFI R1 load(1, XDATA, add(CFA_XSP16, literal(-13)))
+          CFI R0 load(1, XDATA, add(CFA_XSP16, literal(-14)))
+          CFI CFA_XSP16 add(XSP16, 14)
+        ; Saved register size: 14
+        ; Auto size: 0
+//  148   KeusTimerUtilInterruptHandler();
+        ; Setup parameters for call to function KeusTimerUtilInterruptHandler
+        LCALL     `??KeusTimerUtilInterruptHandler::?relay`; Banked call to: KeusTimerUtilInterruptHandler
+//  149 }
+        MOV       R7,#0x1
+        LJMP      ?INTERRUPT_LEAVE_XSP
+          CFI EndBlock cfiBlock25
+
+        COMMON INTVEC:CODE:ROOT(0)
+        ORG 75
+`??halTimer1Isr::??INTVEC 75`:
+        LJMP       (halTimer1Isr)
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+`??KeusTimerUtilClearTimer::?relay`:
+        CODE
+        LCALL   ?BDISPATCH
+        DATA24
+        DC24    KeusTimerUtilClearTimer
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+`??KeusTimerUtilGetNumActiveTimers::?relay`:
+        CODE
+        LCALL   ?BDISPATCH
+        DATA24
+        DC24    KeusTimerUtilGetNumActiveTimers
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+`??KeusTimerUtilInit::?relay`:
+        CODE
+        LCALL   ?BDISPATCH
+        DATA24
+        DC24    KeusTimerUtilInit
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+`??KeusTimerUtilStartTimer::?relay`:
+        CODE
+        LCALL   ?BDISPATCH
+        DATA24
+        DC24    KeusTimerUtilStartTimer
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+`??KeusTimerUtilStopTimer::?relay`:
+        CODE
+        LCALL   ?BDISPATCH
+        DATA24
+        DC24    KeusTimerUtilStopTimer
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+`??KeusTimerUtilAddTimer::?relay`:
+        CODE
+        LCALL   ?BDISPATCH
+        DATA24
+        DC24    KeusTimerUtilAddTimer
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+`??KeusTimerUtilRemoveTimer::?relay`:
+        CODE
+        LCALL   ?BDISPATCH
+        DATA24
+        DC24    KeusTimerUtilRemoveTimer
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+`??KeusTimerUtilTicker::?relay`:
+        CODE
+        LCALL   ?BDISPATCH
+        DATA24
+        DC24    KeusTimerUtilTicker
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+`??KeusTimerUtilInterruptHandler::?relay`:
+        CODE
+        LCALL   ?BDISPATCH
+        DATA24
+        DC24    KeusTimerUtilInterruptHandler
+
+        END
+// 
+// 580 bytes in segment BANKED_CODE
+//  54 bytes in segment BANK_RELAYS
+//   3 bytes in segment INTVEC
+//  15 bytes in segment NEAR_CODE
+//   8 bytes in segment SFR_AN
+//  31 bytes in segment XDATA_Z
+// 
+//  69 bytes of CODE     memory (+ 3 bytes shared)
+//   0 bytes of DATA     memory (+ 8 bytes shared)
+// 580 bytes of HUGECODE memory
+//  31 bytes of XDATA    memory
+//
+//Errors: none
+//Warnings: none

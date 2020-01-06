@@ -1,0 +1,1202 @@
+###############################################################################
+#
+# IAR C/C++ Compiler V10.30.1.6000 for 8051               06/Jan/2020  13:53:00
+# Copyright 2004-2018 IAR Systems AB.
+# PC-locked license - IAR Embedded Workbench for 8051
+#
+#    Core               =  plain
+#    Code model         =  banked
+#    Data model         =  large
+#    Calling convention =  xdata reentrant
+#    Constant location  =  data_rom
+#    Dptr setup         =  1,16
+#                          
+#    Source file        =  
+#        D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\COMPONENTS\keus\keus_gpio_util.c
+#    Command line       =  
+#        -f C:\Users\Souvik\AppData\Local\Temp\EWE872.tmp ("D:\VB_Shared\Zigbee
+#        Resources\CC2530 Development\COMPONENTS\keus\keus_gpio_util.c" -D
+#        SECURE=1 -D TC_LINKKEY_JOIN -D NV_INIT -D NV_RESTORE -D HAL_KEY=FALSE
+#        -D HAL_LCD=FALSE -D HAL_LED=FALSE -D MULTICAST_ENABLED=FALSE -D
+#        ZCL_READ -D ZCL_WRITE -D ZCL_BASIC -D ZCL_IDENTIFY -D
+#        KEUS_GPIO_INTERRUPT_HANDLER_DISABLE -D HAL_UART=TRUE -D HAL_UART_ISR=1
+#        -D HAL_UART_DMA=2 -D HAL_UART_DMA_RX_MAX=64 -D HAL_UART_DMA_TX_MAX=64
+#        -D INT_HEAP_LEN=3172 -lC "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\EndDeviceEB\List" -lA "D:\VB_Shared\Zigbee
+#        Resources\CC2530 Development\Projects\zstack\HomeAutomation\GenericApp
+#        - Backup\CC2530DB\EndDeviceEB\List" --diag_suppress Pe001,Pa010 -o
+#        "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\EndDeviceEB\Obj" -e --debug --core=plain --dptr=16,1
+#        --data_model=large --code_model=banked
+#        --calling_convention=xdata_reentrant --place_constants=data_rom
+#        --nr_virtual_regs 16 -f "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\..\..\..\Tools\CC2530DB\f8wEndev.cfg" (-DCPU32MHZ
+#        -DROOT=__near_func -DMAC_CFG_TX_DATA_MAX=3 -DMAC_CFG_TX_MAX=6
+#        -DMAC_CFG_RX_MAX=3) -f "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\..\..\..\Tools\CC2530DB\f8wConfig.cfg" (-DZIGBEEPRO
+#        -DSECURE=1 -DZG_SECURE_DYNAMIC=0 -DREFLECTOR
+#        -DDEFAULT_CHANLIST=0x00000800 -DZDAPP_CONFIG_PAN_ID=0xFFFF
+#        -DNWK_START_DELAY=100 -DEXTENDED_JOINING_RANDOM_MASK=0x007F
+#        -DBEACON_REQUEST_DELAY=100 -DBEACON_REQ_DELAY_MASK=0x00FF
+#        -DLINK_STATUS_JITTER_MASK=0x007F -DROUTE_EXPIRY_TIME=30
+#        -DAPSC_ACK_WAIT_DURATION_POLLED=3000 -DNWK_INDIRECT_MSG_TIMEOUT=7
+#        -DMAX_RREQ_ENTRIES=8 -DAPSC_MAX_FRAME_RETRIES=3
+#        -DNWK_MAX_DATA_RETRIES=2 -DMAX_POLL_FAILURE_RETRIES=2 -DMAX_BCAST=9
+#        -DAPS_MAX_GROUPS=16 -DMAX_RTG_ENTRIES=40 -DNWK_MAX_BINDING_ENTRIES=4
+#        -DMAX_BINDING_CLUSTER_IDS=4 -DDEFAULT_KEY={0} -DMAC_MAX_FRAME_SIZE=116
+#        -DZDNWKMGR_MIN_TRANSMISSIONS=20 "-DCONST=const __code"
+#        -DGENERIC=__generic -DRFD_RCVC_ALWAYS_ON=FALSE -DPOLL_RATE=1000
+#        -DQUEUED_POLL_RATE=100 -DRESPONSE_POLL_RATE=100 -DREJOIN_POLL_RATE=440
+#        -DREJOIN_BACKOFF=900000 -DREJOIN_SCAN=900000 -DENABLE_LED4_DISABLE_S1)
+#        -f "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\..\..\..\Tools\CC2530DB\f8wZCL.cfg" -I
+#        "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\" -I "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\..\Source\" -I "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\..\..\Source\" -I "D:\VB_Shared\Zigbee
+#        Resources\CC2530 Development\Projects\zstack\HomeAutomation\GenericApp
+#        - Backup\CC2530DB\..\..\..\ZMain\TI2530DB\" -I "D:\VB_Shared\Zigbee
+#        Resources\CC2530 Development\Projects\zstack\HomeAutomation\GenericApp
+#        - Backup\CC2530DB\..\..\..\..\..\Components\hal\include\" -I
+#        "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\..\..\..\..\..\Components\hal\target\CC2530EB\" -I
+#        "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\..\..\..\..\..\Components\mac\include\" -I
+#        "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\..\..\..\..\..\Components\mac\high_level\" -I
+#        "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\..\..\..\..\..\Components\mac\low_level\srf04\" -I
+#        "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\..\..\..\..\..\Components\mac\low_level\srf04\single_chip\"
+#        -I "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\..\..\..\..\..\Components\mt\" -I "D:\VB_Shared\Zigbee
+#        Resources\CC2530 Development\Projects\zstack\HomeAutomation\GenericApp
+#        - Backup\CC2530DB\..\..\..\..\..\Components\osal\include\" -I
+#        "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\..\..\..\..\..\Components\services\saddr\" -I
+#        "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\..\..\..\..\..\Components\services\sdata\" -I
+#        "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\..\..\..\..\..\Components\stack\af\" -I
+#        "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\..\..\..\..\..\Components\stack\bdb\" -I
+#        "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\..\..\..\..\..\Components\stack\gp\" -I
+#        "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\..\..\..\..\..\Components\stack\nwk\" -I
+#        "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\..\..\..\..\..\Components\stack\sapi\" -I
+#        "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\..\..\..\..\..\Components\stack\sec\" -I
+#        "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\..\..\..\..\..\Components\stack\sys\" -I
+#        "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\..\..\..\..\..\Components\stack\zcl\" -I
+#        "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\..\..\..\..\..\Components\stack\zdo\" -I
+#        "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\..\..\..\..\..\Components\zmac\" -I
+#        "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\..\..\..\..\..\Components\zmac\f8w\" -I
+#        "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\..\..\..\..\..\Components\keus\" -Ohz
+#        --require_prototypes)
+#    Locale             =  English_USA.1252
+#    List file          =  
+#        D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\EndDeviceEB\List\keus_gpio_util.lst
+#    Object file        =  
+#        D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\EndDeviceEB\Obj\keus_gpio_util.r51
+#
+###############################################################################
+
+D:\VB_Shared\Zigbee Resources\CC2530 Development\COMPONENTS\keus\keus_gpio_util.c
+      1          #include "keus_gpio_util.h"
+
+   \                                 In  segment SFR_AN, at 0x80
+   \   union <unnamed> volatile __sfr _A_P0
+   \                     _A_P0:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0x89
+   \   unsigned char volatile __sfr P0IFG
+   \                     P0IFG:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0x8a
+   \   unsigned char volatile __sfr P1IFG
+   \                     P1IFG:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0x8b
+   \   unsigned char volatile __sfr P2IFG
+   \                     P2IFG:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0x8c
+   \   unsigned char volatile __sfr PICTL
+   \                     PICTL:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0x8d
+   \   unsigned char volatile __sfr P1IEN
+   \                     P1IEN:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0x8f
+   \   unsigned char volatile __sfr P0INP
+   \                     P0INP:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0x90
+   \   union <unnamed> volatile __sfr _A_P1
+   \                     _A_P1:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0x9a
+   \   unsigned char volatile __sfr IEN2
+   \                     IEN2:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xa0
+   \   union <unnamed> volatile __sfr _A_P2
+   \                     _A_P2:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xab
+   \   unsigned char volatile __sfr P0IEN
+   \                     P0IEN:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xac
+   \   unsigned char volatile __sfr P2IEN
+   \                     P2IEN:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xb8
+   \   union <unnamed> volatile __sfr _A_IEN1
+   \                     _A_IEN1:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xf3
+   \   unsigned char volatile __sfr P0SEL
+   \                     P0SEL:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xf4
+   \   unsigned char volatile __sfr P1SEL
+   \                     P1SEL:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xf5
+   \   unsigned char volatile __sfr P2SEL
+   \                     P2SEL:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xf6
+   \   unsigned char volatile __sfr P1INP
+   \                     P1INP:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xf7
+   \   unsigned char volatile __sfr P2INP
+   \                     P2INP:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xfd
+   \   unsigned char volatile __sfr P0DIR
+   \                     P0DIR:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xfe
+   \   unsigned char volatile __sfr P1DIR
+   \                     P1DIR:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xff
+   \   unsigned char volatile __sfr P2DIR
+   \                     P2DIR:
+   \   000000                DS 1
+      2          
+      3          #ifndef KEUS_GPIO_INTERRUPT_HANDLER_DISABLE
+      4          KeusGPIOPin *pins[1] = {NULL};
+      5          #endif
+      6          
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+      7          void KeusGPIOSetDirection(KeusGPIOPin *pin) {
+   \                     KeusGPIOSetDirection:
+   \   000000                REQUIRE ?V0
+   \   000000                REQUIRE ?V1
+   \   000000   74F6         MOV       A,#-0xa
+   \   000002   12....       LCALL     ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 10
+   \   000005                ; Auto size: 0
+      8            if (pin->dir == GPIO_INPUT) {
+   \   000005   8A82         MOV       DPL,R2
+   \   000007   8B83         MOV       DPH,R3
+   \   000009   A3           INC       DPTR
+   \   00000A   AC82         MOV       R4,DPL
+   \   00000C   AD83         MOV       R5,DPH
+   \   00000E   8A82         MOV       DPL,R2
+   \   000010   8B83         MOV       DPH,R3
+   \   000012   E0           MOVX      A,@DPTR
+   \   000013   FE           MOV       R6,A
+   \   000014   A3           INC       DPTR
+   \   000015   A3           INC       DPTR
+   \   000016   E0           MOVX      A,@DPTR
+   \   000017   6003         JZ        $+5
+   \   000019   02....       LJMP      ??KeusGPIOSetDirection_0 & 0xFFFF
+      9              switch (pin->port) {
+   \   00001C   EA           MOV       A,R2
+   \   00001D   2403         ADD       A,#0x3
+   \   00001F   E4           CLR       A
+   \   000020   3B           ADDC      A,R3
+   \   000021   F9           MOV       R1,A
+   \   000022   0A           INC       R2
+   \   000023   0A           INC       R2
+   \   000024   0A           INC       R2
+   \   000025   EE           MOV       A,R6
+   \   000026   6009         JZ        ??KeusGPIOSetDirection_1
+   \   000028   14           DEC       A
+   \   000029   6044         JZ        ??KeusGPIOSetDirection_2
+   \   00002B   14           DEC       A
+   \   00002C   607F         JZ        ??KeusGPIOSetDirection_3
+   \   00002E   02....       LJMP      ??KeusGPIOSetDirection_4 & 0xFFFF
+     10                case 0:
+     11                  P0SEL &= (~ BV(pin->bit));
+   \                     ??KeusGPIOSetDirection_1:
+   \   000031   75..01       MOV       ?V0,#0x1
+   \   000034   75..00       MOV       ?V1,#0x0
+   \   000037   8C82         MOV       DPL,R4
+   \   000039   8D83         MOV       DPH,R5
+   \   00003B   E0           MOVX      A,@DPTR
+   \   00003C   78..         MOV       R0,#?V0
+   \   00003E   12....       LCALL     ?S_SHL
+   \   000041   12....       LCALL     ?Subroutine1 & 0xFFFF
+     12                  P0DIR &= (~ BV(pin->bit));
+   \                     ??CrossCallReturnLabel_0:
+   \   000044   12....       LCALL     ?S_SHL
+   \   000047   E5..         MOV       A,?V0
+   \   000049   F4           CPL       A
+   \   00004A   52FD         ANL       0xfd,A
+     13          
+     14                  if (pin->istristate) {
+   \   00004C   75..01       MOV       ?V0,#0x1
+   \   00004F   75..00       MOV       ?V1,#0x0
+   \   000052   E0           MOVX      A,@DPTR
+   \   000053   78..         MOV       R0,#?V0
+   \   000055   12....       LCALL     ?S_SHL
+   \   000058   E5..         MOV       A,?V0
+   \   00005A   F8           MOV       R0,A
+   \   00005B   8A82         MOV       DPL,R2
+   \   00005D   8983         MOV       DPH,R1
+   \   00005F   E0           MOVX      A,@DPTR
+   \   000060   6006         JZ        ??KeusGPIOSetDirection_5
+     15                    P0INP |= BV(pin->bit);
+   \   000062   E8           MOV       A,R0
+   \   000063   428F         ORL       0x8f,A
+   \   000065   02....       LJMP      ??KeusGPIOSetDirection_4 & 0xFFFF
+     16                  } else {
+     17                    P0INP &= (~ BV(pin->bit));
+   \                     ??KeusGPIOSetDirection_5:
+   \   000068   E8           MOV       A,R0
+   \   000069   F4           CPL       A
+   \   00006A   528F         ANL       0x8f,A
+   \   00006C   02....       LJMP      ??KeusGPIOSetDirection_4 & 0xFFFF
+     18                  }
+     19                  break;
+     20                case 1:
+     21                  P1SEL &= (~ BV(pin->bit));
+   \                     ??KeusGPIOSetDirection_2:
+   \   00006F   75..01       MOV       ?V0,#0x1
+   \   000072   75..00       MOV       ?V1,#0x0
+   \   000075   8C82         MOV       DPL,R4
+   \   000077   8D83         MOV       DPH,R5
+   \   000079   E0           MOVX      A,@DPTR
+   \   00007A   78..         MOV       R0,#?V0
+   \   00007C   12....       LCALL     ?S_SHL
+   \   00007F   12....       LCALL     ?Subroutine2 & 0xFFFF
+     22                  P1DIR &= (~ BV(pin->bit));
+   \                     ??CrossCallReturnLabel_3:
+   \   000082   12....       LCALL     ?S_SHL
+   \   000085   E5..         MOV       A,?V0
+   \   000087   F4           CPL       A
+   \   000088   52FE         ANL       0xfe,A
+     23                  
+     24                  if (pin->istristate) {
+   \   00008A   75..01       MOV       ?V0,#0x1
+   \   00008D   75..00       MOV       ?V1,#0x0
+   \   000090   E0           MOVX      A,@DPTR
+   \   000091   78..         MOV       R0,#?V0
+   \   000093   12....       LCALL     ?S_SHL
+   \   000096   E5..         MOV       A,?V0
+   \   000098   F8           MOV       R0,A
+   \   000099   8A82         MOV       DPL,R2
+   \   00009B   8983         MOV       DPH,R1
+   \   00009D   E0           MOVX      A,@DPTR
+   \   00009E   6006         JZ        ??KeusGPIOSetDirection_6
+     25                    P1INP |= BV(pin->bit);
+   \   0000A0   E8           MOV       A,R0
+   \   0000A1   42F6         ORL       0xf6,A
+   \   0000A3   02....       LJMP      ??KeusGPIOSetDirection_4 & 0xFFFF
+     26                  } else {
+     27                    P1INP &= (~ BV(pin->bit));
+   \                     ??KeusGPIOSetDirection_6:
+   \   0000A6   E8           MOV       A,R0
+   \   0000A7   F4           CPL       A
+   \   0000A8   52F6         ANL       0xf6,A
+   \   0000AA   02....       LJMP      ??KeusGPIOSetDirection_4 & 0xFFFF
+     28                  }
+     29                  break;
+     30                case 2:
+     31                  P2SEL &= (~ BV(pin->bit));
+   \                     ??KeusGPIOSetDirection_3:
+   \   0000AD   75..01       MOV       ?V0,#0x1
+   \   0000B0   75..00       MOV       ?V1,#0x0
+   \   0000B3   8C82         MOV       DPL,R4
+   \   0000B5   8D83         MOV       DPH,R5
+   \   0000B7   E0           MOVX      A,@DPTR
+   \   0000B8   78..         MOV       R0,#?V0
+   \   0000BA   12....       LCALL     ?S_SHL
+   \   0000BD   12....       LCALL     ?Subroutine3 & 0xFFFF
+     32                  P2DIR &= (~ BV(pin->bit));
+   \                     ??CrossCallReturnLabel_6:
+   \   0000C0   12....       LCALL     ?S_SHL
+   \   0000C3   E5..         MOV       A,?V0
+   \   0000C5   F4           CPL       A
+   \   0000C6   52FF         ANL       0xff,A
+     33                  
+     34                  if (pin->istristate) {
+   \   0000C8   75..01       MOV       ?V0,#0x1
+   \   0000CB   75..00       MOV       ?V1,#0x0
+   \   0000CE   E0           MOVX      A,@DPTR
+   \   0000CF   78..         MOV       R0,#?V0
+   \   0000D1   12....       LCALL     ?S_SHL
+   \   0000D4   E5..         MOV       A,?V0
+   \   0000D6   F8           MOV       R0,A
+   \   0000D7   8A82         MOV       DPL,R2
+   \   0000D9   8983         MOV       DPH,R1
+   \   0000DB   E0           MOVX      A,@DPTR
+   \   0000DC   6005         JZ        ??KeusGPIOSetDirection_7
+     35                    P2INP |= BV(pin->bit);
+   \   0000DE   E8           MOV       A,R0
+   \   0000DF   42F7         ORL       0xf7,A
+   \   0000E1   8063         SJMP      ??KeusGPIOSetDirection_4
+     36                  } else {
+     37                    P2INP &= (~ BV(pin->bit));
+   \                     ??KeusGPIOSetDirection_7:
+   \   0000E3   E8           MOV       A,R0
+   \   0000E4   F4           CPL       A
+   \   0000E5   52F7         ANL       0xf7,A
+   \   0000E7   805D         SJMP      ??KeusGPIOSetDirection_4
+     38                  }
+     39                  break;
+     40              }
+     41            } else {
+     42              switch (pin->port) {
+   \                     ??KeusGPIOSetDirection_0:
+   \   0000E9   EE           MOV       A,R6
+   \   0000EA   6008         JZ        ??KeusGPIOSetDirection_8
+   \   0000EC   14           DEC       A
+   \   0000ED   6021         JZ        ??KeusGPIOSetDirection_9
+   \   0000EF   14           DEC       A
+   \   0000F0   603A         JZ        ??KeusGPIOSetDirection_10
+   \   0000F2   8052         SJMP      ??KeusGPIOSetDirection_4
+     43                case 0:
+     44                  P0SEL &= (~ BV(pin->bit));
+   \                     ??KeusGPIOSetDirection_8:
+   \   0000F4   75..01       MOV       ?V0,#0x1
+   \   0000F7   75..00       MOV       ?V1,#0x0
+   \   0000FA   8C82         MOV       DPL,R4
+   \   0000FC   8D83         MOV       DPH,R5
+   \   0000FE   E0           MOVX      A,@DPTR
+   \   0000FF   78..         MOV       R0,#?V0
+   \   000101   12....       LCALL     ?S_SHL
+   \   000104   12....       LCALL     ?Subroutine1 & 0xFFFF
+     45                  P0DIR |= BV(pin->bit);
+   \                     ??CrossCallReturnLabel_1:
+   \   000107   12....       LCALL     ?S_SHL
+   \   00010A   E5..         MOV       A,?V0
+   \   00010C   42FD         ORL       0xfd,A
+     46                  break;
+   \   00010E   8036         SJMP      ??KeusGPIOSetDirection_4
+     47                case 1:
+     48                  P1SEL &= (~ BV(pin->bit));
+   \                     ??KeusGPIOSetDirection_9:
+   \   000110   75..01       MOV       ?V0,#0x1
+   \   000113   75..00       MOV       ?V1,#0x0
+   \   000116   8C82         MOV       DPL,R4
+   \   000118   8D83         MOV       DPH,R5
+   \   00011A   E0           MOVX      A,@DPTR
+   \   00011B   78..         MOV       R0,#?V0
+   \   00011D   12....       LCALL     ?S_SHL
+   \   000120   12....       LCALL     ?Subroutine2 & 0xFFFF
+     49                  P1DIR |= BV(pin->bit);
+   \                     ??CrossCallReturnLabel_4:
+   \   000123   12....       LCALL     ?S_SHL
+   \   000126   E5..         MOV       A,?V0
+   \   000128   42FE         ORL       0xfe,A
+     50                  break;
+   \   00012A   801A         SJMP      ??KeusGPIOSetDirection_4
+     51                case 2:
+     52                  P2SEL &= (~ BV(pin->bit));
+   \                     ??KeusGPIOSetDirection_10:
+   \   00012C   75..01       MOV       ?V0,#0x1
+   \   00012F   75..00       MOV       ?V1,#0x0
+   \   000132   8C82         MOV       DPL,R4
+   \   000134   8D83         MOV       DPH,R5
+   \   000136   E0           MOVX      A,@DPTR
+   \   000137   78..         MOV       R0,#?V0
+   \   000139   12....       LCALL     ?S_SHL
+   \   00013C   12....       LCALL     ?Subroutine3 & 0xFFFF
+     53                  P2DIR |= BV(pin->bit);
+   \                     ??CrossCallReturnLabel_7:
+   \   00013F   12....       LCALL     ?S_SHL
+   \   000142   E5..         MOV       A,?V0
+   \   000144   42FF         ORL       0xff,A
+     54                  break;
+     55              }
+     56            }
+     57          }
+   \                     ??KeusGPIOSetDirection_4:
+   \   000146   02....       LJMP      ?Subroutine0 & 0xFFFF
+   \   000149                REQUIRE P0SEL
+   \   000149                REQUIRE P0DIR
+   \   000149                REQUIRE P0INP
+   \   000149                REQUIRE P1SEL
+   \   000149                REQUIRE P1DIR
+   \   000149                REQUIRE P1INP
+   \   000149                REQUIRE P2SEL
+   \   000149                REQUIRE P2DIR
+   \   000149                REQUIRE P2INP
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine0:
+   \   000000   7F02         MOV       R7,#0x2
+   \   000002   02....       LJMP      ?BANKED_LEAVE_XDATA
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine3:
+   \   000000   E5..         MOV       A,?V0
+   \   000002   F4           CPL       A
+   \   000003   52F5         ANL       0xf5,A
+   \   000005   75..01       MOV       ?V0,#0x1
+   \   000008   75..00       MOV       ?V1,#0x0
+   \   00000B   E0           MOVX      A,@DPTR
+   \   00000C   78..         MOV       R0,#?V0
+   \   00000E   22           RET
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine2:
+   \   000000   E5..         MOV       A,?V0
+   \   000002   F4           CPL       A
+   \   000003   52F4         ANL       0xf4,A
+   \   000005   75..01       MOV       ?V0,#0x1
+   \   000008   75..00       MOV       ?V1,#0x0
+   \   00000B   E0           MOVX      A,@DPTR
+   \   00000C   78..         MOV       R0,#?V0
+   \   00000E   22           RET
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine1:
+   \   000000   E5..         MOV       A,?V0
+   \   000002   F4           CPL       A
+   \   000003   52F3         ANL       0xf3,A
+   \   000005   75..01       MOV       ?V0,#0x1
+   \   000008   75..00       MOV       ?V1,#0x0
+   \   00000B   E0           MOVX      A,@DPTR
+   \   00000C   78..         MOV       R0,#?V0
+   \   00000E   22           RET
+     58          
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     59          void KeusGPIOSetPinValue(KeusGPIOPin *pin) {
+   \                     KeusGPIOSetPinValue:
+   \   000000                REQUIRE ?V0
+   \   000000                REQUIRE ?V1
+   \   000000   74F6         MOV       A,#-0xa
+   \   000002   12....       LCALL     ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 10
+   \   000005                ; Auto size: 0
+     60            if (pin->state == GPIO_LOW) {
+   \   000005   8A82         MOV       DPL,R2
+   \   000007   8B83         MOV       DPH,R3
+   \   000009   E0           MOVX      A,@DPTR
+   \   00000A   F8           MOV       R0,A
+   \   00000B   A3           INC       DPTR
+   \   00000C   A3           INC       DPTR
+   \   00000D   A3           INC       DPTR
+   \   00000E   A3           INC       DPTR
+   \   00000F   E0           MOVX      A,@DPTR
+   \   000010   7054         JNZ       ??KeusGPIOSetPinValue_0
+     61              switch (pin->port) {
+   \   000012   E8           MOV       A,R0
+   \   000013   6009         JZ        ??KeusGPIOSetPinValue_1
+   \   000015   14           DEC       A
+   \   000016   601E         JZ        ??KeusGPIOSetPinValue_2
+   \   000018   14           DEC       A
+   \   000019   6033         JZ        ??KeusGPIOSetPinValue_3
+   \   00001B   02....       LJMP      ??KeusGPIOSetPinValue_4 & 0xFFFF
+     62                case 0:
+     63                  P0 &= (~ BV(pin->bit));
+   \                     ??KeusGPIOSetPinValue_1:
+   \   00001E   75..01       MOV       ?V0,#0x1
+   \   000021   75..00       MOV       ?V1,#0x0
+   \   000024   8A82         MOV       DPL,R2
+   \   000026   8B83         MOV       DPH,R3
+   \   000028   A3           INC       DPTR
+   \   000029   E0           MOVX      A,@DPTR
+   \   00002A   78..         MOV       R0,#?V0
+   \   00002C   12....       LCALL     ?S_SHL
+   \   00002F   E5..         MOV       A,?V0
+   \   000031   F4           CPL       A
+   \   000032   5280         ANL       0x80,A
+     64                  break;
+   \   000034   807E         SJMP      ??KeusGPIOSetPinValue_4
+     65                case 1:
+     66                  P1 &= (~ BV(pin->bit));
+   \                     ??KeusGPIOSetPinValue_2:
+   \   000036   75..01       MOV       ?V0,#0x1
+   \   000039   75..00       MOV       ?V1,#0x0
+   \   00003C   8A82         MOV       DPL,R2
+   \   00003E   8B83         MOV       DPH,R3
+   \   000040   A3           INC       DPTR
+   \   000041   E0           MOVX      A,@DPTR
+   \   000042   78..         MOV       R0,#?V0
+   \   000044   12....       LCALL     ?S_SHL
+   \   000047   E5..         MOV       A,?V0
+   \   000049   F4           CPL       A
+   \   00004A   5290         ANL       0x90,A
+     67                  break;
+   \   00004C   8066         SJMP      ??KeusGPIOSetPinValue_4
+     68                case 2:
+     69                  P2 &= (~ BV(pin->bit));
+   \                     ??KeusGPIOSetPinValue_3:
+   \   00004E   75..01       MOV       ?V0,#0x1
+   \   000051   75..00       MOV       ?V1,#0x0
+   \   000054   8A82         MOV       DPL,R2
+   \   000056   8B83         MOV       DPH,R3
+   \   000058   A3           INC       DPTR
+   \   000059   E0           MOVX      A,@DPTR
+   \   00005A   78..         MOV       R0,#?V0
+   \   00005C   12....       LCALL     ?S_SHL
+   \   00005F   E5..         MOV       A,?V0
+   \   000061   F4           CPL       A
+   \   000062   52A0         ANL       0xa0,A
+     70                  break;
+   \   000064   804E         SJMP      ??KeusGPIOSetPinValue_4
+     71              }
+     72            } else {
+     73              switch (pin->port) {
+   \                     ??KeusGPIOSetPinValue_0:
+   \   000066   E8           MOV       A,R0
+   \   000067   6008         JZ        ??KeusGPIOSetPinValue_5
+   \   000069   14           DEC       A
+   \   00006A   601C         JZ        ??KeusGPIOSetPinValue_6
+   \   00006C   14           DEC       A
+   \   00006D   6030         JZ        ??KeusGPIOSetPinValue_7
+   \   00006F   8043         SJMP      ??KeusGPIOSetPinValue_4
+     74                case 0:
+     75                  P0 |= BV(pin->bit);
+   \                     ??KeusGPIOSetPinValue_5:
+   \   000071   75..01       MOV       ?V0,#0x1
+   \   000074   75..00       MOV       ?V1,#0x0
+   \   000077   8A82         MOV       DPL,R2
+   \   000079   8B83         MOV       DPH,R3
+   \   00007B   A3           INC       DPTR
+   \   00007C   E0           MOVX      A,@DPTR
+   \   00007D   78..         MOV       R0,#?V0
+   \   00007F   12....       LCALL     ?S_SHL
+   \   000082   E5..         MOV       A,?V0
+   \   000084   4280         ORL       0x80,A
+     76                  break;
+   \   000086   802C         SJMP      ??KeusGPIOSetPinValue_4
+     77                case 1:
+     78                  P1 |= BV(pin->bit);
+   \                     ??KeusGPIOSetPinValue_6:
+   \   000088   75..01       MOV       ?V0,#0x1
+   \   00008B   75..00       MOV       ?V1,#0x0
+   \   00008E   8A82         MOV       DPL,R2
+   \   000090   8B83         MOV       DPH,R3
+   \   000092   A3           INC       DPTR
+   \   000093   E0           MOVX      A,@DPTR
+   \   000094   78..         MOV       R0,#?V0
+   \   000096   12....       LCALL     ?S_SHL
+   \   000099   E5..         MOV       A,?V0
+   \   00009B   4290         ORL       0x90,A
+     79                  break;
+   \   00009D   8015         SJMP      ??KeusGPIOSetPinValue_4
+     80                case 2:
+     81                  P2 |= BV(pin->bit);
+   \                     ??KeusGPIOSetPinValue_7:
+   \   00009F   75..01       MOV       ?V0,#0x1
+   \   0000A2   75..00       MOV       ?V1,#0x0
+   \   0000A5   8A82         MOV       DPL,R2
+   \   0000A7   8B83         MOV       DPH,R3
+   \   0000A9   A3           INC       DPTR
+   \   0000AA   E0           MOVX      A,@DPTR
+   \   0000AB   78..         MOV       R0,#?V0
+   \   0000AD   12....       LCALL     ?S_SHL
+   \   0000B0   E5..         MOV       A,?V0
+   \   0000B2   42A0         ORL       0xa0,A
+     82                  break;
+     83              }
+     84            }
+     85          }
+   \                     ??KeusGPIOSetPinValue_4:
+   \   0000B4   80..         SJMP      ?Subroutine0
+   \   0000B6                REQUIRE _A_P0
+   \   0000B6                REQUIRE _A_P1
+   \   0000B6                REQUIRE _A_P2
+     86          
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     87          void KeusGPIOReadPinValue(KeusGPIOPin *pin) {
+   \                     KeusGPIOReadPinValue:
+   \   000000                REQUIRE ?V0
+   \   000000                REQUIRE ?V1
+   \   000000   74F6         MOV       A,#-0xa
+   \   000002   12....       LCALL     ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 10
+   \   000005                ; Auto size: 0
+     88            uint8 val = 0x02;
+   \   000005   7802         MOV       R0,#0x2
+     89          
+     90            switch (pin->port) {
+   \   000007   8A82         MOV       DPL,R2
+   \   000009   8B83         MOV       DPH,R3
+   \   00000B   E0           MOVX      A,@DPTR
+   \   00000C   6008         JZ        ??KeusGPIOReadPinValue_0
+   \   00000E   14           DEC       A
+   \   00000F   6018         JZ        ??KeusGPIOReadPinValue_1
+   \   000011   14           DEC       A
+   \   000012   6028         JZ        ??KeusGPIOReadPinValue_2
+   \   000014   8038         SJMP      ??KeusGPIOReadPinValue_3
+     91              case 0:
+     92                val = P0 & BV(pin->bit);
+   \                     ??KeusGPIOReadPinValue_0:
+   \   000016   75..01       MOV       ?V0,#0x1
+   \   000019   75..00       MOV       ?V1,#0x0
+   \   00001C   A3           INC       DPTR
+   \   00001D   E0           MOVX      A,@DPTR
+   \   00001E   78..         MOV       R0,#?V0
+   \   000020   12....       LCALL     ?S_SHL
+   \   000023   E5..         MOV       A,?V0
+   \   000025   5580         ANL       A,0x80
+   \   000027   8024         SJMP      ??KeusGPIOReadPinValue_4
+     93                break;
+     94              case 1:
+     95                val = P1 & BV(pin->bit);
+   \                     ??KeusGPIOReadPinValue_1:
+   \   000029   75..01       MOV       ?V0,#0x1
+   \   00002C   75..00       MOV       ?V1,#0x0
+   \   00002F   A3           INC       DPTR
+   \   000030   E0           MOVX      A,@DPTR
+   \   000031   78..         MOV       R0,#?V0
+   \   000033   12....       LCALL     ?S_SHL
+   \   000036   E5..         MOV       A,?V0
+   \   000038   5590         ANL       A,0x90
+   \   00003A   8011         SJMP      ??KeusGPIOReadPinValue_4
+     96                break;
+     97              case 2:
+     98                val = P2 & BV(pin->bit);
+   \                     ??KeusGPIOReadPinValue_2:
+   \   00003C   75..01       MOV       ?V0,#0x1
+   \   00003F   75..00       MOV       ?V1,#0x0
+   \   000042   A3           INC       DPTR
+   \   000043   E0           MOVX      A,@DPTR
+   \   000044   78..         MOV       R0,#?V0
+   \   000046   12....       LCALL     ?S_SHL
+   \   000049   E5..         MOV       A,?V0
+   \   00004B   55A0         ANL       A,0xa0
+   \                     ??KeusGPIOReadPinValue_4:
+   \   00004D   F8           MOV       R0,A
+     99                break;
+    100            }
+    101            
+    102            if (val == 0x00) {
+   \                     ??KeusGPIOReadPinValue_3:
+   \   00004E   EA           MOV       A,R2
+   \   00004F   2404         ADD       A,#0x4
+   \   000051   F582         MOV       DPL,A
+   \   000053   E4           CLR       A
+   \   000054   3B           ADDC      A,R3
+   \   000055   F583         MOV       DPH,A
+   \   000057   E8           MOV       A,R0
+   \   000058   7003         JNZ       ??KeusGPIOReadPinValue_5
+    103              pin->state = GPIO_LOW;
+   \   00005A   E4           CLR       A
+   \   00005B   8002         SJMP      ??KeusGPIOReadPinValue_6
+    104            } else {
+    105              pin->state = GPIO_HIGH;
+   \                     ??KeusGPIOReadPinValue_5:
+   \   00005D   7401         MOV       A,#0x1
+   \                     ??KeusGPIOReadPinValue_6:
+   \   00005F   F0           MOVX      @DPTR,A
+    106            }
+    107          }
+   \   000060                REQUIRE ?Subroutine0
+   \   000060                REQUIRE _A_P0
+   \   000060                REQUIRE _A_P1
+   \   000060                REQUIRE _A_P2
+   \   000060                ; // Fall through to label ?Subroutine0
+    108          
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    109          uint8 KeusGPIOToggledState(uint8 state) {
+   \                     KeusGPIOToggledState:
+   \   000000                ; Saved register size: 0
+   \   000000                ; Auto size: 0
+   \   000000   E9           MOV       A,R1
+    110            return (state == GPIO_LOW) ? GPIO_HIGH : GPIO_LOW;
+   \   000001   7004         JNZ       ??KeusGPIOToggledState_0
+   \   000003   7901         MOV       R1,#0x1
+   \   000005   8002         SJMP      ??KeusGPIOToggledState_1
+   \                     ??KeusGPIOToggledState_0:
+   \   000007   7900         MOV       R1,#0x0
+   \                     ??KeusGPIOToggledState_1:
+   \   000009   02....       LJMP      ?BRET
+    111          }
+    112          
+    113          #ifndef KEUS_GPIO_INTERRUPT_HANDLER_DISABLE
+    114          void KeusGPIOSetInterruptHandler(KeusGPIOPin *pin, uint8 num) {
+    115            pins[num] = pin;
+    116          }
+    117          #endif
+    118          
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    119          void KeusGPIOInterruptEnable (KeusGPIOPin *pin) {
+   \                     KeusGPIOInterruptEnable:
+   \   000000                REQUIRE ?V0
+   \   000000                REQUIRE ?V1
+   \   000000   74F6         MOV       A,#-0xa
+   \   000002   12....       LCALL     ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 10
+   \   000005                ; Auto size: 0
+    120            switch (pin->port) {
+   \   000005   EA           MOV       A,R2
+   \   000006   2403         ADD       A,#0x3
+   \   000008   F8           MOV       R0,A
+   \   000009   E4           CLR       A
+   \   00000A   3B           ADDC      A,R3
+   \   00000B   F9           MOV       R1,A
+   \   00000C   E8           MOV       A,R0
+   \   00000D   FE           MOV       R6,A
+   \   00000E   8A82         MOV       DPL,R2
+   \   000010   8B83         MOV       DPH,R3
+   \   000012   A3           INC       DPTR
+   \   000013   AC82         MOV       R4,DPL
+   \   000015   AD83         MOV       R5,DPH
+   \   000017   8A82         MOV       DPL,R2
+   \   000019   8B83         MOV       DPH,R3
+   \   00001B   E0           MOVX      A,@DPTR
+   \   00001C   600C         JZ        ??KeusGPIOInterruptEnable_0
+   \   00001E   14           DEC       A
+   \   00001F   6069         JZ        ??KeusGPIOInterruptEnable_1
+   \   000021   14           DEC       A
+   \   000022   7003         JNZ       $+5
+   \   000024   02....       LJMP      ??KeusGPIOInterruptEnable_2 & 0xFFFF
+   \   000027   02....       LJMP      ??KeusGPIOInterruptEnable_3 & 0xFFFF
+    121              case 0:
+    122                  P0SEL &= (~ BV(pin->bit));
+   \                     ??KeusGPIOInterruptEnable_0:
+   \   00002A   75..01       MOV       ?V0,#0x1
+   \   00002D   75..00       MOV       ?V1,#0x0
+   \   000030   8C82         MOV       DPL,R4
+   \   000032   8D83         MOV       DPH,R5
+   \   000034   E0           MOVX      A,@DPTR
+   \   000035   78..         MOV       R0,#?V0
+   \   000037   12....       LCALL     ?S_SHL
+   \   00003A   12....       LCALL     ?Subroutine1 & 0xFFFF
+    123                  P0DIR &= (~ BV(pin->bit));
+   \                     ??CrossCallReturnLabel_2:
+   \   00003D   12....       LCALL     ?S_SHL
+   \   000040   E5..         MOV       A,?V0
+   \   000042   F4           CPL       A
+   \   000043   52FD         ANL       0xfd,A
+    124          
+    125                  if (pin->istristate) {
+   \   000045   8E82         MOV       DPL,R6
+   \   000047   8983         MOV       DPH,R1
+   \   000049   E0           MOVX      A,@DPTR
+   \   00004A   6014         JZ        ??KeusGPIOInterruptEnable_4
+    126                    P0INP |= BV(pin->bit);
+   \   00004C   75..01       MOV       ?V0,#0x1
+   \   00004F   75..00       MOV       ?V1,#0x0
+   \   000052   8C82         MOV       DPL,R4
+   \   000054   8D83         MOV       DPH,R5
+   \   000056   E0           MOVX      A,@DPTR
+   \   000057   78..         MOV       R0,#?V0
+   \   000059   12....       LCALL     ?S_SHL
+   \   00005C   E5..         MOV       A,?V0
+   \   00005E   428F         ORL       0x8f,A
+    127                  }
+    128          
+    129                  P0IEN |= BV(pin->bit);
+   \                     ??KeusGPIOInterruptEnable_4:
+   \   000060   75..01       MOV       ?V0,#0x1
+   \   000063   75..00       MOV       ?V1,#0x0
+   \   000066   8C82         MOV       DPL,R4
+   \   000068   8D83         MOV       DPH,R5
+   \   00006A   E0           MOVX      A,@DPTR
+   \   00006B   78..         MOV       R0,#?V0
+   \   00006D   12....       LCALL     ?S_SHL
+   \   000070   E5..         MOV       A,?V0
+   \   000072   42AB         ORL       0xab,A
+    130          
+    131                  IEN1 |= BV(5);
+   \   000074   D2BD         SETB      0xb8.5
+    132          
+    133                  P0IFG = ~(BV(pin->bit));
+   \   000076   75..01       MOV       ?V0,#0x1
+   \   000079   75..00       MOV       ?V1,#0x0
+   \   00007C   E0           MOVX      A,@DPTR
+   \   00007D   78..         MOV       R0,#?V0
+   \   00007F   12....       LCALL     ?S_SHL
+   \   000082   E5..         MOV       A,?V0
+   \   000084   F4           CPL       A
+   \   000085   F589         MOV       0x89,A
+    134               break;
+   \   000087   02....       LJMP      ??KeusGPIOInterruptEnable_3 & 0xFFFF
+    135                
+    136              case 1:
+    137                  P1SEL &= (~ BV(pin->bit));
+   \                     ??KeusGPIOInterruptEnable_1:
+   \   00008A   75..01       MOV       ?V0,#0x1
+   \   00008D   75..00       MOV       ?V1,#0x0
+   \   000090   8C82         MOV       DPL,R4
+   \   000092   8D83         MOV       DPH,R5
+   \   000094   E0           MOVX      A,@DPTR
+   \   000095   78..         MOV       R0,#?V0
+   \   000097   12....       LCALL     ?S_SHL
+   \   00009A   12....       LCALL     ?Subroutine2 & 0xFFFF
+    138                  P1DIR &= (~ BV(pin->bit));
+   \                     ??CrossCallReturnLabel_5:
+   \   00009D   12....       LCALL     ?S_SHL
+   \   0000A0   E5..         MOV       A,?V0
+   \   0000A2   F4           CPL       A
+   \   0000A3   52FE         ANL       0xfe,A
+    139          
+    140                  if (pin->istristate) {
+   \   0000A5   8E82         MOV       DPL,R6
+   \   0000A7   8983         MOV       DPH,R1
+   \   0000A9   E0           MOVX      A,@DPTR
+   \   0000AA   6014         JZ        ??KeusGPIOInterruptEnable_5
+    141                    P1INP |= BV(pin->bit);
+   \   0000AC   75..01       MOV       ?V0,#0x1
+   \   0000AF   75..00       MOV       ?V1,#0x0
+   \   0000B2   8C82         MOV       DPL,R4
+   \   0000B4   8D83         MOV       DPH,R5
+   \   0000B6   E0           MOVX      A,@DPTR
+   \   0000B7   78..         MOV       R0,#?V0
+   \   0000B9   12....       LCALL     ?S_SHL
+   \   0000BC   E5..         MOV       A,?V0
+   \   0000BE   42F6         ORL       0xf6,A
+    142                  }
+    143          
+    144                  P1IEN |= BV(pin->bit);
+   \                     ??KeusGPIOInterruptEnable_5:
+   \   0000C0   75..01       MOV       ?V0,#0x1
+   \   0000C3   75..00       MOV       ?V1,#0x0
+   \   0000C6   8C82         MOV       DPL,R4
+   \   0000C8   8D83         MOV       DPH,R5
+   \   0000CA   E0           MOVX      A,@DPTR
+   \   0000CB   78..         MOV       R0,#?V0
+   \   0000CD   12....       LCALL     ?S_SHL
+   \   0000D0   E5..         MOV       A,?V0
+   \   0000D2   428D         ORL       0x8d,A
+    145          
+    146                  IEN2 |= BV(4);
+   \   0000D4   439A10       ORL       0x9a,#0x10
+    147          
+    148                  P1IFG = ~(BV(pin->bit));
+   \   0000D7   75..01       MOV       ?V0,#0x1
+   \   0000DA   75..00       MOV       ?V1,#0x0
+   \   0000DD   E0           MOVX      A,@DPTR
+   \   0000DE   78..         MOV       R0,#?V0
+   \   0000E0   12....       LCALL     ?S_SHL
+   \   0000E3   E5..         MOV       A,?V0
+   \   0000E5   F4           CPL       A
+   \   0000E6   F58A         MOV       0x8a,A
+    149                break;
+   \   0000E8   805E         SJMP      ??KeusGPIOInterruptEnable_3
+    150                
+    151              case 2:
+    152                  P2SEL &= (~ BV(pin->bit));
+   \                     ??KeusGPIOInterruptEnable_2:
+   \   0000EA   75..01       MOV       ?V0,#0x1
+   \   0000ED   75..00       MOV       ?V1,#0x0
+   \   0000F0   8C82         MOV       DPL,R4
+   \   0000F2   8D83         MOV       DPH,R5
+   \   0000F4   E0           MOVX      A,@DPTR
+   \   0000F5   78..         MOV       R0,#?V0
+   \   0000F7   12....       LCALL     ?S_SHL
+   \   0000FA   12....       LCALL     ?Subroutine3 & 0xFFFF
+    153                  P2DIR &= (~ BV(pin->bit));
+   \                     ??CrossCallReturnLabel_8:
+   \   0000FD   12....       LCALL     ?S_SHL
+   \   000100   E5..         MOV       A,?V0
+   \   000102   F4           CPL       A
+   \   000103   52FF         ANL       0xff,A
+    154          
+    155                  if (pin->istristate) {
+   \   000105   8E82         MOV       DPL,R6
+   \   000107   8983         MOV       DPH,R1
+   \   000109   E0           MOVX      A,@DPTR
+   \   00010A   6014         JZ        ??KeusGPIOInterruptEnable_6
+    156                    P2INP |= BV(pin->bit);
+   \   00010C   75..01       MOV       ?V0,#0x1
+   \   00010F   75..00       MOV       ?V1,#0x0
+   \   000112   8C82         MOV       DPL,R4
+   \   000114   8D83         MOV       DPH,R5
+   \   000116   E0           MOVX      A,@DPTR
+   \   000117   78..         MOV       R0,#?V0
+   \   000119   12....       LCALL     ?S_SHL
+   \   00011C   E5..         MOV       A,?V0
+   \   00011E   42F7         ORL       0xf7,A
+    157                  }
+    158                
+    159                  P2IEN |= BV(pin->bit);
+   \                     ??KeusGPIOInterruptEnable_6:
+   \   000120   75..01       MOV       ?V0,#0x1
+   \   000123   75..00       MOV       ?V1,#0x0
+   \   000126   8C82         MOV       DPL,R4
+   \   000128   8D83         MOV       DPH,R5
+   \   00012A   E0           MOVX      A,@DPTR
+   \   00012B   78..         MOV       R0,#?V0
+   \   00012D   12....       LCALL     ?S_SHL
+   \   000130   E5..         MOV       A,?V0
+   \   000132   42AC         ORL       0xac,A
+    160                 
+    161                  IEN2 |= BV(1);
+   \   000134   439A02       ORL       0x9a,#0x2
+    162                  
+    163                  P2IFG = ~(BV(pin->bit));
+   \   000137   75..01       MOV       ?V0,#0x1
+   \   00013A   75..00       MOV       ?V1,#0x0
+   \   00013D   E0           MOVX      A,@DPTR
+   \   00013E   78..         MOV       R0,#?V0
+   \   000140   12....       LCALL     ?S_SHL
+   \   000143   E5..         MOV       A,?V0
+   \   000145   F4           CPL       A
+   \   000146   F58B         MOV       0x8b,A
+    164                break;
+    165            }
+    166          }
+   \                     ??KeusGPIOInterruptEnable_3:
+   \   000148   02....       LJMP      ?Subroutine0 & 0xFFFF
+   \   00014B                REQUIRE P0SEL
+   \   00014B                REQUIRE P0DIR
+   \   00014B                REQUIRE P0INP
+   \   00014B                REQUIRE P0IEN
+   \   00014B                REQUIRE _A_IEN1
+   \   00014B                REQUIRE P0IFG
+   \   00014B                REQUIRE P1SEL
+   \   00014B                REQUIRE P1DIR
+   \   00014B                REQUIRE P1INP
+   \   00014B                REQUIRE P1IEN
+   \   00014B                REQUIRE IEN2
+   \   00014B                REQUIRE P1IFG
+   \   00014B                REQUIRE P2SEL
+   \   00014B                REQUIRE P2DIR
+   \   00014B                REQUIRE P2INP
+   \   00014B                REQUIRE P2IEN
+   \   00014B                REQUIRE P2IFG
+    167          
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    168          void KeusGPIOEdgeConfiguration (KeusGPIOPin *pin, uint8 edgeConfig) {
+   \                     KeusGPIOEdgeConfiguration:
+   \   000000   C082         PUSH      DPL
+   \   000002   C083         PUSH      DPH
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 0
+    169            switch (pin->port) {
+   \   000004   8A82         MOV       DPL,R2
+   \   000006   8B83         MOV       DPH,R3
+   \   000008   E0           MOVX      A,@DPTR
+   \   000009   6008         JZ        ??KeusGPIOEdgeConfiguration_0
+   \   00000B   14           DEC       A
+   \   00000C   6014         JZ        ??KeusGPIOEdgeConfiguration_1
+   \   00000E   14           DEC       A
+   \   00000F   6026         JZ        ??KeusGPIOEdgeConfiguration_2
+   \   000011   8031         SJMP      ??KeusGPIOEdgeConfiguration_3
+    170              case 0:
+    171                if (edgeConfig == GPIO_RISING_EDGE) {
+   \                     ??KeusGPIOEdgeConfiguration_0:
+   \   000013   7401         MOV       A,#0x1
+   \   000015   69           XRL       A,R1
+   \   000016   7005         JNZ       ??KeusGPIOEdgeConfiguration_4
+    172                  PICTL &= ~(BV(0));
+   \   000018   538CFE       ANL       0x8c,#0xfe
+   \   00001B   8027         SJMP      ??KeusGPIOEdgeConfiguration_3
+    173                } else {
+    174                  PICTL |= BV(0);
+   \                     ??KeusGPIOEdgeConfiguration_4:
+   \   00001D   438C01       ORL       0x8c,#0x1
+   \   000020   8022         SJMP      ??KeusGPIOEdgeConfiguration_3
+    175                }
+    176                break;
+    177                
+    178              case 1:
+    179                if (edgeConfig == GPIO_RISING_EDGE) {
+   \                     ??KeusGPIOEdgeConfiguration_1:
+   \   000022   7401         MOV       A,#0x1
+   \   000024   69           XRL       A,R1
+   \   000025   7008         JNZ       ??KeusGPIOEdgeConfiguration_5
+    180                  PICTL &= ~(BV(1));
+   \   000027   538CFD       ANL       0x8c,#0xfd
+    181                  PICTL &= ~(BV(2));
+   \   00002A   538CFB       ANL       0x8c,#0xfb
+   \   00002D   8015         SJMP      ??KeusGPIOEdgeConfiguration_3
+    182                } else {
+    183                  PICTL |= BV(1);
+   \                     ??KeusGPIOEdgeConfiguration_5:
+   \   00002F   438C02       ORL       0x8c,#0x2
+    184                  PICTL |= BV(2);
+   \   000032   438C04       ORL       0x8c,#0x4
+   \   000035   800D         SJMP      ??KeusGPIOEdgeConfiguration_3
+    185                }
+    186                break;
+    187                
+    188              case 2:
+    189                if (edgeConfig == GPIO_RISING_EDGE) {
+   \                     ??KeusGPIOEdgeConfiguration_2:
+   \   000037   7401         MOV       A,#0x1
+   \   000039   69           XRL       A,R1
+   \   00003A   7005         JNZ       ??KeusGPIOEdgeConfiguration_6
+    190                  PICTL &= ~(BV(3));
+   \   00003C   538CF7       ANL       0x8c,#0xf7
+   \   00003F   8003         SJMP      ??KeusGPIOEdgeConfiguration_3
+    191                } else {
+    192                  PICTL |= BV(3);
+   \                     ??KeusGPIOEdgeConfiguration_6:
+   \   000041   438C08       ORL       0x8c,#0x8
+    193                }
+    194                break;
+    195            }
+    196          }
+   \                     ??KeusGPIOEdgeConfiguration_3:
+   \   000044   D083         POP       DPH
+   \   000046   D082         POP       DPL
+   \   000048   02....       LJMP      ?BRET
+   \   00004B                REQUIRE PICTL
+    197          
+    198          #ifndef KEUS_GPIO_INTERRUPT_HANDLER_DISABLE
+    199          
+    200          //hardcode the pins to configure for the application
+    201          HAL_ISR_FUNCTION( halKeusPort0Isr, P0INT_VECTOR )
+    202          {
+    203            HAL_ENTER_ISR();
+    204          
+    205            if (P0IFG & BV(pins[0]->bit)) {
+    206              pins[0]->handler();
+    207            }
+    208          
+    209            /*
+    210              Clear the CPU interrupt flag for Port_0
+    211              PxIFG has to be cleared before PxIF
+    212            */
+    213            P0IFG = 0;
+    214            P0IF = 0;
+    215            
+    216            CLEAR_SLEEP_MODE();
+    217            HAL_EXIT_ISR();
+    218          }
+    219          
+    220          #endif
+
+   Maximum stack usage in bytes:
+
+   ISTACK XSTACK Function
+   ------ ------ --------
+      2      0   KeusGPIOEdgeConfiguration
+      0     10   KeusGPIOInterruptEnable
+      0     10   KeusGPIOReadPinValue
+      0     10   KeusGPIOSetDirection
+      0     10   KeusGPIOSetPinValue
+      0      0   KeusGPIOToggledState
+
+
+   Segment part sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       5  ?Subroutine0
+      15  ?Subroutine1
+      15  ?Subroutine2
+      15  ?Subroutine3
+       1  IEN2
+      75  KeusGPIOEdgeConfiguration
+     331  KeusGPIOInterruptEnable
+      96  KeusGPIOReadPinValue
+     329  KeusGPIOSetDirection
+     182  KeusGPIOSetPinValue
+      12  KeusGPIOToggledState
+       1  P0DIR
+       1  P0IEN
+       1  P0IFG
+       1  P0INP
+       1  P0SEL
+       1  P1DIR
+       1  P1IEN
+       1  P1IFG
+       1  P1INP
+       1  P1SEL
+       1  P2DIR
+       1  P2IEN
+       1  P2IFG
+       1  P2INP
+       1  P2SEL
+       1  PICTL
+       1  _A_IEN1
+       1  _A_P0
+       1  _A_P1
+       1  _A_P2
+      36  -- Other
+
+ 
+ 1 075 bytes in segment BANKED_CODE
+    36 bytes in segment BANK_RELAYS
+    21 bytes in segment SFR_AN
+ 
+    36 bytes of CODE     memory
+     0 bytes of DATA     memory (+ 21 bytes shared)
+ 1 075 bytes of HUGECODE memory
+
+Errors: none
+Warnings: none

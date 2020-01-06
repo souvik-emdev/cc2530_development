@@ -1,0 +1,910 @@
+###############################################################################
+#
+# IAR C/C++ Compiler V10.30.1.6000 for 8051               06/Jan/2020  13:53:00
+# Copyright 2004-2018 IAR Systems AB.
+# PC-locked license - IAR Embedded Workbench for 8051
+#
+#    Core               =  plain
+#    Code model         =  banked
+#    Data model         =  large
+#    Calling convention =  xdata reentrant
+#    Constant location  =  data_rom
+#    Dptr setup         =  1,16
+#                          
+#    Source file        =  
+#        D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\COMPONENTS\keus\keus_timer_util.c
+#    Command line       =  
+#        -f C:\Users\Souvik\AppData\Local\Temp\EWE883.tmp ("D:\VB_Shared\Zigbee
+#        Resources\CC2530 Development\COMPONENTS\keus\keus_timer_util.c" -D
+#        SECURE=1 -D TC_LINKKEY_JOIN -D NV_INIT -D NV_RESTORE -D HAL_KEY=FALSE
+#        -D HAL_LCD=FALSE -D HAL_LED=FALSE -D MULTICAST_ENABLED=FALSE -D
+#        ZCL_READ -D ZCL_WRITE -D ZCL_BASIC -D ZCL_IDENTIFY -D
+#        KEUS_GPIO_INTERRUPT_HANDLER_DISABLE -D HAL_UART=TRUE -D HAL_UART_ISR=1
+#        -D HAL_UART_DMA=2 -D HAL_UART_DMA_RX_MAX=64 -D HAL_UART_DMA_TX_MAX=64
+#        -D INT_HEAP_LEN=3172 -lC "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\EndDeviceEB\List" -lA "D:\VB_Shared\Zigbee
+#        Resources\CC2530 Development\Projects\zstack\HomeAutomation\GenericApp
+#        - Backup\CC2530DB\EndDeviceEB\List" --diag_suppress Pe001,Pa010 -o
+#        "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\EndDeviceEB\Obj" -e --debug --core=plain --dptr=16,1
+#        --data_model=large --code_model=banked
+#        --calling_convention=xdata_reentrant --place_constants=data_rom
+#        --nr_virtual_regs 16 -f "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\..\..\..\Tools\CC2530DB\f8wEndev.cfg" (-DCPU32MHZ
+#        -DROOT=__near_func -DMAC_CFG_TX_DATA_MAX=3 -DMAC_CFG_TX_MAX=6
+#        -DMAC_CFG_RX_MAX=3) -f "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\..\..\..\Tools\CC2530DB\f8wConfig.cfg" (-DZIGBEEPRO
+#        -DSECURE=1 -DZG_SECURE_DYNAMIC=0 -DREFLECTOR
+#        -DDEFAULT_CHANLIST=0x00000800 -DZDAPP_CONFIG_PAN_ID=0xFFFF
+#        -DNWK_START_DELAY=100 -DEXTENDED_JOINING_RANDOM_MASK=0x007F
+#        -DBEACON_REQUEST_DELAY=100 -DBEACON_REQ_DELAY_MASK=0x00FF
+#        -DLINK_STATUS_JITTER_MASK=0x007F -DROUTE_EXPIRY_TIME=30
+#        -DAPSC_ACK_WAIT_DURATION_POLLED=3000 -DNWK_INDIRECT_MSG_TIMEOUT=7
+#        -DMAX_RREQ_ENTRIES=8 -DAPSC_MAX_FRAME_RETRIES=3
+#        -DNWK_MAX_DATA_RETRIES=2 -DMAX_POLL_FAILURE_RETRIES=2 -DMAX_BCAST=9
+#        -DAPS_MAX_GROUPS=16 -DMAX_RTG_ENTRIES=40 -DNWK_MAX_BINDING_ENTRIES=4
+#        -DMAX_BINDING_CLUSTER_IDS=4 -DDEFAULT_KEY={0} -DMAC_MAX_FRAME_SIZE=116
+#        -DZDNWKMGR_MIN_TRANSMISSIONS=20 "-DCONST=const __code"
+#        -DGENERIC=__generic -DRFD_RCVC_ALWAYS_ON=FALSE -DPOLL_RATE=1000
+#        -DQUEUED_POLL_RATE=100 -DRESPONSE_POLL_RATE=100 -DREJOIN_POLL_RATE=440
+#        -DREJOIN_BACKOFF=900000 -DREJOIN_SCAN=900000 -DENABLE_LED4_DISABLE_S1)
+#        -f "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\..\..\..\Tools\CC2530DB\f8wZCL.cfg" -I
+#        "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\" -I "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\..\Source\" -I "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\..\..\Source\" -I "D:\VB_Shared\Zigbee
+#        Resources\CC2530 Development\Projects\zstack\HomeAutomation\GenericApp
+#        - Backup\CC2530DB\..\..\..\ZMain\TI2530DB\" -I "D:\VB_Shared\Zigbee
+#        Resources\CC2530 Development\Projects\zstack\HomeAutomation\GenericApp
+#        - Backup\CC2530DB\..\..\..\..\..\Components\hal\include\" -I
+#        "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\..\..\..\..\..\Components\hal\target\CC2530EB\" -I
+#        "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\..\..\..\..\..\Components\mac\include\" -I
+#        "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\..\..\..\..\..\Components\mac\high_level\" -I
+#        "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\..\..\..\..\..\Components\mac\low_level\srf04\" -I
+#        "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\..\..\..\..\..\Components\mac\low_level\srf04\single_chip\"
+#        -I "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\..\..\..\..\..\Components\mt\" -I "D:\VB_Shared\Zigbee
+#        Resources\CC2530 Development\Projects\zstack\HomeAutomation\GenericApp
+#        - Backup\CC2530DB\..\..\..\..\..\Components\osal\include\" -I
+#        "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\..\..\..\..\..\Components\services\saddr\" -I
+#        "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\..\..\..\..\..\Components\services\sdata\" -I
+#        "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\..\..\..\..\..\Components\stack\af\" -I
+#        "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\..\..\..\..\..\Components\stack\bdb\" -I
+#        "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\..\..\..\..\..\Components\stack\gp\" -I
+#        "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\..\..\..\..\..\Components\stack\nwk\" -I
+#        "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\..\..\..\..\..\Components\stack\sapi\" -I
+#        "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\..\..\..\..\..\Components\stack\sec\" -I
+#        "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\..\..\..\..\..\Components\stack\sys\" -I
+#        "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\..\..\..\..\..\Components\stack\zcl\" -I
+#        "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\..\..\..\..\..\Components\stack\zdo\" -I
+#        "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\..\..\..\..\..\Components\zmac\" -I
+#        "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\..\..\..\..\..\Components\zmac\f8w\" -I
+#        "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\..\..\..\..\..\Components\keus\" -Ohz
+#        --require_prototypes)
+#    Locale             =  English_USA.1252
+#    List file          =  
+#        D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\EndDeviceEB\List\keus_timer_util.lst
+#    Object file        =  
+#        D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack\HomeAutomation\GenericApp -
+#        Backup\CC2530DB\EndDeviceEB\Obj\keus_timer_util.r51
+#
+###############################################################################
+
+D:\VB_Shared\Zigbee Resources\CC2530 Development\COMPONENTS\keus\keus_timer_util.c
+      1          #include "keus_timer_util.h"
+
+   \                                 In  segment SFR_AN, at 0xaf
+   \   unsigned char volatile __sfr T1STAT
+   \                     T1STAT:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xb8
+   \   union <unnamed> volatile __sfr _A_IEN1
+   \                     _A_IEN1:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xda
+   \   unsigned char volatile __sfr T1CC0L
+   \                     T1CC0L:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xdb
+   \   unsigned char volatile __sfr T1CC0H
+   \                     T1CC0H:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xe4
+   \   unsigned char volatile __sfr T1CTL
+   \                     T1CTL:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xe5
+   \   unsigned char volatile __sfr T1CCTL0
+   \                     T1CCTL0:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xe6
+   \   unsigned char volatile __sfr T1CCTL1
+   \                     T1CCTL1:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xe7
+   \   unsigned char volatile __sfr T1CCTL2
+   \                     T1CCTL2:
+   \   000000                DS 1
+      2          #include  "hal_mcu.h"
+      3          #include  "hal_defs.h"
+      4          #include  "hal_types.h"
+      5          
+      6          #define T1STAT_CH0IF BV(0)
+      7          #define MAX_TIMERS 15
+      8          
+      9          // in ms
+     10          #define TIMER_UNIT 25
+     11          
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
+     12          static KeusTimerConfig *timersInfo[MAX_TIMERS];
+   \                     timersInfo:
+   \   000000                DS 30
+   \   00001E                REQUIRE __INIT_XDATA_Z
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
+     13          bool initGaurd = false;
+   \                     initGaurd:
+   \   000000                DS 1
+   \   000001                REQUIRE __INIT_XDATA_Z
+     14          
+     15          // valid timerIds are from 0 - (MAX_TIMERS-1)
+     16          // Local Functions
+     17          void KeusTimerUtilClearTimer(uint8 timerNo);
+     18          void KeusTimerUtilTicker(void);
+     19          void KeusTimerUtilInterruptHandler(void);
+     20          
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     21          void KeusTimerUtilClearTimer(uint8 timerNo) {
+   \                     KeusTimerUtilClearTimer:
+   \   000000   C082         PUSH      DPL
+   \   000002   C083         PUSH      DPH
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 0
+     22            if (timersInfo[timerNo] != NULL) {
+   \   000004   E9           MOV       A,R1
+   \   000005   29           ADD       A,R1
+   \   000006   FA           MOV       R2,A
+   \   000007   E4           CLR       A
+   \   000008   33           RLC       A
+   \   000009   FB           MOV       R3,A
+   \   00000A   74..         MOV       A,#timersInfo & 0xff
+   \   00000C   2A           ADD       A,R2
+   \   00000D   FA           MOV       R2,A
+   \   00000E   74..         MOV       A,#(timersInfo >> 8) & 0xff
+   \   000010   3B           ADDC      A,R3
+   \   000011   FB           MOV       R3,A
+   \   000012   EA           MOV       A,R2
+   \   000013   FC           MOV       R4,A
+   \   000014   EB           MOV       A,R3
+   \   000015   FD           MOV       R5,A
+   \   000016   8A82         MOV       DPL,R2
+   \   000018   12....       LCALL     ?Subroutine4 & 0xFFFF
+   \                     ??CrossCallReturnLabel_4:
+   \   00001B   6028         JZ        ??KeusTimerUtilClearTimer_0
+     23              timersInfo[timerNo]->timerId = -1;
+   \   00001D   A3           INC       DPTR
+   \   00001E   A3           INC       DPTR
+   \   00001F   A3           INC       DPTR
+   \   000020   A3           INC       DPTR
+   \   000021   A3           INC       DPTR
+   \   000022   74FF         MOV       A,#-0x1
+   \   000024   F0           MOVX      @DPTR,A
+     24              timersInfo[timerNo]->currentTimerVal = 0;
+   \   000025   8C82         MOV       DPL,R4
+   \   000027   8B83         MOV       DPH,R3
+   \   000029   E0           MOVX      A,@DPTR
+   \   00002A   FA           MOV       R2,A
+   \   00002B   A3           INC       DPTR
+   \   00002C   E0           MOVX      A,@DPTR
+   \   00002D   FB           MOV       R3,A
+   \   00002E   8A82         MOV       DPL,R2
+   \   000030   F583         MOV       DPH,A
+   \   000032   A3           INC       DPTR
+   \   000033   A3           INC       DPTR
+   \   000034   A3           INC       DPTR
+   \   000035   A3           INC       DPTR
+   \   000036   A3           INC       DPTR
+   \   000037   A3           INC       DPTR
+   \   000038   E4           CLR       A
+   \   000039   F0           MOVX      @DPTR,A
+   \   00003A   A3           INC       DPTR
+   \   00003B   F0           MOVX      @DPTR,A
+     25              timersInfo[timerNo]->active = false;
+   \   00003C   8A82         MOV       DPL,R2
+   \   00003E   8B83         MOV       DPH,R3
+   \   000040   A3           INC       DPTR
+   \   000041   A3           INC       DPTR
+   \   000042   A3           INC       DPTR
+   \   000043   A3           INC       DPTR
+   \   000044   F0           MOVX      @DPTR,A
+     26            }
+     27          
+     28            timersInfo[timerNo] = NULL;
+   \                     ??KeusTimerUtilClearTimer_0:
+   \   000045   8C82         MOV       DPL,R4
+   \   000047   8D83         MOV       DPH,R5
+   \   000049   E4           CLR       A
+   \   00004A   F0           MOVX      @DPTR,A
+   \   00004B   A3           INC       DPTR
+   \   00004C   F0           MOVX      @DPTR,A
+     29          }
+   \   00004D   02....       LJMP      ?Subroutine0 & 0xFFFF
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine4:
+   \   000000   F583         MOV       DPH,A
+   \   000002   E0           MOVX      A,@DPTR
+   \   000003   FA           MOV       R2,A
+   \   000004   A3           INC       DPTR
+   \   000005   E0           MOVX      A,@DPTR
+   \   000006   8A82         MOV       DPL,R2
+   \   000008   F583         MOV       DPH,A
+   \   00000A   E582         MOV       A,DPL
+   \   00000C   4583         ORL       A,DPH
+   \   00000E   22           RET
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine0:
+   \   000000   D083         POP       DPH
+   \   000002   D082         POP       DPL
+   \   000004   02....       LJMP      ?BRET
+     30          
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     31          uint8 KeusTimerUtilGetNumActiveTimers(void) {
+   \                     KeusTimerUtilGetNumActiveTimers:
+   \   000000   C082         PUSH      DPL
+   \   000002   C083         PUSH      DPH
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 0
+     32            uint8 totalActiveTimers = 0;
+   \   000004   7900         MOV       R1,#0x0
+     33          
+     34            for (uint8 i = 0; i < MAX_TIMERS; i++) {
+   \   000006   7800         MOV       R0,#0x0
+     35              if (timersInfo[i] != NULL) {
+   \                     ??KeusTimerUtilGetNumActiveTimers_0:
+   \   000008   E8           MOV       A,R0
+   \   000009   25E0         ADD       A,0xE0 /* A   */
+   \   00000B   FA           MOV       R2,A
+   \   00000C   E4           CLR       A
+   \   00000D   33           RLC       A
+   \   00000E   FB           MOV       R3,A
+   \   00000F   74..         MOV       A,#timersInfo & 0xff
+   \   000011   2A           ADD       A,R2
+   \   000012   F582         MOV       DPL,A
+   \   000014   74..         MOV       A,#(timersInfo >> 8) & 0xff
+   \   000016   3B           ADDC      A,R3
+   \   000017   12....       LCALL     ?Subroutine4 & 0xFFFF
+   \                     ??CrossCallReturnLabel_5:
+   \   00001A   6008         JZ        ??KeusTimerUtilGetNumActiveTimers_1
+     36                if (timersInfo[i]->active) {
+   \   00001C   A3           INC       DPTR
+   \   00001D   A3           INC       DPTR
+   \   00001E   A3           INC       DPTR
+   \   00001F   A3           INC       DPTR
+   \   000020   E0           MOVX      A,@DPTR
+   \   000021   6001         JZ        ??KeusTimerUtilGetNumActiveTimers_1
+     37                  totalActiveTimers += 1;
+   \   000023   09           INC       R1
+     38                }
+     39              }
+     40            }
+   \                     ??KeusTimerUtilGetNumActiveTimers_1:
+   \   000024   08           INC       R0
+   \   000025   E8           MOV       A,R0
+   \   000026   C3           CLR       C
+   \   000027   940F         SUBB      A,#0xf
+   \   000029   40DD         JC        ??KeusTimerUtilGetNumActiveTimers_0
+     41            
+     42            return totalActiveTimers;
+   \   00002B   02....       LJMP      ?Subroutine0 & 0xFFFF
+     43          }
+     44          
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     45          void KeusTimerUtilInit() {
+   \                     KeusTimerUtilInit:
+   \   000000   74F7         MOV       A,#-0x9
+   \   000002   12....       LCALL     ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 9
+   \   000005                ; Auto size: 0
+     46            if (!initGaurd) {
+   \   000005   90....       MOV       DPTR,#initGaurd
+   \   000008   E0           MOVX      A,@DPTR
+   \   000009   7038         JNZ       ??KeusTimerUtilInit_0
+     47              initGaurd = true;
+   \   00000B   7401         MOV       A,#0x1
+   \   00000D   F0           MOVX      @DPTR,A
+     48              
+     49              for (uint8 i = 0; i < MAX_TIMERS; i++) {
+   \   00000E   7E00         MOV       R6,#0x0
+     50                KeusTimerUtilClearTimer(i);
+   \                     ??KeusTimerUtilInit_1:
+   \   000010                ; Setup parameters for call to function KeusTimerUtilClearTimer
+   \   000010   EE           MOV       A,R6
+   \   000011   F9           MOV       R1,A
+   \   000012   12....       LCALL     `??KeusTimerUtilClearTimer::?relay`; Banked call to: KeusTimerUtilClearTimer
+     51              }
+   \   000015   0E           INC       R6
+   \   000016   EE           MOV       A,R6
+   \   000017   C3           CLR       C
+   \   000018   940F         SUBB      A,#0xf
+   \   00001A   40F4         JC        ??KeusTimerUtilInit_1
+     52              
+     53              T1CCTL0 = 0;    /* Make sure interrupts are disabled */
+   \   00001C   75E500       MOV       0xe5,#0x0
+     54              T1CCTL1 = 0;    /* Make sure interrupts are disabled */
+   \   00001F   75E600       MOV       0xe6,#0x0
+     55              T1CCTL2 = 0;    /* Make sure interrupts are disabled */
+   \   000022   75E700       MOV       0xe7,#0x0
+     56              T1CCTL3 = 0;    /* Make sure interrupts are disabled */
+   \   000025   9062A3       MOV       DPTR,#0x62a3
+   \   000028   E4           CLR       A
+   \   000029   F0           MOVX      @DPTR,A
+     57              T1CCTL4 = 0;    /* Make sure interrupts are disabled */
+   \   00002A   A3           INC       DPTR
+   \   00002B   F0           MOVX      @DPTR,A
+     58          
+     59              // SET TIMER1 TO MODULO MODE
+     60              T1CTL &= ~(BV(0));
+   \   00002C   53E4FE       ANL       0xe4,#0xfe
+     61              T1CTL &= ~(BV(1));
+   \   00002F   53E4FD       ANL       0xe4,#0xfd
+     62              
+     63              // PRESCALAR 128 - (1 tick = 4 microseconds)
+     64              T1CTL |= BV(2);
+   \   000032   43E404       ORL       0xe4,#0x4
+     65              T1CTL |= BV(3);
+   \   000035   43E408       ORL       0xe4,#0x8
+     66              
+     67              // 0b01001100 - SETTING OUTPUT COMPARE/CAPTURE REGISTER TO COMPARE MODE
+     68              T1CCTL0 = 0x4C;
+   \   000038   75E54C       MOV       0xe5,#0x4c
+     69              
+     70              // SETTING COMPARE VALUE TO 25 MICROSECONDS
+     71              uint16 count = 0x186A;
+     72              T1CC0H = (uint8) (count >> 8);
+   \   00003B   75DB18       MOV       0xdb,#0x18
+     73              T1CC0L = (uint8) count;
+   \   00003E   75DA6A       MOV       0xda,#0x6a
+     74              
+     75              // GLOBAL CPU INTERRUPT ENABLE
+     76              IEN1 |= BV(1);
+   \   000041   D2B9         SETB      0xb8.1
+     77            }
+     78          }
+   \                     ??KeusTimerUtilInit_0:
+   \   000043                REQUIRE ?Subroutine1
+   \   000043                REQUIRE T1CCTL0
+   \   000043                REQUIRE T1CCTL1
+   \   000043                REQUIRE T1CCTL2
+   \   000043                REQUIRE T1CTL
+   \   000043                REQUIRE T1CC0H
+   \   000043                REQUIRE T1CC0L
+   \   000043                REQUIRE _A_IEN1
+   \   000043                ; // Fall through to label ?Subroutine1
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine1:
+   \   000000   7F01         MOV       R7,#0x1
+   \   000002   02....       LJMP      ?BANKED_LEAVE_XDATA
+     79          
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     80          void KeusTimerUtilStartTimer() {
+   \                     KeusTimerUtilStartTimer:
+   \   000000                ; Saved register size: 0
+   \   000000                ; Auto size: 0
+     81            // modulo mode of timer 1 - (10)
+     82            T1CTL |= BV(1);
+   \   000000   43E402       ORL       0xe4,#0x2
+     83          }
+   \   000003   02....       LJMP      ?BRET
+   \   000006                REQUIRE T1CTL
+     84          
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     85          void KeusTimerUtilStopTimer() {
+   \                     KeusTimerUtilStopTimer:
+   \   000000                ; Saved register size: 0
+   \   000000                ; Auto size: 0
+     86            // operation suspended mode of timer1 - (00)
+     87            T1CTL &= ~(BV(1));
+   \   000000   53E4FD       ANL       0xe4,#0xfd
+     88          }
+   \   000003   02....       LJMP      ?BRET
+   \   000006                REQUIRE T1CTL
+     89          
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     90          bool KeusTimerUtilAddTimer(KeusTimerConfig *configObj) {
+   \                     KeusTimerUtilAddTimer:
+   \   000000   74F7         MOV       A,#-0x9
+   \   000002   12....       LCALL     ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 9
+   \   000005                ; Auto size: 0
+   \   000005   EA           MOV       A,R2
+   \   000006   FE           MOV       R6,A
+   \   000007   EB           MOV       A,R3
+   \   000008   FF           MOV       R7,A
+     91            if (!initGaurd) {
+   \   000009   90....       MOV       DPTR,#initGaurd
+   \   00000C   E0           MOVX      A,@DPTR
+   \   00000D   7003         JNZ       ??KeusTimerUtilAddTimer_0
+     92              KeusTimerUtilInit();
+   \   00000F                ; Setup parameters for call to function KeusTimerUtilInit
+   \   00000F   12....       LCALL     `??KeusTimerUtilInit::?relay`; Banked call to: KeusTimerUtilInit
+     93            }
+     94            
+     95            int8 currentAvailableTimer = -1;
+     96            
+     97            for (uint8 i = 0; i < MAX_TIMERS; i++) {
+   \                     ??KeusTimerUtilAddTimer_0:
+   \   000012   7A00         MOV       R2,#0x0
+     98              if (timersInfo[i] == NULL || timersInfo[i]->timerId == -1) {
+   \                     ??KeusTimerUtilAddTimer_1:
+   \   000014   EA           MOV       A,R2
+   \   000015   12....       LCALL     ?Subroutine3 & 0xFFFF
+   \                     ??CrossCallReturnLabel_2:
+   \   000018   F8           MOV       R0,A
+   \   000019   A3           INC       DPTR
+   \   00001A   E0           MOVX      A,@DPTR
+   \   00001B   8882         MOV       DPL,R0
+   \   00001D   F583         MOV       DPH,A
+   \   00001F   E582         MOV       A,DPL
+   \   000021   4583         ORL       A,DPH
+   \   000023   6009         JZ        ??KeusTimerUtilAddTimer_2
+   \   000025   A3           INC       DPTR
+   \   000026   A3           INC       DPTR
+   \   000027   A3           INC       DPTR
+   \   000028   A3           INC       DPTR
+   \   000029   A3           INC       DPTR
+   \   00002A   E0           MOVX      A,@DPTR
+   \   00002B   F4           CPL       A
+   \   00002C   7048         JNZ       ??KeusTimerUtilAddTimer_3
+     99                currentAvailableTimer = i;
+   \                     ??KeusTimerUtilAddTimer_2:
+   \   00002E   EA           MOV       A,R2
+   \   00002F   FB           MOV       R3,A
+    100                break;
+    101              }
+    102            }
+    103            
+    104            if (currentAvailableTimer > -1) {
+   \   000030   C3           CLR       C
+   \   000031   9400         SUBB      A,#0x0
+   \   000033   A2D2         MOV       C,0xD0 /* PSW */.2
+   \   000035   65D0         XRL       A,PSW
+   \   000037   33           RLC       A
+   \   000038   4043         JC        ??KeusTimerUtilAddTimer_4
+    105              timersInfo[currentAvailableTimer] = configObj;
+   \   00003A   EB           MOV       A,R3
+   \   00003B   33           RLC       A
+   \   00003C   95E0         SUBB      A,0xE0 /* A   */
+   \   00003E   F9           MOV       R1,A
+   \   00003F   EB           MOV       A,R3
+   \   000040   2B           ADD       A,R3
+   \   000041   F8           MOV       R0,A
+   \   000042   E9           MOV       A,R1
+   \   000043   33           RLC       A
+   \   000044   F9           MOV       R1,A
+   \   000045   74..         MOV       A,#timersInfo & 0xff
+   \   000047   28           ADD       A,R0
+   \   000048   F8           MOV       R0,A
+   \   000049   74..         MOV       A,#(timersInfo >> 8) & 0xff
+   \   00004B   39           ADDC      A,R1
+   \   00004C   F9           MOV       R1,A
+   \   00004D   8882         MOV       DPL,R0
+   \   00004F   F583         MOV       DPH,A
+   \   000051   EE           MOV       A,R6
+   \   000052   F0           MOVX      @DPTR,A
+   \   000053   A3           INC       DPTR
+   \   000054   EF           MOV       A,R7
+   \   000055   12....       LCALL     ?Subroutine2 & 0xFFFF
+    106              timersInfo[currentAvailableTimer]->active = true;
+   \                     ??CrossCallReturnLabel_0:
+   \   000058   7401         MOV       A,#0x1
+   \   00005A   12....       LCALL     ?Subroutine2 & 0xFFFF
+    107              timersInfo[currentAvailableTimer]->timerId = currentAvailableTimer;
+   \                     ??CrossCallReturnLabel_1:
+   \   00005D   A3           INC       DPTR
+   \   00005E   EB           MOV       A,R3
+   \   00005F   12....       LCALL     ?Subroutine5 & 0xFFFF
+    108              timersInfo[currentAvailableTimer]->currentTimerVal = 0;
+   \                     ??CrossCallReturnLabel_6:
+   \   000062   F8           MOV       R0,A
+   \   000063   A3           INC       DPTR
+   \   000064   E0           MOVX      A,@DPTR
+   \   000065   C8           XCH       A,R0
+   \   000066   2406         ADD       A,#0x6
+   \   000068   F582         MOV       DPL,A
+   \   00006A   E4           CLR       A
+   \   00006B   38           ADDC      A,R0
+   \   00006C   F583         MOV       DPH,A
+   \   00006E   E4           CLR       A
+   \   00006F   F0           MOVX      @DPTR,A
+   \   000070   A3           INC       DPTR
+   \   000071   F0           MOVX      @DPTR,A
+    109          
+    110              return true;
+   \   000072   7901         MOV       R1,#0x1
+   \   000074   8009         SJMP      ??KeusTimerUtilAddTimer_5
+    111            } else {
+   \                     ??KeusTimerUtilAddTimer_3:
+   \   000076   0A           INC       R2
+   \   000077   EA           MOV       A,R2
+   \   000078   C3           CLR       C
+   \   000079   940F         SUBB      A,#0xf
+   \   00007B   4097         JC        ??KeusTimerUtilAddTimer_1
+    112              return false;
+   \                     ??KeusTimerUtilAddTimer_4:
+   \   00007D   7900         MOV       R1,#0x0
+    113            }
+   \                     ??KeusTimerUtilAddTimer_5:
+   \   00007F   02....       LJMP      ?Subroutine1 & 0xFFFF
+    114          }
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine2:
+   \   000000   12....       LCALL     ?Subroutine5 & 0xFFFF
+   \                     ??CrossCallReturnLabel_7:
+   \   000003   FA           MOV       R2,A
+   \   000004   A3           INC       DPTR
+   \   000005   E0           MOVX      A,@DPTR
+   \   000006   F583         MOV       DPH,A
+   \   000008   8A82         MOV       DPL,R2
+   \   00000A   A3           INC       DPTR
+   \   00000B   A3           INC       DPTR
+   \   00000C   A3           INC       DPTR
+   \   00000D   A3           INC       DPTR
+   \   00000E   22           RET
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine5:
+   \   000000   F0           MOVX      @DPTR,A
+   \   000001                ; Setup parameters for indirect call
+   \   000001   8882         MOV       DPL,R0
+   \   000003   8983         MOV       DPH,R1
+   \   000005   E0           MOVX      A,@DPTR
+   \   000006   22           RET
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine3:
+   \   000000   25E0         ADD       A,0xE0 /* A   */
+   \   000002   F8           MOV       R0,A
+   \   000003   E4           CLR       A
+   \   000004   33           RLC       A
+   \   000005   F9           MOV       R1,A
+   \   000006   74..         MOV       A,#timersInfo & 0xff
+   \   000008   28           ADD       A,R0
+   \   000009   F582         MOV       DPL,A
+   \   00000B   74..         MOV       A,#(timersInfo >> 8) & 0xff
+   \   00000D   39           ADDC      A,R1
+   \   00000E   F583         MOV       DPH,A
+   \   000010   E0           MOVX      A,@DPTR
+   \   000011   22           RET
+    115          
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    116          bool KeusTimerUtilRemoveTimer(KeusTimerConfig *configObj) {
+   \                     KeusTimerUtilRemoveTimer:
+   \   000000   C082         PUSH      DPL
+   \   000002   C083         PUSH      DPH
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 0
+    117            int8 timerId = configObj->timerId;
+   \   000004   8A82         MOV       DPL,R2
+   \   000006   8B83         MOV       DPH,R3
+   \   000008   A3           INC       DPTR
+   \   000009   A3           INC       DPTR
+   \   00000A   A3           INC       DPTR
+   \   00000B   A3           INC       DPTR
+   \   00000C   A3           INC       DPTR
+   \   00000D   E0           MOVX      A,@DPTR
+   \   00000E   F9           MOV       R1,A
+    118            
+    119            if (timerId > -1 && timerId < MAX_TIMERS) {
+   \   00000F   C3           CLR       C
+   \   000010   940F         SUBB      A,#0xf
+   \   000012   5007         JNC       ??KeusTimerUtilRemoveTimer_0
+    120              KeusTimerUtilClearTimer(timerId);
+   \   000014                ; Setup parameters for call to function KeusTimerUtilClearTimer
+   \   000014   12....       LCALL     `??KeusTimerUtilClearTimer::?relay`; Banked call to: KeusTimerUtilClearTimer
+    121              return true;
+   \   000017   7901         MOV       R1,#0x1
+   \   000019   8002         SJMP      ??KeusTimerUtilRemoveTimer_1
+    122            } else {
+    123              return false;
+   \                     ??KeusTimerUtilRemoveTimer_0:
+   \   00001B   7900         MOV       R1,#0x0
+    124            }
+   \                     ??KeusTimerUtilRemoveTimer_1:
+   \   00001D                REQUIRE ?Subroutine0
+   \   00001D                ; // Fall through to label ?Subroutine0
+    125          }
+    126          
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    127          void KeusTimerUtilTicker() {
+   \                     KeusTimerUtilTicker:
+   \   000000                REQUIRE ?V0
+   \   000000                REQUIRE ?V1
+   \   000000   74F6         MOV       A,#-0xa
+   \   000002   12....       LCALL     ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 10
+   \   000005                ; Auto size: 0
+    128            for (uint8 i = 0; i < MAX_TIMERS; i++) {
+   \   000005   7E00         MOV       R6,#0x0
+    129              if (timersInfo[i] != NULL && timersInfo[i]->active && timersInfo[i]->timerId != -1) {
+   \                     ??KeusTimerUtilTicker_0:
+   \   000007   EE           MOV       A,R6
+   \   000008   12....       LCALL     ?Subroutine3 & 0xFFFF
+   \                     ??CrossCallReturnLabel_3:
+   \   00000B   FA           MOV       R2,A
+   \   00000C   A3           INC       DPTR
+   \   00000D   E0           MOVX      A,@DPTR
+   \   00000E   FB           MOV       R3,A
+   \   00000F   EA           MOV       A,R2
+   \   000010   4B           ORL       A,R3
+   \   000011   6063         JZ        ??KeusTimerUtilTicker_1
+   \   000013   8A82         MOV       DPL,R2
+   \   000015   8B83         MOV       DPH,R3
+   \   000017   A3           INC       DPTR
+   \   000018   A3           INC       DPTR
+   \   000019   A3           INC       DPTR
+   \   00001A   A3           INC       DPTR
+   \   00001B   E0           MOVX      A,@DPTR
+   \   00001C   6058         JZ        ??KeusTimerUtilTicker_1
+   \   00001E   EA           MOV       A,R2
+   \   00001F   2405         ADD       A,#0x5
+   \   000021   F8           MOV       R0,A
+   \   000022   E4           CLR       A
+   \   000023   3B           ADDC      A,R3
+   \   000024   F9           MOV       R1,A
+   \   000025   8882         MOV       DPL,R0
+   \   000027   F583         MOV       DPH,A
+   \   000029   E0           MOVX      A,@DPTR
+   \   00002A   F4           CPL       A
+   \   00002B   6049         JZ        ??KeusTimerUtilTicker_1
+    130                timersInfo[i]->currentTimerVal += TIMER_UNIT;
+   \   00002D   EA           MOV       A,R2
+   \   00002E   2406         ADD       A,#0x6
+   \   000030   FC           MOV       R4,A
+   \   000031   E4           CLR       A
+   \   000032   3B           ADDC      A,R3
+   \   000033   FD           MOV       R5,A
+   \   000034   8C82         MOV       DPL,R4
+   \   000036   F583         MOV       DPH,A
+   \   000038   E0           MOVX      A,@DPTR
+   \   000039   2419         ADD       A,#0x19
+   \   00003B   F0           MOVX      @DPTR,A
+   \   00003C   A3           INC       DPTR
+   \   00003D   E0           MOVX      A,@DPTR
+   \   00003E   3400         ADDC      A,#0x0
+   \   000040   F0           MOVX      @DPTR,A
+    131                
+    132                if (timersInfo[i]->currentTimerVal >= timersInfo[i]->timerInterval) {
+   \   000041   8A82         MOV       DPL,R2
+   \   000043   8B83         MOV       DPH,R3
+   \   000045   A3           INC       DPTR
+   \   000046   A3           INC       DPTR
+   \   000047   E0           MOVX      A,@DPTR
+   \   000048   F5..         MOV       ?V0,A
+   \   00004A   A3           INC       DPTR
+   \   00004B   E0           MOVX      A,@DPTR
+   \   00004C   F5..         MOV       ?V1,A
+   \   00004E   8D83         MOV       DPH,R5
+   \   000050   8C82         MOV       DPL,R4
+   \   000052   C3           CLR       C
+   \   000053   E0           MOVX      A,@DPTR
+   \   000054   95..         SUBB      A,?V0
+   \   000056   A3           INC       DPTR
+   \   000057   E0           MOVX      A,@DPTR
+   \   000058   95..         SUBB      A,?V1
+   \   00005A   401A         JC        ??KeusTimerUtilTicker_1
+    133                  timersInfo[i]->currentTimerVal = 0;
+   \   00005C   8C82         MOV       DPL,R4
+   \   00005E   8D83         MOV       DPH,R5
+   \   000060   E4           CLR       A
+   \   000061   F0           MOVX      @DPTR,A
+   \   000062   A3           INC       DPTR
+   \   000063   12....       LCALL     ?Subroutine5 & 0xFFFF
+    134                  timersInfo[i]->cbk(timersInfo[i]->timerId);
+    135                }
+    136              }
+    137            }
+   \                     ??CrossCallReturnLabel_8:
+   \   000066   F9           MOV       R1,A
+   \   000067   8A82         MOV       DPL,R2
+   \   000069   8B83         MOV       DPH,R3
+   \   00006B   E0           MOVX      A,@DPTR
+   \   00006C   F8           MOV       R0,A
+   \   00006D   A3           INC       DPTR
+   \   00006E   E0           MOVX      A,@DPTR
+   \   00006F   F583         MOV       DPH,A
+   \   000071   8882         MOV       DPL,R0
+   \   000073   12....       LCALL     ?CALL_IND
+   \                     ??KeusTimerUtilTicker_1:
+   \   000076   0E           INC       R6
+   \   000077   EE           MOV       A,R6
+   \   000078   C3           CLR       C
+   \   000079   940F         SUBB      A,#0xf
+   \   00007B   408A         JC        ??KeusTimerUtilTicker_0
+    138          }
+   \   00007D   7F02         MOV       R7,#0x2
+   \   00007F   02....       LJMP      ?BANKED_LEAVE_XDATA
+    139          
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    140          void KeusTimerUtilInterruptHandler() {
+   \                     KeusTimerUtilInterruptHandler:
+   \   000000   C082         PUSH      DPL
+   \   000002   C083         PUSH      DPH
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 0
+    141            if (T1STAT & T1STAT_CH0IF) {
+   \   000004   E5AF         MOV       A,0xaf
+   \   000006   A2E0         MOV       C,0xE0 /* A   */.0
+   \   000008   5006         JNC       ??KeusTimerUtilInterruptHandler_0
+    142              T1STAT &= ~(T1STAT_CH0IF);
+   \   00000A   53AFFE       ANL       0xaf,#0xfe
+    143              KeusTimerUtilTicker();
+   \   00000D                ; Setup parameters for call to function KeusTimerUtilTicker
+   \   00000D   12....       LCALL     `??KeusTimerUtilTicker::?relay`; Banked call to: KeusTimerUtilTicker
+    144            }
+    145          }
+   \                     ??KeusTimerUtilInterruptHandler_0:
+   \   000010   02....       LJMP      ?Subroutine0 & 0xFFFF
+   \   000013                REQUIRE T1STAT
+    146          
+
+   \                                 In  segment NEAR_CODE, align 1, keep-with-next
+    147          HAL_ISR_FUNCTION( halTimer1Isr, T1_VECTOR ) {
+   \                     halTimer1Isr:
+   \   000000   C0E0         PUSH      A
+   \   000002   74F2         MOV       A,#-0xe
+   \   000004   12....       LCALL     ?INTERRUPT_ENTER_XSP
+   \   000007                ; Saved register size: 14
+   \   000007                ; Auto size: 0
+    148            KeusTimerUtilInterruptHandler();
+   \   000007                ; Setup parameters for call to function KeusTimerUtilInterruptHandler
+   \   000007   12....       LCALL     `??KeusTimerUtilInterruptHandler::?relay`; Banked call to: KeusTimerUtilInterruptHandler
+    149          }
+   \   00000A   7F01         MOV       R7,#0x1
+   \   00000C   02....       LJMP      ?INTERRUPT_LEAVE_XSP
+
+   \                                 In  segment INTVEC, offset 0x4b, root
+   \                     `??halTimer1Isr::??INTVEC 75`:
+   \   00004B   02....       LJMP       (halTimer1Isr)
+
+   Maximum stack usage in bytes:
+
+   ISTACK XSTACK Function
+   ------ ------ --------
+      1      9   KeusTimerUtilAddTimer
+        0      9   -> KeusTimerUtilInit
+      2      9   KeusTimerUtilClearTimer
+      2      0   KeusTimerUtilGetNumActiveTimers
+      0     18   KeusTimerUtilInit
+        0      9   -> KeusTimerUtilClearTimer
+      2     14   KeusTimerUtilInterruptHandler
+        2      0   -> KeusTimerUtilTicker
+      2      0   KeusTimerUtilRemoveTimer
+        2      0   -> KeusTimerUtilClearTimer
+      0      0   KeusTimerUtilStartTimer
+      0      0   KeusTimerUtilStopTimer
+      2     10   KeusTimerUtilTicker
+      0     14   halTimer1Isr
+        0     14   -> KeusTimerUtilInterruptHandler
+
+
+   Segment part sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       7  ?Subroutine0
+       5  ?Subroutine1
+      15  ?Subroutine2
+      18  ?Subroutine3
+      15  ?Subroutine4
+       7  ?Subroutine5
+     130  KeusTimerUtilAddTimer
+      80  KeusTimerUtilClearTimer
+      46  KeusTimerUtilGetNumActiveTimers
+      67  KeusTimerUtilInit
+      19  KeusTimerUtilInterruptHandler
+      29  KeusTimerUtilRemoveTimer
+       6  KeusTimerUtilStartTimer
+       6  KeusTimerUtilStopTimer
+     130  KeusTimerUtilTicker
+       1  T1CC0H
+       1  T1CC0L
+       1  T1CCTL0
+       1  T1CCTL1
+       1  T1CCTL2
+       1  T1CTL
+       1  T1STAT
+       1  _A_IEN1
+      15  halTimer1Isr
+       3  halTimer1Isr::??INTVEC 75
+       1  initGaurd
+      30  timersInfo
+      54  -- Other
+
+ 
+ 580 bytes in segment BANKED_CODE
+  54 bytes in segment BANK_RELAYS
+   3 bytes in segment INTVEC
+  15 bytes in segment NEAR_CODE
+   8 bytes in segment SFR_AN
+  31 bytes in segment XDATA_Z
+ 
+  69 bytes of CODE     memory (+ 3 bytes shared)
+   0 bytes of DATA     memory (+ 8 bytes shared)
+ 580 bytes of HUGECODE memory
+  31 bytes of XDATA    memory
+
+Errors: none
+Warnings: none

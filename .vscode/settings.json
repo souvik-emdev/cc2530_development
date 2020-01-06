@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "keus_gpio_util.h": "c",
+        "hal_uart.h": "c",
+        "hal_board.h": "c",
+        "hal_board_cfg.h": "c"
+    }
+}
