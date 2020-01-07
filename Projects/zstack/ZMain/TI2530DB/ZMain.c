@@ -37,7 +37,7 @@
  * CUSTOM CODE
  */
 
-uint32 keusAppEvents;
+volatile uint32 keusAppEvents = 0;
 
 //Event bit masks
 #define KEUS_BUTTON1 0x1
@@ -45,17 +45,25 @@ uint32 keusAppEvents;
 #define KEUS_BUTTON3 0x4
 #define KEUS_BUTTON4 0x8
 #define KEUS_UART 0x10
+#define KEUS_APP_EVT1 0X20
+#define KEUS_APP_EVT2 0X40
+#define KEUS_APP_EVT3 0X80
+#define KEUS_APP_EVT4 0X100
 
+#define BUTTON1_ID 1
+#define BUTTON2_ID 2
+#define BUTTON3_ID 3
+#define BUTTON4_ID 4
 
-#define KEUS_UART_BUFFER 32
-extern uint8 g0_u8RecData[KEUS_UART_BUFFER];
 extern void keusButtonInit(void);
+extern void exitDebugMode(void);
 
 #define SCN_ARR_NVIC_LOCATION 0x10
 
-
 extern void parseUart(void);
 extern void initUart(void);
+extern void keusLEDInit(void);
+void buttonPressAction(uint8 buttonId);
 
 //void KEUS_delayms(uint16 ms);
 void KEUS_init(void);
@@ -71,7 +79,6 @@ void KEUS_loop(void); //the actual polling
 // uint8 writeStatus = 0;
 // uint8 readStatus = 0;
 
-
 // void KEUS_delayms(uint16 ms)
 // {
 //   for (uint16 i = 0; i < ms; i++)
@@ -84,6 +91,7 @@ void KEUS_init()
 {
   initUart();
   keusButtonInit();
+  keusLEDInit();
 
   KeusTimerUtilInit();
   KeusTimerUtilStartTimer();
@@ -150,10 +158,48 @@ void KEUS_loop()
       parseUart();
       keusAppEvents ^= KEUS_UART;
     }
-
+    else if (keusAppEvents & KEUS_BUTTON1)
+    {
+      buttonPressAction(BUTTON1_ID);
+      keusAppEvents ^= KEUS_BUTTON1;
+    }
+    else if (keusAppEvents & KEUS_BUTTON2)
+    {
+      buttonPressAction(BUTTON2_ID);
+      keusAppEvents ^= KEUS_BUTTON2;
+    }
+    else if (keusAppEvents & KEUS_BUTTON3)
+    {
+      buttonPressAction(BUTTON3_ID);
+      keusAppEvents ^= KEUS_BUTTON3;
+    }
+    else if (keusAppEvents & KEUS_BUTTON4)
+    {
+      buttonPressAction(BUTTON4_ID);
+      keusAppEvents ^= KEUS_BUTTON4;
+    }
+    else if (keusAppEvents & KEUS_APP_EVT1)
+    {
+      //action here
+      keusAppEvents ^= KEUS_APP_EVT1;
+    }
+    else if (keusAppEvents & KEUS_APP_EVT2)
+    {
+      //action here
+      keusAppEvents ^= KEUS_APP_EVT2;
+    }
+    else if (keusAppEvents & KEUS_APP_EVT3)
+    {
+      //action here
+      keusAppEvents ^= KEUS_APP_EVT3;
+    }
+    else if (keusAppEvents & KEUS_APP_EVT4)
+    {
+      exitDebugMode();
+      keusAppEvents ^= KEUS_APP_EVT4;
+    }
   }
 }
-
 
 /*********************************************************************
  * LOCAL FUNCTIONS
@@ -239,8 +285,6 @@ int main(void)
 
   return 0; // Shouldn't get here.
 } // main()
-
-
 
 /*********************************************************************
  * @fn      zmain_vdd_check

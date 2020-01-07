@@ -12,8 +12,6 @@
 #define KEUS_BUTTON4 0x8
 
 //GPIO Info
-KeusGPIOPin ledPin = {0, 0, GPIO_OUTPUT, false, LED_OFF};
-KeusGPIOPin ledPin2 = {0, 1, GPIO_OUTPUT, false, LED_OFF};
 KeusGPIOPin buttonPin = {1, 2, GPIO_INPUT, true, LED_ON};
 KeusGPIOPin buttonPin2 = {1, 3, GPIO_INPUT, true, LED_ON};
 KeusGPIOPin buttonPin3 = {1, 4, GPIO_INPUT, true, LED_ON};
@@ -21,10 +19,8 @@ KeusGPIOPin buttonPin4 = {1, 5, GPIO_INPUT, true, LED_ON};
 
 volatile bool debounce_read = true; //only read switchPress if this set
 
-
-
 void keusButtonInit(void);
-extern uint32 keusAppEvents;
+extern volatile uint32 keusAppEvents;
 void debounceTimerCbk(uint8 timerId);
 
 KeusTimerConfig debounceTimer = {

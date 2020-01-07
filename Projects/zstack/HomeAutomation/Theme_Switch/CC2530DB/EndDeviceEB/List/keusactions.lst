@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR C/C++ Compiler V10.30.1.6000 for 8051               06/Jan/2020  18:45:33
+# IAR C/C++ Compiler V10.30.1.6000 for 8051               07/Jan/2020  15:19:21
 # Copyright 2004-2018 IAR Systems AB.
 # PC-locked license - IAR Embedded Workbench for 8051
 #
@@ -15,7 +15,7 @@
 #        D:\VB_Shared\Zigbee Resources\CC2530
 #        Development\Projects\zstack\ZMain\TI2530DB\Theme_switch\keusactions.c
 #    Command line       =  
-#        -f C:\Users\Souvik\AppData\Local\Temp\EWBB39.tmp ("D:\VB_Shared\Zigbee
+#        -f C:\Users\Souvik\AppData\Local\Temp\EW535E.tmp ("D:\VB_Shared\Zigbee
 #        Resources\CC2530
 #        Development\Projects\zstack\ZMain\TI2530DB\Theme_switch\keusactions.c"
 #        -D SECURE=1 -D TC_LINKKEY_JOIN -D NV_INIT -D NV_RESTORE -D
@@ -130,7 +130,9 @@ D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack\ZMain\TI2530DB\
       9          #include "OSAL_Nv.h"
      10          #include "ZComDef.h"
      11          #include "ZMAC.h"
-     12          #include "keusactions.h"
+     12          #include "keus_gpio_util.h"
+     13          #include "keus_timer_util.h"
+     14          #include "keusactions.h"
 
    \                                 In  segment XDATA_Z, align 1, keep-with-next
    \   uint8 commandId
@@ -144,33 +146,290 @@ D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack\ZMain\TI2530DB\
    \   000000                DS 12
    \   00000C                REQUIRE __INIT_XDATA_Z
 
-   \                                 In  segment XDATA_Z, align 1, keep-with-next
+   \                                 In  segment XDATA_I, align 1, keep-with-next
+   \   KeusGPIOPin ledPin
+   \                     ledPin:
+   \   000000                DS 5
+   \   000005                REQUIRE `?<Initializer for ledPin>`
+   \   000005                REQUIRE __INIT_XDATA_I
+
+   \                                 In  segment XDATA_I, align 1, keep-with-next
+   \   KeusGPIOPin ledPin2
+   \                     ledPin2:
+   \   000000                DS 5
+   \   000005                REQUIRE `?<Initializer for ledPin2>`
+   \   000005                REQUIRE __INIT_XDATA_I
+
+   \                                 In  segment XDATA_I, align 1, keep-with-next
    \   uint8 scene_arr[4]
    \                     scene_arr:
    \   000000                DS 4
-   \   000004                REQUIRE __INIT_XDATA_Z
-     13          
+   \   000004                REQUIRE `?<Initializer for scene_arr>`
+   \   000004                REQUIRE __INIT_XDATA_I
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
+   \   bool debugModeActive
+   \                     debugModeActive:
+   \   000000                DS 1
+   \   000001                REQUIRE __INIT_XDATA_Z
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
+   \   uint8 debugSequence
+   \                     debugSequence:
+   \   000000                DS 1
+   \   000001                REQUIRE __INIT_XDATA_Z
+
+   \                                 In  segment XDATA_I, align 1, keep-with-next
+   \   KeusTimerConfig ledBlinker
+   \                     ledBlinker:
+   \   000000                DS 8
+   \   000008                REQUIRE `?<Initializer for ledBlinker>`
+   \   000008                REQUIRE __INIT_XDATA_I
+
+   \                                 In  segment XDATA_I, align 1, keep-with-next
+   \   KeusTimerConfig debugSequenceTimer
+   \                     debugSequenceTimer:
+   \   000000                DS 8
+   \   000008                REQUIRE `?<Initializer for debugSequenceTimer>`
+   \   000008                REQUIRE __INIT_XDATA_I
+     15          
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-     14          void parseUart(void)
-   \                     parseUart:
-     15          {
+     16          void debugSequenceTimerCbk(uint8 timerId)
+   \                     debugSequenceTimerCbk:
+     17          {
    \   000000   C082         PUSH      DPL
    \   000002   C083         PUSH      DPH
    \   000004                ; Saved register size: 2
    \   000004                ; Auto size: 0
-     16              int i = 0;
+     18              debugSequence = 0;
+   \   000004   90....       MOV       DPTR,#debugSequence
+   \   000007   E4           CLR       A
+   \   000008   F0           MOVX      @DPTR,A
+     19              KeusTimerUtilRemoveTimer(&debugSequenceTimer);
+   \   000009                ; Setup parameters for call to function KeusTimerUtilRemoveTimer
+   \   000009   7A..         MOV       R2,#debugSequenceTimer & 0xff
+   \   00000B   7B..         MOV       R3,#(debugSequenceTimer >> 8) & 0xff
+   \   00000D                REQUIRE ?Subroutine1
+   \   00000D                ; // Fall through to label ?Subroutine1
+     20          }
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine1:
+   \   000000   12....       LCALL     `??KeusTimerUtilRemoveTimer::?relay`; Banked call to: KeusTimerUtilRemoveTimer
+   \   000003   80..         SJMP      ??Subroutine5_0
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ??Subroutine5_0:
+   \   000000   D083         POP       DPH
+   \   000002   D082         POP       DPL
+   \   000004   02....       LJMP      ?BRET
+     21          
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     22          void enterDebugMode(void)
+   \                     enterDebugMode:
+     23          {
+   \   000000   C082         PUSH      DPL
+   \   000002   C083         PUSH      DPH
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 0
+     24              debugModeActive = 1;
+   \   000004   90....       MOV       DPTR,#debugModeActive
+   \   000007   7401         MOV       A,#0x1
+   \   000009   F0           MOVX      @DPTR,A
+     25              ledPin.state = LED_ON;
+   \   00000A   90....       MOV       DPTR,#ledPin + 4
+   \   00000D   E4           CLR       A
+   \   00000E   F0           MOVX      @DPTR,A
+     26              KeusGPIOSetPinValue(&ledPin);
+   \   00000F                ; Setup parameters for call to function KeusGPIOSetPinValue
+   \   00000F   7A..         MOV       R2,#ledPin & 0xff
+   \   000011   7B..         MOV       R3,#(ledPin >> 8) & 0xff
+   \   000013   80..         SJMP      ??Subroutine4_0
+     27          }
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ??Subroutine4_0:
+   \   000000   12....       LCALL     `??KeusGPIOSetPinValue::?relay`; Banked call to: KeusGPIOSetPinValue
+   \   000003                REQUIRE ??Subroutine5_0
+   \   000003                ; // Fall through to label ??Subroutine5_0
+     28          
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     29          void exitDebugMode(void)
+   \                     exitDebugMode:
+     30          {
+   \   000000   C082         PUSH      DPL
+   \   000002   C083         PUSH      DPH
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 0
+     31              debugModeActive = 0;
+   \   000004   90....       MOV       DPTR,#debugModeActive
+   \   000007   E4           CLR       A
+   \   000008   F0           MOVX      @DPTR,A
+     32              ledPin.state = LED_OFF;
+   \   000009   90....       MOV       DPTR,#ledPin + 4
+   \   00000C   04           INC       A
+   \   00000D   F0           MOVX      @DPTR,A
+     33              ledPin2.state = LED_OFF;
+   \   00000E   90....       MOV       DPTR,#ledPin2 + 4
+   \   000011   F0           MOVX      @DPTR,A
+     34              KeusGPIOSetPinValue(&ledPin);
+   \   000012                ; Setup parameters for call to function KeusGPIOSetPinValue
+   \   000012   80..         SJMP      ?Subroutine0
+     35              KeusGPIOSetPinValue(&ledPin2);
+     36          }
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine0:
+   \   000000   7A..         MOV       R2,#ledPin & 0xff
+   \   000002   7B..         MOV       R3,#(ledPin >> 8) & 0xff
+   \   000004   12....       LCALL     `??KeusGPIOSetPinValue::?relay`; Banked call to: KeusGPIOSetPinValue
+   \   000007                ; Setup parameters for call to function KeusGPIOSetPinValue
+   \   000007                ; Setup parameters for call to function KeusGPIOSetPinValue
+   \   000007   7A..         MOV       R2,#ledPin2 & 0xff
+   \   000009   7B..         MOV       R3,#(ledPin2 >> 8) & 0xff
+   \   00000B                REQUIRE ??Subroutine4_0
+   \   00000B                ; // Fall through to label ??Subroutine4_0
+     37          
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     38          void blinkerTimerCbk(uint8 timerId)
+   \                     blinkerTimerCbk:
+     39          {
+   \   000000   C082         PUSH      DPL
+   \   000002   C083         PUSH      DPH
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 0
+     40              if (!debugModeActive)
+   \   000004   90....       MOV       DPTR,#debugModeActive
+   \   000007   E0           MOVX      A,@DPTR
+   \   000008   700C         JNZ       ??blinkerTimerCbk_0
+     41              {
+     42                  ledPin.state = LED_OFF;
+   \   00000A   90....       MOV       DPTR,#ledPin + 4
+   \   00000D   7401         MOV       A,#0x1
+   \   00000F   F0           MOVX      @DPTR,A
+     43                  KeusGPIOSetPinValue(&ledPin);
+   \   000010                ; Setup parameters for call to function KeusGPIOSetPinValue
+   \   000010   7A..         MOV       R2,#ledPin & 0xff
+   \   000012   7B..         MOV       R3,#(ledPin >> 8) & 0xff
+   \   000014   800A         SJMP      ??blinkerTimerCbk_1
+     44              }
+     45              else
+     46              {
+     47                  ledPin2.state = LED_OFF;
+   \                     ??blinkerTimerCbk_0:
+   \   000016   90....       MOV       DPTR,#ledPin2 + 4
+   \   000019   7401         MOV       A,#0x1
+   \   00001B   F0           MOVX      @DPTR,A
+     48                  KeusGPIOSetPinValue(&ledPin2);
+   \   00001C                ; Setup parameters for call to function KeusGPIOSetPinValue
+   \   00001C   7A..         MOV       R2,#ledPin2 & 0xff
+   \   00001E   7B..         MOV       R3,#(ledPin2 >> 8) & 0xff
+   \                     ??blinkerTimerCbk_1:
+   \   000020   12....       LCALL     `??KeusGPIOSetPinValue::?relay`; Banked call to: KeusGPIOSetPinValue
+     49              }
+     50              KeusTimerUtilRemoveTimer(&ledBlinker);
+   \   000023                ; Setup parameters for call to function KeusTimerUtilRemoveTimer
+   \   000023   7A..         MOV       R2,#ledBlinker & 0xff
+   \   000025   7B..         MOV       R3,#(ledBlinker >> 8) & 0xff
+   \   000027   80..         SJMP      ?Subroutine1
+     51          }
+     52          
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     53          void blinkLED(void)
+   \                     blinkLED:
+     54          {
+   \   000000   C082         PUSH      DPL
+   \   000002   C083         PUSH      DPH
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 0
+     55              if (!debugModeActive)
+   \   000004   90....       MOV       DPTR,#debugModeActive
+   \   000007   E0           MOVX      A,@DPTR
+   \   000008   700B         JNZ       ??blinkLED_0
+     56              {
+     57                  ledPin.state = LED_ON;
+   \   00000A   90....       MOV       DPTR,#ledPin + 4
+   \   00000D   E4           CLR       A
+   \   00000E   F0           MOVX      @DPTR,A
+     58                  KeusGPIOSetPinValue(&ledPin);
+   \   00000F                ; Setup parameters for call to function KeusGPIOSetPinValue
+   \   00000F   7A..         MOV       R2,#ledPin & 0xff
+   \   000011   7B..         MOV       R3,#(ledPin >> 8) & 0xff
+   \   000013   8009         SJMP      ??blinkLED_1
+     59              }
+     60              else
+     61              {
+     62                  ledPin2.state = LED_ON;
+   \                     ??blinkLED_0:
+   \   000015   90....       MOV       DPTR,#ledPin2 + 4
+   \   000018   E4           CLR       A
+   \   000019   F0           MOVX      @DPTR,A
+     63                  KeusGPIOSetPinValue(&ledPin2);
+   \   00001A                ; Setup parameters for call to function KeusGPIOSetPinValue
+   \   00001A   7A..         MOV       R2,#ledPin2 & 0xff
+   \   00001C   7B..         MOV       R3,#(ledPin2 >> 8) & 0xff
+   \                     ??blinkLED_1:
+   \   00001E   12....       LCALL     `??KeusGPIOSetPinValue::?relay`; Banked call to: KeusGPIOSetPinValue
+     64              }
+     65              KeusTimerUtilAddTimer(&ledBlinker);
+   \   000021                ; Setup parameters for call to function KeusTimerUtilAddTimer
+   \   000021   7A..         MOV       R2,#ledBlinker & 0xff
+   \   000023   7B..         MOV       R3,#(ledBlinker >> 8) & 0xff
+   \   000025   12....       LCALL     `??KeusTimerUtilAddTimer::?relay`; Banked call to: KeusTimerUtilAddTimer
+     66          }
+   \   000028   80..         SJMP      ??Subroutine5_0
+     67          
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     68          void keusLEDInit(void)
+   \                     keusLEDInit:
+     69          {
+   \   000000   C082         PUSH      DPL
+   \   000002   C083         PUSH      DPH
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 0
+     70              KeusGPIOSetDirection(&ledPin);
+   \   000004                ; Setup parameters for call to function KeusGPIOSetDirection
+   \   000004   7A..         MOV       R2,#ledPin & 0xff
+   \   000006   7B..         MOV       R3,#(ledPin >> 8) & 0xff
+   \   000008   12....       LCALL     `??KeusGPIOSetDirection::?relay`; Banked call to: KeusGPIOSetDirection
+     71              KeusGPIOSetDirection(&ledPin2);
+   \   00000B                ; Setup parameters for call to function KeusGPIOSetDirection
+   \   00000B   7A..         MOV       R2,#ledPin2 & 0xff
+   \   00000D   7B..         MOV       R3,#(ledPin2 >> 8) & 0xff
+   \   00000F   12....       LCALL     `??KeusGPIOSetDirection::?relay`; Banked call to: KeusGPIOSetDirection
+     72              KeusGPIOSetPinValue(&ledPin);
+   \   000012                ; Setup parameters for call to function KeusGPIOSetPinValue
+   \   000012   80..         SJMP      ?Subroutine0
+     73              KeusGPIOSetPinValue(&ledPin2);
+     74          }
+     75          
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     76          void parseUart(void)
+   \                     parseUart:
+     77          {
+   \   000000   C082         PUSH      DPL
+   \   000002   C083         PUSH      DPH
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 0
+     78              int i = 0;
    \   000004   7800         MOV       R0,#0x0
    \   000006   7900         MOV       R1,#0x0
-     17              commandId = g0_u8RecData[0];
+     79              commandId = g0_u8RecData[0];
    \   000008   90....       MOV       DPTR,#g0_u8RecData
    \   00000B   E0           MOVX      A,@DPTR
    \   00000C   90....       MOV       DPTR,#commandId
    \   00000F   F0           MOVX      @DPTR,A
-     18          
-     19              for (i = 0; i < MAX_UART_DATA_BUFFER; i++)
-     20              {
-     21                  uartDataBuffer[i] = g0_u8RecData[i + 1];
+     80          
+     81              for (i = 0; i < MAX_UART_DATA_BUFFER; i++)
+     82              {
+     83                  uartDataBuffer[i] = g0_u8RecData[i + 1];
    \                     ??parseUart_0:
    \   000010   74..         MOV       A,#(g0_u8RecData + 1) & 0xff
    \   000012   28           ADD       A,R0
@@ -188,7 +447,7 @@ D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack\ZMain\TI2530DB\
    \   000025   F583         MOV       DPH,A
    \   000027   D0E0         POP       A
    \   000029   F0           MOVX      @DPTR,A
-     22              }
+     84              }
    \   00002A   08           INC       R0
    \   00002B   E8           MOV       A,R0
    \   00002C   7001         JNZ       ??parseUart_1
@@ -202,181 +461,546 @@ D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack\ZMain\TI2530DB\
    \   000037   65D0         XRL       A,PSW
    \   000039   33           RLC       A
    \   00003A   40D4         JC        ??parseUart_0
-     23          
-     24              taskHandler();
-   \   00003C   90....       MOV       DPTR,#commandId
-   \   00003F   E0           MOVX      A,@DPTR
-   \   000040   6401         XRL       A,#0x1
-   \   000042   7003         JNZ       ??parseUart_2
-   \   000044                ; Setup parameters for call to function mapSwitch
-   \   000044   12....       LCALL     `??mapSwitch::?relay`; Banked call to: mapSwitch
-     25          }
-   \                     ??parseUart_2:
-   \   000047                REQUIRE ?Subroutine0
-   \   000047                ; // Fall through to label ?Subroutine0
+     85          
+     86              taskHandler();
+   \   00003C                ; Setup parameters for call to function taskHandler
+   \   00003C   12....       LCALL     `??taskHandler::?relay`; Banked call to: taskHandler
+     87          }
+   \   00003F   02....       LJMP      ??Subroutine5_0 & 0xFFFF
+     88          
+     89          //Calls the required function as needed by UART received message
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine0:
-   \   000000   D083         POP       DPH
-   \   000002   D082         POP       DPL
-   \   000004   02....       LJMP      ?BRET
-     26          
-     27          //Calls the required function as needed by UART received message
-
-   \                                 In  segment BANKED_CODE, align 1, keep-with-next
-     28          void taskHandler(void)
+     90          void taskHandler(void)
    \                     taskHandler:
-     29          {
+     91          {
    \   000000   C082         PUSH      DPL
    \   000002   C083         PUSH      DPH
    \   000004                ; Saved register size: 2
    \   000004                ; Auto size: 0
-     30              switch (commandId)
+     92              switch (commandId)
    \   000004   90....       MOV       DPTR,#commandId
    \   000007   E0           MOVX      A,@DPTR
-   \   000008   6401         XRL       A,#0x1
-   \   00000A   7003         JNZ       ??taskHandler_0
-     31              {
-     32              case TASK_MAP_SWITCH:
-     33                  mapSwitch();
-   \   00000C                ; Setup parameters for call to function mapSwitch
-   \   00000C   12....       LCALL     `??mapSwitch::?relay`; Banked call to: mapSwitch
-     34                  break;
-     35          
-     36              default:
-     37                  break;
-     38              }
-     39          }
+   \   000008   14           DEC       A
+   \   000009   6008         JZ        ??taskHandler_0
+   \   00000B   14           DEC       A
+   \   00000C   600A         JZ        ??taskHandler_1
+   \   00000E   14           DEC       A
+   \   00000F   600C         JZ        ??taskHandler_2
+   \   000011   800D         SJMP      ??taskHandler_3
+     93              {
+     94              case TASK_MAP_SWITCH:
+     95                  mapSwitch();
    \                     ??taskHandler_0:
-   \   00000F   80..         SJMP      ?Subroutine0
-     40          
+   \   000013                ; Setup parameters for call to function mapSwitch
+   \   000013   12....       LCALL     `??mapSwitch::?relay`; Banked call to: mapSwitch
+     96                  break;
+   \   000016   8008         SJMP      ??taskHandler_3
+     97              case TASK_ENTER_DEBUG:
+     98                  enterDebugMode();
+   \                     ??taskHandler_1:
+   \   000018                ; Setup parameters for call to function enterDebugMode
+   \   000018   12....       LCALL     `??enterDebugMode::?relay`; Banked call to: enterDebugMode
+     99                  break;
+   \   00001B   8003         SJMP      ??taskHandler_3
+    100              case TASK_EXIT_DEBUG:
+    101                  exitDebugMode();
+   \                     ??taskHandler_2:
+   \   00001D                ; Setup parameters for call to function exitDebugMode
+   \   00001D   12....       LCALL     `??exitDebugMode::?relay`; Banked call to: exitDebugMode
+    102                  break;
+    103          
+    104              default:
+    105                  break;
+    106              }
+    107          }
+   \                     ??taskHandler_3:
+   \   000020   02....       LJMP      ??Subroutine5_0 & 0xFFFF
+    108          
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-     41          void mapSwitch(void)
+    109          void mapSwitch(void)
    \                     mapSwitch:
-     42          {
+    110          {
    \   000000                REQUIRE ?V0
    \   000000   74F7         MOV       A,#-0x9
    \   000002   12....       LCALL     ?BANKED_ENTER_XDATA
    \   000005                ; Saved register size: 9
-   \   000005                ; Auto size: 0
-     43              //Example msg: 28 06 01 | 02 01 54 02 64 | 29
-     44              int noOfSwitch = uartDataBuffer[0];
-   \   000005   90....       MOV       DPTR,#uartDataBuffer
-   \   000008   E0           MOVX      A,@DPTR
-   \   000009   FE           MOV       R6,A
-     45              uint8 position = 0, switchId, sceneID;
-   \   00000A   7A00         MOV       R2,#0x0
-     46          
-     47              for (int i = 0; i < noOfSwitch; i++)
-   \   00000C   7C00         MOV       R4,#0x0
-   \   00000E   7D00         MOV       R5,#0x0
-   \   000010   800A         SJMP      ??mapSwitch_0
-     48              {
-     49                  switchId = uartDataBuffer[position + 1];
-     50                  sceneID = uartDataBuffer[position + 2];
-     51                  position += 2;
-     52                  switch (switchId)
-     53                  {
-     54                  case BUTTON1_ID:
-     55                      scene_arr[0] = sceneID;
-     56                      break;
-     57                  case BUTTON2_ID:
-     58                      scene_arr[1] = sceneID;
-     59                      break;
-     60                  case BUTTON3_ID:
-     61                      scene_arr[2] = sceneID;
-     62                      break;
-     63                  case BUTTON4_ID:
-     64                      scene_arr[3] = sceneID;
+   \   000005                ; Auto size: 1
+   \   000005   74FF         MOV       A,#-0x1
+   \   000007   12....       LCALL     ?ALLOC_XSTACK8
+    111              //Example msg: 28 06 01 | 02 01 54 02 64 | 29
+    112              int noOfSwitch = uartDataBuffer[0];
+   \   00000A   90....       MOV       DPTR,#uartDataBuffer
+   \   00000D   E0           MOVX      A,@DPTR
+   \   00000E   FE           MOV       R6,A
+    113              uint8 position = 0, switchId, sceneID;
+   \   00000F   7A00         MOV       R2,#0x0
+    114          
+    115              for (int i = 0; i < noOfSwitch; i++)
+   \   000011   7C00         MOV       R4,#0x0
+   \   000013   7D00         MOV       R5,#0x0
+   \   000015   800A         SJMP      ??mapSwitch_0
+    116              {
+    117                  switchId = uartDataBuffer[position + 1];
+    118                  sceneID = uartDataBuffer[position + 2];
+    119                  position += 2;
+    120                  switch (switchId)
+    121                  {
+    122                  case BUTTON1_ID:
+    123                      scene_arr[0] = sceneID;
+    124                      break;
+    125                  case BUTTON2_ID:
+    126                      scene_arr[1] = sceneID;
+    127                      break;
+    128                  case BUTTON3_ID:
+    129                      scene_arr[2] = sceneID;
+    130                      break;
+    131                  case BUTTON4_ID:
+    132                      scene_arr[3] = sceneID;
    \                     ??mapSwitch_1:
-   \   000012   E8           MOV       A,R0
-   \   000013   90....       MOV       DPTR,#scene_arr + 3
+   \   000017   E8           MOV       A,R0
+   \   000018   90....       MOV       DPTR,#scene_arr + 3
    \                     ??mapSwitch_2:
-   \   000016   F0           MOVX      @DPTR,A
-     65                      break;
+   \   00001B   F0           MOVX      @DPTR,A
+    133                      break;
    \                     ??mapSwitch_3:
-   \   000017   0C           INC       R4
-   \   000018   EC           MOV       A,R4
-   \   000019   7001         JNZ       ??mapSwitch_0
-   \   00001B   0D           INC       R5
-   \                     ??mapSwitch_0:
-   \   00001C   C3           CLR       C
+   \   00001C   0C           INC       R4
    \   00001D   EC           MOV       A,R4
-   \   00001E   9E           SUBB      A,R6
-   \   00001F   ED           MOV       A,R5
-   \   000020   9400         SUBB      A,#0x0
-   \   000022   A2D2         MOV       C,0xD0 /* PSW */.2
-   \   000024   65D0         XRL       A,PSW
-   \   000026   33           RLC       A
-   \   000027   503C         JNC       ??mapSwitch_4
-   \   000029   EA           MOV       A,R2
-   \   00002A   F8           MOV       R0,A
-   \   00002B   74..         MOV       A,#uartDataBuffer & 0xff
-   \   00002D   28           ADD       A,R0
-   \   00002E   F8           MOV       R0,A
-   \   00002F   E4           CLR       A
-   \   000030   34..         ADDC      A,#(uartDataBuffer >> 8) & 0xff
-   \   000032   F9           MOV       R1,A
-   \   000033   8882         MOV       DPL,R0
-   \   000035   F583         MOV       DPH,A
-   \   000037   A3           INC       DPTR
-   \   000038   E0           MOVX      A,@DPTR
-   \   000039   FB           MOV       R3,A
-   \   00003A   8882         MOV       DPL,R0
-   \   00003C   8983         MOV       DPH,R1
-   \   00003E   A3           INC       DPTR
-   \   00003F   A3           INC       DPTR
-   \   000040   E0           MOVX      A,@DPTR
-   \   000041   F8           MOV       R0,A
-   \   000042   0A           INC       R2
-   \   000043   0A           INC       R2
-   \   000044   EB           MOV       A,R3
-   \   000045   14           DEC       A
-   \   000046   600B         JZ        ??mapSwitch_5
-   \   000048   14           DEC       A
-   \   000049   600E         JZ        ??mapSwitch_6
-   \   00004B   14           DEC       A
-   \   00004C   6011         JZ        ??mapSwitch_7
-   \   00004E   14           DEC       A
-   \   00004F   60C1         JZ        ??mapSwitch_1
-   \   000051   80C4         SJMP      ??mapSwitch_3
+   \   00001E   7001         JNZ       ??mapSwitch_0
+   \   000020   0D           INC       R5
+   \                     ??mapSwitch_0:
+   \   000021   C3           CLR       C
+   \   000022   EC           MOV       A,R4
+   \   000023   9E           SUBB      A,R6
+   \   000024   ED           MOV       A,R5
+   \   000025   9400         SUBB      A,#0x0
+   \   000027   A2D2         MOV       C,0xD0 /* PSW */.2
+   \   000029   65D0         XRL       A,PSW
+   \   00002B   33           RLC       A
+   \   00002C   503C         JNC       ??mapSwitch_4
+   \   00002E   EA           MOV       A,R2
+   \   00002F   F8           MOV       R0,A
+   \   000030   74..         MOV       A,#uartDataBuffer & 0xff
+   \   000032   28           ADD       A,R0
+   \   000033   F8           MOV       R0,A
+   \   000034   E4           CLR       A
+   \   000035   34..         ADDC      A,#(uartDataBuffer >> 8) & 0xff
+   \   000037   F9           MOV       R1,A
+   \   000038   8882         MOV       DPL,R0
+   \   00003A   F583         MOV       DPH,A
+   \   00003C   A3           INC       DPTR
+   \   00003D   E0           MOVX      A,@DPTR
+   \   00003E   FB           MOV       R3,A
+   \   00003F   8882         MOV       DPL,R0
+   \   000041   8983         MOV       DPH,R1
+   \   000043   A3           INC       DPTR
+   \   000044   A3           INC       DPTR
+   \   000045   E0           MOVX      A,@DPTR
+   \   000046   F8           MOV       R0,A
+   \   000047   0A           INC       R2
+   \   000048   0A           INC       R2
+   \   000049   EB           MOV       A,R3
+   \   00004A   14           DEC       A
+   \   00004B   600B         JZ        ??mapSwitch_5
+   \   00004D   14           DEC       A
+   \   00004E   600E         JZ        ??mapSwitch_6
+   \   000050   14           DEC       A
+   \   000051   6011         JZ        ??mapSwitch_7
+   \   000053   14           DEC       A
+   \   000054   60C1         JZ        ??mapSwitch_1
+   \   000056   80C4         SJMP      ??mapSwitch_3
    \                     ??mapSwitch_5:
-   \   000053   E8           MOV       A,R0
-   \   000054   90....       MOV       DPTR,#scene_arr
-   \   000057   80BD         SJMP      ??mapSwitch_2
+   \   000058   E8           MOV       A,R0
+   \   000059   90....       MOV       DPTR,#scene_arr
+   \   00005C   80BD         SJMP      ??mapSwitch_2
    \                     ??mapSwitch_6:
-   \   000059   E8           MOV       A,R0
-   \   00005A   90....       MOV       DPTR,#scene_arr + 1
-   \   00005D   80B7         SJMP      ??mapSwitch_2
+   \   00005E   E8           MOV       A,R0
+   \   00005F   90....       MOV       DPTR,#scene_arr + 1
+   \   000062   80B7         SJMP      ??mapSwitch_2
    \                     ??mapSwitch_7:
-   \   00005F   E8           MOV       A,R0
-   \   000060   90....       MOV       DPTR,#scene_arr + 2
-   \   000063   80B1         SJMP      ??mapSwitch_2
-     66          
-     67                  default:
-     68                      break;
-     69                  }
-     70              }
-     71          
-     72              KeusUartAckMsg(KEUS_UART_MSG_ACK);
+   \   000064   E8           MOV       A,R0
+   \   000065   90....       MOV       DPTR,#scene_arr + 2
+   \   000068   80B1         SJMP      ??mapSwitch_2
+    134          
+    135                  default:
+    136                      break;
+    137                  }
+    138              }
+    139              uint8 sendReply[1] = {KEUS_UART_MSG_ACK};
    \                     ??mapSwitch_4:
-   \   000065                ; Setup parameters for call to function KeusUartAckMsg
-   \   000065   7905         MOV       R1,#0x5
-   \   000067   12....       LCALL     `??KeusUartAckMsg::?relay`; Banked call to: KeusUartAckMsg
-     73          }
-   \   00006A   7F01         MOV       R7,#0x1
-   \   00006C   02....       LJMP      ?BANKED_LEAVE_XDATA
+   \   00006A   90....       MOV       DPTR,#`?<Constant {5}>`
+   \   00006D   AC..         MOV       R4,?XSP + 0
+   \   00006F   AD..         MOV       R5,?XSP + 1
+   \   000071   7401         MOV       A,#0x1
+   \   000073   12....       LCALL     ?MOVE_LONG8_XDATA_XDATA
+    140              UART_tx(sendReply, 1);
+   \   000076                ; Setup parameters for call to function UART_tx
+   \   000076   7901         MOV       R1,#0x1
+   \   000078   AA..         MOV       R2,?XSP + 0
+   \   00007A   AB..         MOV       R3,?XSP + 1
+   \   00007C   12....       LCALL     `??UART_tx::?relay`; Banked call to: UART_tx
+    141              //KeusUartAckMsg(KEUS_UART_MSG_ACK);
+    142          }
+   \   00007F   7401         MOV       A,#0x1
+   \   000081   12....       LCALL     ?DEALLOC_XSTACK8
+   \   000084   7F01         MOV       R7,#0x1
+   \   000086   02....       LJMP      ?BANKED_LEAVE_XDATA
+    143          
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    144          void buttonPressAction(uint8 buttonId)
+   \                     buttonPressAction:
+    145          {
+   \   000000                REQUIRE ?V0
+   \   000000                REQUIRE ?V1
+   \   000000                REQUIRE ?V2
+   \   000000                REQUIRE ?V3
+   \   000000   74F4         MOV       A,#-0xc
+   \   000002   12....       LCALL     ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 12
+   \   000005                ; Auto size: 2
+   \   000005   74FE         MOV       A,#-0x2
+   \   000007   12....       LCALL     ?ALLOC_XSTACK8
+    146              uint8 sendReply[2] = {EXECUTE_SCENE_COMMAND, 0};
+   \   00000A   90....       MOV       DPTR,#`?<Constant {1, 0}>`
+   \   00000D   AC..         MOV       R4,?XSP + 0
+   \   00000F   AD..         MOV       R5,?XSP + 1
+   \   000011   7402         MOV       A,#0x2
+   \   000013   12....       LCALL     ?MOVE_LONG8_XDATA_XDATA
+    147              if (debugModeActive)
+   \   000016   90....       MOV       DPTR,#debugModeActive
+   \   000019   E0           MOVX      A,@DPTR
+   \   00001A   6032         JZ        ??buttonPressAction_0
+    148              {
+    149                  switch (buttonId)
+   \   00001C   E9           MOV       A,R1
+   \   00001D   14           DEC       A
+   \   00001E   600C         JZ        ??buttonPressAction_1
+   \   000020   14           DEC       A
+   \   000021   600E         JZ        ??buttonPressAction_2
+   \   000023   14           DEC       A
+   \   000024   6010         JZ        ??buttonPressAction_3
+   \   000026   14           DEC       A
+   \   000027   6012         JZ        ??buttonPressAction_4
+   \   000029   02....       LJMP      ??CrossCallReturnLabel_4 & 0xFFFF
+    150                  {
+    151                  case BUTTON1_ID:
+    152                      keusAppEvents |= KEUS_APP_EVT1;
+   \                     ??buttonPressAction_1:
+   \   00002C   90....       MOV       DPTR,#__Constant_20
+   \   00002F   800D         SJMP      ??buttonPressAction_5
+    153                      break;
+    154          
+    155                  case BUTTON2_ID:
+    156                      keusAppEvents |= KEUS_APP_EVT2;
+   \                     ??buttonPressAction_2:
+   \   000031   90....       MOV       DPTR,#__Constant_40
+   \   000034   8008         SJMP      ??buttonPressAction_5
+    157                      break;
+    158          
+    159                  case BUTTON3_ID:
+    160                      keusAppEvents |= KEUS_APP_EVT3;
+   \                     ??buttonPressAction_3:
+   \   000036   90....       MOV       DPTR,#__Constant_80
+   \   000039   8003         SJMP      ??buttonPressAction_5
+    161                      break;
+    162          
+    163                  case BUTTON4_ID:
+    164                      keusAppEvents |= KEUS_APP_EVT4;
+   \                     ??buttonPressAction_4:
+   \   00003B   90....       MOV       DPTR,#__Constant_100
+   \                     ??buttonPressAction_5:
+   \   00003E   78..         MOV       R0,#?V0
+   \   000040   12....       LCALL     ?L_MOV_X
+   \   000043   90....       MOV       DPTR,#keusAppEvents
+   \   000046   78..         MOV       R0,#?V0
+   \   000048   12....       LCALL     ?L_IOR_TO_X
+    165                      break;
+   \   00004B   02....       LJMP      ??CrossCallReturnLabel_4 & 0xFFFF
+    166                  default:
+    167                      break;
+    168                  }
+    169              }
+    170              else
+    171              {
+    172                  switch (buttonId)
+   \                     ??buttonPressAction_0:
+   \   00004E   E9           MOV       A,R1
+   \   00004F   14           DEC       A
+   \   000050   600B         JZ        ??buttonPressAction_6
+   \   000052   14           DEC       A
+   \   000053   601C         JZ        ??buttonPressAction_7
+   \   000055   14           DEC       A
+   \   000056   6045         JZ        ??buttonPressAction_8
+   \   000058   14           DEC       A
+   \   000059   6056         JZ        ??buttonPressAction_9
+   \   00005B   8074         SJMP      ??CrossCallReturnLabel_4
+    173                  {
+    174                  case BUTTON1_ID:
+    175                      if (debugSequence & KEUS_BUTTON4)
+   \                     ??buttonPressAction_6:
+   \   00005D   90....       MOV       DPTR,#debugSequence
+   \   000060   E0           MOVX      A,@DPTR
+   \   000061   A2E3         MOV       C,0xE0 /* A   */.3
+   \   000063   5007         JNC       ??buttonPressAction_10
+    176                      {
+    177                          KeusTimerUtilRemoveTimer(&debugSequenceTimer);
+   \   000065                ; Setup parameters for call to function KeusTimerUtilRemoveTimer
+   \   000065   12....       LCALL     ?Subroutine2 & 0xFFFF
+    178                          KeusTimerUtilAddTimer(&debugSequenceTimer);
+    179                          debugSequence |= KEUS_BUTTON1;
+    180                      }
+   \                     ??CrossCallReturnLabel_0:
+   \   000068   D2E0         SETB      0xE0 /* A   */.0
+   \   00006A   8052         SJMP      ??buttonPressAction_11
+    181                      else
+    182                      {
+    183                          sendReply[1] = scene_arr[0];
+   \                     ??buttonPressAction_10:
+   \   00006C   90....       MOV       DPTR,#scene_arr
+   \   00006F   8053         SJMP      ??buttonPressAction_12
+    184                          UART_tx(sendReply, 2);
+    185                      }
+    186                      break;
+    187          
+    188                  case BUTTON2_ID:
+    189                      if (debugSequence == 15)
+   \                     ??buttonPressAction_7:
+   \   000071   90....       MOV       DPTR,#debugSequence
+   \   000074   E0           MOVX      A,@DPTR
+   \   000075   640F         XRL       A,#0xf
+   \   000077   7005         JNZ       ??buttonPressAction_13
+    190                      {
+    191                          enterDebugMode();
+   \   000079                ; Setup parameters for call to function enterDebugMode
+   \   000079   12....       LCALL     `??enterDebugMode::?relay`; Banked call to: enterDebugMode
+   \   00007C   8053         SJMP      ??CrossCallReturnLabel_4
+    192                      }
+    193                      else
+    194                      {
+    195                          sendReply[1] = scene_arr[1];
+   \                     ??buttonPressAction_13:
+   \   00007E   90....       MOV       DPTR,#scene_arr + 1
+   \   000081   E0           MOVX      A,@DPTR
+   \   000082   C0E0         PUSH      A
+   \   000084   7401         MOV       A,#0x1
+   \   000086   12....       LCALL     ?XSTACK_DISP0_8
+   \   000089   D0E0         POP       A
+   \   00008B   12....       LCALL     ?Subroutine3 & 0xFFFF
+    196                          UART_tx(sendReply, 2);
+    197                          KeusTimerUtilAddTimer(&debugSequenceTimer);
+   \                     ??CrossCallReturnLabel_3:
+   \   00008E                ; Setup parameters for call to function KeusTimerUtilAddTimer
+   \   00008E   7A..         MOV       R2,#debugSequenceTimer & 0xff
+   \   000090   7B..         MOV       R3,#(debugSequenceTimer >> 8) & 0xff
+   \   000092   12....       LCALL     `??KeusTimerUtilAddTimer::?relay`; Banked call to: KeusTimerUtilAddTimer
+    198                          debugSequence |= KEUS_BUTTON2;
+   \   000095   90....       MOV       DPTR,#debugSequence
+   \   000098   E0           MOVX      A,@DPTR
+   \   000099   D2E1         SETB      0xE0 /* A   */.1
+   \   00009B   8021         SJMP      ??buttonPressAction_11
+    199                      }
+    200                      break;
+    201          
+    202                  case BUTTON3_ID:
+    203                      if (debugSequence & KEUS_BUTTON2)
+   \                     ??buttonPressAction_8:
+   \   00009D   90....       MOV       DPTR,#debugSequence
+   \   0000A0   E0           MOVX      A,@DPTR
+   \   0000A1   A2E1         MOV       C,0xE0 /* A   */.1
+   \   0000A3   5007         JNC       ??buttonPressAction_14
+    204                      {
+    205                          KeusTimerUtilRemoveTimer(&debugSequenceTimer);
+   \   0000A5                ; Setup parameters for call to function KeusTimerUtilRemoveTimer
+   \   0000A5   12....       LCALL     ?Subroutine2 & 0xFFFF
+    206                          KeusTimerUtilAddTimer(&debugSequenceTimer);
+    207                          debugSequence |= KEUS_BUTTON3;
+    208                      }
+   \                     ??CrossCallReturnLabel_1:
+   \   0000A8   D2E2         SETB      0xE0 /* A   */.2
+   \   0000AA   8012         SJMP      ??buttonPressAction_11
+    209                      else
+    210                      {
+    211                          sendReply[1] = scene_arr[2];
+   \                     ??buttonPressAction_14:
+   \   0000AC   90....       MOV       DPTR,#scene_arr + 2
+   \   0000AF   8013         SJMP      ??buttonPressAction_12
+    212                          UART_tx(sendReply, 2);
+    213                      }
+    214                      break;
+    215          
+    216                  case BUTTON4_ID:
+    217                      if (debugSequence & KEUS_BUTTON3)
+   \                     ??buttonPressAction_9:
+   \   0000B1   90....       MOV       DPTR,#debugSequence
+   \   0000B4   E0           MOVX      A,@DPTR
+   \   0000B5   A2E2         MOV       C,0xE0 /* A   */.2
+   \   0000B7   5008         JNC       ??buttonPressAction_15
+    218                      {
+    219                          KeusTimerUtilRemoveTimer(&debugSequenceTimer);
+   \   0000B9                ; Setup parameters for call to function KeusTimerUtilRemoveTimer
+   \   0000B9   12....       LCALL     ?Subroutine2 & 0xFFFF
+    220                          KeusTimerUtilAddTimer(&debugSequenceTimer);
+    221                          debugSequence |= KEUS_BUTTON4;
+    222                      }
+   \                     ??CrossCallReturnLabel_2:
+   \   0000BC   D2E3         SETB      0xE0 /* A   */.3
+   \                     ??buttonPressAction_11:
+   \   0000BE   F0           MOVX      @DPTR,A
+   \   0000BF   8010         SJMP      ??CrossCallReturnLabel_4
+    223                      else
+    224                      {
+    225                          sendReply[1] = scene_arr[3];
+   \                     ??buttonPressAction_15:
+   \   0000C1   90....       MOV       DPTR,#scene_arr + 3
+   \                     ??buttonPressAction_12:
+   \   0000C4   E0           MOVX      A,@DPTR
+   \   0000C5   C0E0         PUSH      A
+   \   0000C7   7401         MOV       A,#0x1
+   \   0000C9   12....       LCALL     ?XSTACK_DISP0_8
+   \   0000CC   D0E0         POP       A
+    226                          UART_tx(sendReply, 2);
+    227                      }
+    228                      break;
+    229                  default:
+    230                      break;
+    231                  }
+    232                  // blinkLED();
+    233              }
+   \   0000CE   12....       LCALL     ?Subroutine3 & 0xFFFF
+    234              blinkLED();
+   \                     ??CrossCallReturnLabel_4:
+   \   0000D1                ; Setup parameters for call to function blinkLED
+   \   0000D1   12....       LCALL     `??blinkLED::?relay`; Banked call to: blinkLED
+    235          }
+   \   0000D4   7402         MOV       A,#0x2
+   \   0000D6   12....       LCALL     ?DEALLOC_XSTACK8
+   \   0000D9   7F04         MOV       R7,#0x4
+   \   0000DB   02....       LJMP      ?BANKED_LEAVE_XDATA
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine3:
+   \   000000   F0           MOVX      @DPTR,A
+   \   000001                ; Setup parameters for call to function UART_tx
+   \   000001                ; Setup parameters for call to function UART_tx
+   \   000001   7902         MOV       R1,#0x2
+   \   000003   AA..         MOV       R2,?XSP + 0
+   \   000005   AB..         MOV       R3,?XSP + 1
+   \   000007   12....       LCALL     `??UART_tx::?relay`; Banked call to: UART_tx
+   \   00000A   22           RET
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine2:
+   \   000000   7A..         MOV       R2,#debugSequenceTimer & 0xff
+   \   000002   7B..         MOV       R3,#(debugSequenceTimer >> 8) & 0xff
+   \   000004   12....       LCALL     `??KeusTimerUtilRemoveTimer::?relay`; Banked call to: KeusTimerUtilRemoveTimer
+   \   000007                ; Setup parameters for call to function KeusTimerUtilAddTimer
+   \   000007                ; Setup parameters for call to function KeusTimerUtilAddTimer
+   \   000007                ; Setup parameters for call to function KeusTimerUtilAddTimer
+   \   000007   7A..         MOV       R2,#debugSequenceTimer & 0xff
+   \   000009   7B..         MOV       R3,#(debugSequenceTimer >> 8) & 0xff
+   \   00000B   12....       LCALL     `??KeusTimerUtilAddTimer::?relay`; Banked call to: KeusTimerUtilAddTimer
+   \   00000E   90....       MOV       DPTR,#debugSequence
+   \   000011   E0           MOVX      A,@DPTR
+   \   000012   22           RET
+
+   \                                 In  segment XDATA_ID, align 1, keep-with-next
+   \                     `?<Initializer for ledPin>`:
+   \   000000   00           DB 0
+   \   000001   00           DB 0
+   \   000002   01           DB 1
+   \   000003   00           DB 0
+   \   000004   01           DB 1
+
+   \                                 In  segment XDATA_ID, align 1, keep-with-next
+   \                     `?<Initializer for ledPin2>`:
+   \   000000   00           DB 0
+   \   000001   01           DB 1
+   \   000002   01           DB 1
+   \   000003   00           DB 0
+   \   000004   01           DB 1
+
+   \                                 In  segment XDATA_ID, align 1, keep-with-next
+   \                     `?<Initializer for scene_arr>`:
+   \   000000   01           DB 1
+   \   000001   02           DB 2
+   \   000002   03           DB 3
+   \   000003   04           DB 4
+
+   \                                 In  segment XDATA_ID, align 1, keep-with-next
+   \                     `?<Initializer for ledBlinker>`:
+   \   000000   ....         DW `??blinkerTimerCbk::?relay`
+   \   000002   6400         DW 100
+   \   000004   01           DB 1
+   \   000005   FF           DB -1
+   \   000006   0000         DW 0
+
+   \                                 In  segment XDATA_ID, align 1, keep-with-next
+   \                     `?<Initializer for debugSequenceTimer>`:
+   \   000000   ....         DW `??debugSequenceTimerCbk::?relay`
+   \   000002   F401         DW 500
+   \   000004   01           DB 1
+   \   000005   FF           DB -1
+   \   000006   0000         DW 0
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant {5}>`:
+   \   000000   05           DB 5
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant {1, 0}>`:
+   \   000000   01           DB 1
+   \   000001   00           DB 0
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     __Constant_20:
+   \   000000   20000000     DD 32
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     __Constant_40:
+   \   000000   40000000     DD 64
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     __Constant_80:
+   \   000000   80000000     DD 128
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     __Constant_100:
+   \   000000   00010000     DD 256
 
    Maximum stack usage in bytes:
 
    ISTACK XSTACK Function
    ------ ------ --------
-      0      9   mapSwitch
-        0      9   -> KeusUartAckMsg
+      2     14   blinkLED
+        2      0   -> KeusGPIOSetPinValue
+        2      0   -> KeusTimerUtilAddTimer
+      2      0   blinkerTimerCbk
+        2      0   -> KeusGPIOSetPinValue
+        2      0   -> KeusTimerUtilRemoveTimer
+      1     14   buttonPressAction
+        0     14   -> KeusTimerUtilAddTimer
+        0     14   -> KeusTimerUtilRemoveTimer
+        0     14   -> UART_tx
+        0     14   -> blinkLED
+        0     14   -> enterDebugMode
+      2      0   debugSequenceTimerCbk
+        2      0   -> KeusTimerUtilRemoveTimer
+      2     14   enterDebugMode
+        2      0   -> KeusGPIOSetPinValue
+      2      0   exitDebugMode
+        2      0   -> KeusGPIOSetPinValue
+      2      0   keusLEDInit
+        2      0   -> KeusGPIOSetDirection
+        2      0   -> KeusGPIOSetPinValue
+      0     10   mapSwitch
+        0     10   -> UART_tx
       3      0   parseUart
-        2      0   -> mapSwitch
+        2      0   -> taskHandler
       2      0   taskHandler
+        2      0   -> enterDebugMode
+        2      0   -> exitDebugMode
         2      0   -> mapSwitch
 
 
@@ -384,23 +1008,56 @@ D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack\ZMain\TI2530DB\
 
    Bytes  Function/Label
    -----  --------------
-       7  ?Subroutine0
+       2  ?<Constant {1, 0}>
+       1  ?<Constant {5}>
+       8  ?<Initializer for debugSequenceTimer>
+       8  ?<Initializer for ledBlinker>
+       5  ?<Initializer for ledPin2>
+       5  ?<Initializer for ledPin>
+       4  ?<Initializer for scene_arr>
+       3  ??Subroutine4_0
+       7  ??Subroutine5_0
+      11  ?Subroutine0
+       5  ?Subroutine1
+      19  ?Subroutine2
+      11  ?Subroutine3
+       4  __Constant_100
+       4  __Constant_20
+       4  __Constant_40
+       4  __Constant_80
+      42  blinkLED
+      41  blinkerTimerCbk
+     222  buttonPressAction
        1  commandId
-     111  mapSwitch
-      71  parseUart
+       1  debugModeActive
+       1  debugSequence
+       8  debugSequenceTimer
+      13  debugSequenceTimerCbk
+      21  enterDebugMode
+      20  exitDebugMode
+      20  keusLEDInit
+       8  ledBlinker
+       5  ledPin
+       5  ledPin2
+     137  mapSwitch
+      66  parseUart
        4  scene_arr
-      17  taskHandler
+      35  taskHandler
       12  uartDataBuffer
-      18  -- Other
+      60  -- Other
 
  
- 206 bytes in segment BANKED_CODE
-  18 bytes in segment BANK_RELAYS
-  17 bytes in segment XDATA_Z
+ 673 bytes in segment BANKED_CODE
+  60 bytes in segment BANK_RELAYS
+  30 bytes in segment XDATA_I
+  30 bytes in segment XDATA_ID
+  19 bytes in segment XDATA_ROM_C
+  15 bytes in segment XDATA_Z
  
-  18 bytes of CODE     memory
- 206 bytes of HUGECODE memory
-  17 bytes of XDATA    memory
+  90 bytes of CODE     memory
+   3 bytes of CONST    memory (+ 16 bytes shared)
+ 673 bytes of HUGECODE memory
+  45 bytes of XDATA    memory
 
 Errors: none
 Warnings: none

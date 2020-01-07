@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR C/C++ Compiler V10.30.1.6000 for 8051              06/Jan/2020  18:45:33
+// IAR C/C++ Compiler V10.30.1.6000 for 8051              07/Jan/2020  15:19:21
 // Copyright 2004-2018 IAR Systems AB.
 // PC-locked license - IAR Embedded Workbench for 8051
 //
@@ -15,7 +15,7 @@
 //        D:\VB_Shared\Zigbee Resources\CC2530
 //        Development\Projects\zstack\ZMain\TI2530DB\Theme_switch\keusactions.c
 //    Command line       =  
-//        -f C:\Users\Souvik\AppData\Local\Temp\EWBB39.tmp
+//        -f C:\Users\Souvik\AppData\Local\Temp\EW535E.tmp
 //        ("D:\VB_Shared\Zigbee Resources\CC2530
 //        Development\Projects\zstack\ZMain\TI2530DB\Theme_switch\keusactions.c"
 //        -D SECURE=1 -D TC_LINKKEY_JOIN -D NV_INIT -D NV_RESTORE -D
@@ -136,25 +136,95 @@
         RSEG XSTACK:XDATA:NOROOT(0)
 
         EXTERN ?V0
+        EXTERN ?V1
+        EXTERN ?V2
+        EXTERN ?V3
+        EXTERN ?ALLOC_XSTACK8
         EXTERN ?BANKED_ENTER_XDATA
         EXTERN ?BANKED_LEAVE_XDATA
         EXTERN ?BDISPATCH
         EXTERN ?BRET
+        EXTERN ?DEALLOC_XSTACK8
+        EXTERN ?L_IOR_TO_X
+        EXTERN ?L_MOV_X
+        EXTERN ?MOVE_LONG8_XDATA_XDATA
+        EXTERN ?XSP
+        EXTERN ?XSTACK_DISP0_8
+        EXTERN __INIT_XDATA_I
         EXTERN __INIT_XDATA_Z
 
+        PUBLIC `??blinkLED::?relay`
+        FUNCTION `??blinkLED::?relay`,0203H
+        PUBLIC `??blinkerTimerCbk::?relay`
+        FUNCTION `??blinkerTimerCbk::?relay`,0203H
+        PUBLIC `??buttonPressAction::?relay`
+        FUNCTION `??buttonPressAction::?relay`,0203H
+        PUBLIC `??debugSequenceTimerCbk::?relay`
+        FUNCTION `??debugSequenceTimerCbk::?relay`,0203H
+        PUBLIC `??enterDebugMode::?relay`
+        FUNCTION `??enterDebugMode::?relay`,0203H
+        PUBLIC `??exitDebugMode::?relay`
+        FUNCTION `??exitDebugMode::?relay`,0203H
+        PUBLIC `??keusLEDInit::?relay`
+        FUNCTION `??keusLEDInit::?relay`,0203H
         PUBLIC `??mapSwitch::?relay`
         FUNCTION `??mapSwitch::?relay`,0203H
         PUBLIC `??parseUart::?relay`
         FUNCTION `??parseUart::?relay`,0203H
         PUBLIC `??taskHandler::?relay`
         FUNCTION `??taskHandler::?relay`,0203H
+        PUBWEAK __Constant_100
+        PUBWEAK __Constant_20
+        PUBWEAK __Constant_40
+        PUBWEAK __Constant_80
+        PUBLIC blinkLED
+        FUNCTION blinkLED,021203H
+        ARGFRAME XSTACK, 14, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        LOCFRAME ISTACK, 2, STACK
+        PUBLIC blinkerTimerCbk
+        FUNCTION blinkerTimerCbk,021603H
+        ARGFRAME XSTACK, 0, STACK
+        LOCFRAME ISTACK, 2, STACK
+        PUBLIC buttonPressAction
+        FUNCTION buttonPressAction,0a1203H
+        ARGFRAME XSTACK, 0, STACK
+        LOCFRAME ISTACK, 1, STACK
+        LOCFRAME XSTACK, 14, STACK
         PUBLIC commandId
+        PUBLIC debugModeActive
+        PUBLIC debugSequence
+        PUBLIC debugSequenceTimer
+        PUBLIC debugSequenceTimerCbk
+        FUNCTION debugSequenceTimerCbk,021603H
+        ARGFRAME XSTACK, 0, STACK
+        LOCFRAME ISTACK, 2, STACK
+        PUBLIC enterDebugMode
+        FUNCTION enterDebugMode,021203H
+        ARGFRAME XSTACK, 14, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        LOCFRAME ISTACK, 2, STACK
+        PUBLIC exitDebugMode
+        FUNCTION exitDebugMode,021203H
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        LOCFRAME ISTACK, 2, STACK
+        PUBLIC keusLEDInit
+        FUNCTION keusLEDInit,021203H
+        ARGFRAME XSTACK, 0, STACK
+        LOCFRAME ISTACK, 2, STACK
+        PUBLIC ledBlinker
+        PUBLIC ledPin
+        PUBLIC ledPin2
         PUBLIC mapSwitch
         FUNCTION mapSwitch,0a1203H
         ARGFRAME XSTACK, 0, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
-        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME XSTACK, 10, STACK
         PUBLIC parseUart
         FUNCTION parseUart,021203H
         ARGFRAME XSTACK, 0, STACK
@@ -163,6 +233,8 @@
         PUBLIC taskHandler
         FUNCTION taskHandler,021203H
         ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
         LOCFRAME ISTACK, 2, STACK
         PUBLIC uartDataBuffer
         
@@ -254,8 +326,97 @@
           CFI ?RET_LOW Frame(CFA_SP, 1)
           CFI EndCommon cfiCommon0
         
-KeusUartAckMsg      SYMBOL "KeusUartAckMsg"
-`??KeusUartAckMsg::?relay` SYMBOL "?relay", KeusUartAckMsg
+        
+          CFI Common cfiCommon1 Using cfiNames0
+          CFI CodeAlign 1
+          CFI DataAlign -1
+          CFI ReturnAddress ?RET CODE
+          CFI CFA_DOVERLAY Used
+          CFI CFA_IOVERLAY Used
+          CFI CFA_SP SP+-2
+          CFI CFA_PSP16 PSP16+0
+          CFI CFA_XSP16 XSP16+0
+          CFI `PSW.CY` SameValue
+          CFI `B.BR0` SameValue
+          CFI `B.BR1` SameValue
+          CFI `B.BR2` SameValue
+          CFI `B.BR3` SameValue
+          CFI `B.BR4` SameValue
+          CFI `B.BR5` SameValue
+          CFI `B.BR6` SameValue
+          CFI `B.BR7` SameValue
+          CFI `VB.BR8` SameValue
+          CFI `VB.BR9` SameValue
+          CFI `VB.BR10` SameValue
+          CFI `VB.BR11` SameValue
+          CFI `VB.BR12` SameValue
+          CFI `VB.BR13` SameValue
+          CFI `VB.BR14` SameValue
+          CFI `VB.BR15` SameValue
+          CFI VB SameValue
+          CFI B SameValue
+          CFI A SameValue
+          CFI PSW SameValue
+          CFI DPL0 SameValue
+          CFI DPH0 SameValue
+          CFI R0 SameValue
+          CFI R1 SameValue
+          CFI R2 SameValue
+          CFI R3 SameValue
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R6 SameValue
+          CFI R7 SameValue
+          CFI V0 SameValue
+          CFI V1 SameValue
+          CFI V2 SameValue
+          CFI V3 SameValue
+          CFI V4 SameValue
+          CFI V5 SameValue
+          CFI V6 SameValue
+          CFI V7 SameValue
+          CFI V8 SameValue
+          CFI V9 SameValue
+          CFI V10 SameValue
+          CFI V11 SameValue
+          CFI V12 SameValue
+          CFI V13 SameValue
+          CFI V14 SameValue
+          CFI V15 SameValue
+          CFI PSPH Undefined
+          CFI PSPL Undefined
+          CFI XSPH Undefined
+          CFI XSPL Undefined
+          CFI ?RET Concat
+          CFI ?BRET_EXT SameValue
+          CFI ?RET_HIGH Frame(CFA_SP, 2)
+          CFI ?RET_LOW Frame(CFA_SP, 1)
+          CFI EndCommon cfiCommon1
+        
+KeusGPIOSetDirection SYMBOL "KeusGPIOSetDirection"
+`??KeusGPIOSetDirection::?relay` SYMBOL "?relay", KeusGPIOSetDirection
+KeusGPIOSetPinValue SYMBOL "KeusGPIOSetPinValue"
+`??KeusGPIOSetPinValue::?relay` SYMBOL "?relay", KeusGPIOSetPinValue
+KeusTimerUtilAddTimer SYMBOL "KeusTimerUtilAddTimer"
+`??KeusTimerUtilAddTimer::?relay` SYMBOL "?relay", KeusTimerUtilAddTimer
+KeusTimerUtilRemoveTimer SYMBOL "KeusTimerUtilRemoveTimer"
+`??KeusTimerUtilRemoveTimer::?relay` SYMBOL "?relay", KeusTimerUtilRemoveTimer
+UART_tx             SYMBOL "UART_tx"
+`??UART_tx::?relay` SYMBOL "?relay", UART_tx
+blinkLED            SYMBOL "blinkLED"
+`??blinkLED::?relay` SYMBOL "?relay", blinkLED
+blinkerTimerCbk     SYMBOL "blinkerTimerCbk"
+`??blinkerTimerCbk::?relay` SYMBOL "?relay", blinkerTimerCbk
+buttonPressAction   SYMBOL "buttonPressAction"
+`??buttonPressAction::?relay` SYMBOL "?relay", buttonPressAction
+debugSequenceTimerCbk SYMBOL "debugSequenceTimerCbk"
+`??debugSequenceTimerCbk::?relay` SYMBOL "?relay", debugSequenceTimerCbk
+enterDebugMode      SYMBOL "enterDebugMode"
+`??enterDebugMode::?relay` SYMBOL "?relay", enterDebugMode
+exitDebugMode       SYMBOL "exitDebugMode"
+`??exitDebugMode::?relay` SYMBOL "?relay", exitDebugMode
+keusLEDInit         SYMBOL "keusLEDInit"
+`??keusLEDInit::?relay` SYMBOL "?relay", keusLEDInit
 mapSwitch           SYMBOL "mapSwitch"
 `??mapSwitch::?relay` SYMBOL "?relay", mapSwitch
 parseUart           SYMBOL "parseUart"
@@ -263,16 +424,53 @@ parseUart           SYMBOL "parseUart"
 taskHandler         SYMBOL "taskHandler"
 `??taskHandler::?relay` SYMBOL "?relay", taskHandler
 
-        EXTERN `??KeusUartAckMsg::?relay`
-        FUNCTION `??KeusUartAckMsg::?relay`,00H
-        EXTERN KeusUartAckMsg
-        FUNCTION KeusUartAckMsg,0202H
+        EXTERN `??KeusGPIOSetDirection::?relay`
+        FUNCTION `??KeusGPIOSetDirection::?relay`,00H
+        EXTERN `??KeusGPIOSetPinValue::?relay`
+        FUNCTION `??KeusGPIOSetPinValue::?relay`,00H
+        EXTERN `??KeusTimerUtilAddTimer::?relay`
+        FUNCTION `??KeusTimerUtilAddTimer::?relay`,00H
+        EXTERN `??KeusTimerUtilRemoveTimer::?relay`
+        FUNCTION `??KeusTimerUtilRemoveTimer::?relay`,00H
+        EXTERN `??UART_tx::?relay`
+        FUNCTION `??UART_tx::?relay`,00H
+        EXTERN KeusGPIOSetDirection
+        FUNCTION KeusGPIOSetDirection,0202H
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN KeusGPIOSetPinValue
+        FUNCTION KeusGPIOSetPinValue,0202H
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN KeusTimerUtilAddTimer
+        FUNCTION KeusTimerUtilAddTimer,0202H
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 14, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN KeusTimerUtilRemoveTimer
+        FUNCTION KeusTimerUtilRemoveTimer,0202H
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 14, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN UART_tx
+        FUNCTION UART_tx,0202H
         ARGFRAME ISTACK, 0, STACK
         ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME XSTACK, 14, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
         EXTERN g0_u8RecData
+        EXTERN keusAppEvents
 
 // D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack\ZMain\TI2530DB\Theme_switch\keusactions.c
 //    1 #include "hal_adc.h"
@@ -286,7 +484,9 @@ taskHandler         SYMBOL "taskHandler"
 //    9 #include "OSAL_Nv.h"
 //   10 #include "ZComDef.h"
 //   11 #include "ZMAC.h"
-//   12 #include "keusactions.h"
+//   12 #include "keus_gpio_util.h"
+//   13 #include "keus_timer_util.h"
+//   14 #include "keusactions.h"
 
         RSEG XDATA_Z:XDATA:NOROOT(0)
         DATA8
@@ -302,22 +502,69 @@ uartDataBuffer:
         DS 12
         REQUIRE __INIT_XDATA_Z
 
-        RSEG XDATA_Z:XDATA:NOROOT(0)
-        DATA32
+        RSEG XDATA_I:XDATA:NOROOT(0)
+// KeusGPIOPin ledPin
+ledPin:
+        DATA8
+        DS 5
+        REQUIRE `?<Initializer for ledPin>`
+        REQUIRE __INIT_XDATA_I
+
+        RSEG XDATA_I:XDATA:NOROOT(0)
+// KeusGPIOPin ledPin2
+ledPin2:
+        DATA8
+        DS 5
+        REQUIRE `?<Initializer for ledPin2>`
+        REQUIRE __INIT_XDATA_I
+
+        RSEG XDATA_I:XDATA:NOROOT(0)
 // uint8 scene_arr[4]
 scene_arr:
+        DATA32
         DS 4
+        REQUIRE `?<Initializer for scene_arr>`
+        REQUIRE __INIT_XDATA_I
+
+        RSEG XDATA_Z:XDATA:NOROOT(0)
+        DATA8
+// bool debugModeActive
+debugModeActive:
+        DS 1
         REQUIRE __INIT_XDATA_Z
-//   13 
+
+        RSEG XDATA_Z:XDATA:NOROOT(0)
+        DATA8
+// uint8 debugSequence
+debugSequence:
+        DS 1
+        REQUIRE __INIT_XDATA_Z
+
+        RSEG XDATA_I:XDATA:NOROOT(0)
+// KeusTimerConfig ledBlinker
+ledBlinker:
+        DATA8
+        DS 8
+        REQUIRE `?<Initializer for ledBlinker>`
+        REQUIRE __INIT_XDATA_I
+
+        RSEG XDATA_I:XDATA:NOROOT(0)
+// KeusTimerConfig debugSequenceTimer
+debugSequenceTimer:
+        DATA8
+        DS 8
+        REQUIRE `?<Initializer for debugSequenceTimer>`
+        REQUIRE __INIT_XDATA_I
+//   15 
 
         RSEG BANKED_CODE:HUGECODE:NOROOT(0)
-//   14 void parseUart(void)
-parseUart:
+//   16 void debugSequenceTimerCbk(uint8 timerId)
+debugSequenceTimerCbk:
           CFI Block cfiBlock0 Using cfiCommon0
-          CFI Function parseUart
+          CFI Function debugSequenceTimerCbk
         CODE
-//   15 {
-        FUNCALL parseUart, mapSwitch
+//   17 {
+        FUNCALL debugSequenceTimerCbk, KeusTimerUtilRemoveTimer
         LOCFRAME ISTACK, 2, STACK
         LOCFRAME PSTACK, 0, STACK
         LOCFRAME XSTACK, 0, STACK
@@ -336,18 +583,464 @@ parseUart:
           CFI CFA_SP SP+-5
         ; Saved register size: 2
         ; Auto size: 0
-//   16     int i = 0;
+//   18     debugSequence = 0;
+        MOV       DPTR,#debugSequence
+        CLR       A
+        MOVX      @DPTR,A
+//   19     KeusTimerUtilRemoveTimer(&debugSequenceTimer);
+        ; Setup parameters for call to function KeusTimerUtilRemoveTimer
+        MOV       R2,#debugSequenceTimer & 0xff
+        MOV       R3,#(debugSequenceTimer >> 8) & 0xff
+          CFI EndBlock cfiBlock0
+        REQUIRE ?Subroutine1
+        ; // Fall through to label ?Subroutine1
+//   20 }
+
+        RSEG BANKED_CODE:HUGECODE:NOROOT(0)
+?Subroutine1:
+          CFI Block cfiBlock1 Using cfiCommon0
+          CFI NoFunction
+          CFI CFA_SP SP+-5
+          CFI DPL0 Frame(CFA_SP, 4)
+          CFI DPH0 Frame(CFA_SP, 5)
+        LCALL     `??KeusTimerUtilRemoveTimer::?relay`; Banked call to: KeusTimerUtilRemoveTimer
+        SJMP      ??Subroutine5_0
+          CFI EndBlock cfiBlock1
+//   21 
+
+        RSEG BANKED_CODE:HUGECODE:NOROOT(0)
+//   22 void enterDebugMode(void)
+enterDebugMode:
+          CFI Block cfiBlock2 Using cfiCommon0
+          CFI Function enterDebugMode
+        CODE
+//   23 {
+        FUNCALL enterDebugMode, KeusGPIOSetPinValue
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        PUSH      DPL
+          CFI DPL0 Frame(CFA_SP, 4)
+          CFI CFA_SP SP+-4
+        PUSH      DPH
+          CFI DPH0 Frame(CFA_SP, 5)
+          CFI CFA_SP SP+-5
+        ; Saved register size: 2
+        ; Auto size: 0
+//   24     debugModeActive = 1;
+        MOV       DPTR,#debugModeActive
+        MOV       A,#0x1
+        MOVX      @DPTR,A
+//   25     ledPin.state = LED_ON;
+        MOV       DPTR,#ledPin + 4
+        CLR       A
+        MOVX      @DPTR,A
+//   26     KeusGPIOSetPinValue(&ledPin);
+        ; Setup parameters for call to function KeusGPIOSetPinValue
+        MOV       R2,#ledPin & 0xff
+        MOV       R3,#(ledPin >> 8) & 0xff
+        SJMP      ??Subroutine4_0
+//   27 }
+          CFI EndBlock cfiBlock2
+//   28 
+
+        RSEG BANKED_CODE:HUGECODE:NOROOT(0)
+//   29 void exitDebugMode(void)
+exitDebugMode:
+          CFI Block cfiBlock3 Using cfiCommon0
+          CFI Function exitDebugMode
+        CODE
+//   30 {
+        FUNCALL exitDebugMode, KeusGPIOSetPinValue
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL exitDebugMode, KeusGPIOSetPinValue
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        PUSH      DPL
+          CFI DPL0 Frame(CFA_SP, 4)
+          CFI CFA_SP SP+-4
+        PUSH      DPH
+          CFI DPH0 Frame(CFA_SP, 5)
+          CFI CFA_SP SP+-5
+        ; Saved register size: 2
+        ; Auto size: 0
+//   31     debugModeActive = 0;
+        MOV       DPTR,#debugModeActive
+        CLR       A
+        MOVX      @DPTR,A
+//   32     ledPin.state = LED_OFF;
+        MOV       DPTR,#ledPin + 4
+        INC       A
+        MOVX      @DPTR,A
+//   33     ledPin2.state = LED_OFF;
+        MOV       DPTR,#ledPin2 + 4
+        MOVX      @DPTR,A
+//   34     KeusGPIOSetPinValue(&ledPin);
+        ; Setup parameters for call to function KeusGPIOSetPinValue
+        SJMP      ?Subroutine0
+//   35     KeusGPIOSetPinValue(&ledPin2);
+//   36 }
+          CFI EndBlock cfiBlock3
+//   37 
+
+        RSEG BANKED_CODE:HUGECODE:NOROOT(0)
+//   38 void blinkerTimerCbk(uint8 timerId)
+blinkerTimerCbk:
+          CFI Block cfiBlock4 Using cfiCommon0
+          CFI Function blinkerTimerCbk
+        CODE
+//   39 {
+        FUNCALL blinkerTimerCbk, KeusGPIOSetPinValue
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL blinkerTimerCbk, KeusGPIOSetPinValue
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL blinkerTimerCbk, KeusTimerUtilRemoveTimer
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        PUSH      DPL
+          CFI DPL0 Frame(CFA_SP, 4)
+          CFI CFA_SP SP+-4
+        PUSH      DPH
+          CFI DPH0 Frame(CFA_SP, 5)
+          CFI CFA_SP SP+-5
+        ; Saved register size: 2
+        ; Auto size: 0
+//   40     if (!debugModeActive)
+        MOV       DPTR,#debugModeActive
+        MOVX      A,@DPTR
+        JNZ       ??blinkerTimerCbk_0
+//   41     {
+//   42         ledPin.state = LED_OFF;
+        MOV       DPTR,#ledPin + 4
+        MOV       A,#0x1
+        MOVX      @DPTR,A
+//   43         KeusGPIOSetPinValue(&ledPin);
+        ; Setup parameters for call to function KeusGPIOSetPinValue
+        MOV       R2,#ledPin & 0xff
+        MOV       R3,#(ledPin >> 8) & 0xff
+        SJMP      ??blinkerTimerCbk_1
+//   44     }
+//   45     else
+//   46     {
+//   47         ledPin2.state = LED_OFF;
+??blinkerTimerCbk_0:
+        MOV       DPTR,#ledPin2 + 4
+        MOV       A,#0x1
+        MOVX      @DPTR,A
+//   48         KeusGPIOSetPinValue(&ledPin2);
+        ; Setup parameters for call to function KeusGPIOSetPinValue
+        MOV       R2,#ledPin2 & 0xff
+        MOV       R3,#(ledPin2 >> 8) & 0xff
+??blinkerTimerCbk_1:
+        LCALL     `??KeusGPIOSetPinValue::?relay`; Banked call to: KeusGPIOSetPinValue
+//   49     }
+//   50     KeusTimerUtilRemoveTimer(&ledBlinker);
+        ; Setup parameters for call to function KeusTimerUtilRemoveTimer
+        MOV       R2,#ledBlinker & 0xff
+        MOV       R3,#(ledBlinker >> 8) & 0xff
+        SJMP      ?Subroutine1
+//   51 }
+          CFI EndBlock cfiBlock4
+
+        RSEG BANKED_CODE:HUGECODE:NOROOT(0)
+?Subroutine0:
+          CFI Block cfiBlock5 Using cfiCommon0
+          CFI NoFunction
+          CFI CFA_SP SP+-5
+          CFI DPL0 Frame(CFA_SP, 4)
+          CFI DPH0 Frame(CFA_SP, 5)
+        MOV       R2,#ledPin & 0xff
+        MOV       R3,#(ledPin >> 8) & 0xff
+        LCALL     `??KeusGPIOSetPinValue::?relay`; Banked call to: KeusGPIOSetPinValue
+        ; Setup parameters for call to function KeusGPIOSetPinValue
+        ; Setup parameters for call to function KeusGPIOSetPinValue
+        MOV       R2,#ledPin2 & 0xff
+        MOV       R3,#(ledPin2 >> 8) & 0xff
+          CFI EndBlock cfiBlock5
+        REQUIRE ??Subroutine4_0
+        ; // Fall through to label ??Subroutine4_0
+
+        RSEG BANKED_CODE:HUGECODE:NOROOT(0)
+??Subroutine4_0:
+          CFI Block cfiBlock6 Using cfiCommon0
+          CFI NoFunction
+          CFI CFA_SP SP+-5
+          CFI DPL0 Frame(CFA_SP, 4)
+          CFI DPH0 Frame(CFA_SP, 5)
+        LCALL     `??KeusGPIOSetPinValue::?relay`; Banked call to: KeusGPIOSetPinValue
+          CFI EndBlock cfiBlock6
+        REQUIRE ??Subroutine5_0
+        ; // Fall through to label ??Subroutine5_0
+
+        RSEG BANKED_CODE:HUGECODE:NOROOT(0)
+??Subroutine5_0:
+          CFI Block cfiBlock7 Using cfiCommon0
+          CFI NoFunction
+          CFI CFA_SP SP+-5
+          CFI DPL0 Frame(CFA_SP, 4)
+          CFI DPH0 Frame(CFA_SP, 5)
+        POP       DPH
+          CFI CFA_SP SP+-4
+          CFI DPH0 SameValue
+        POP       DPL
+          CFI CFA_SP SP+-3
+          CFI DPL0 SameValue
+        LJMP      ?BRET
+          CFI EndBlock cfiBlock7
+//   52 
+
+        RSEG BANKED_CODE:HUGECODE:NOROOT(0)
+//   53 void blinkLED(void)
+blinkLED:
+          CFI Block cfiBlock8 Using cfiCommon0
+          CFI Function blinkLED
+        CODE
+//   54 {
+        FUNCALL blinkLED, KeusGPIOSetPinValue
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL blinkLED, KeusGPIOSetPinValue
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL blinkLED, KeusTimerUtilAddTimer
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        PUSH      DPL
+          CFI DPL0 Frame(CFA_SP, 4)
+          CFI CFA_SP SP+-4
+        PUSH      DPH
+          CFI DPH0 Frame(CFA_SP, 5)
+          CFI CFA_SP SP+-5
+        ; Saved register size: 2
+        ; Auto size: 0
+//   55     if (!debugModeActive)
+        MOV       DPTR,#debugModeActive
+        MOVX      A,@DPTR
+        JNZ       ??blinkLED_0
+//   56     {
+//   57         ledPin.state = LED_ON;
+        MOV       DPTR,#ledPin + 4
+        CLR       A
+        MOVX      @DPTR,A
+//   58         KeusGPIOSetPinValue(&ledPin);
+        ; Setup parameters for call to function KeusGPIOSetPinValue
+        MOV       R2,#ledPin & 0xff
+        MOV       R3,#(ledPin >> 8) & 0xff
+        SJMP      ??blinkLED_1
+//   59     }
+//   60     else
+//   61     {
+//   62         ledPin2.state = LED_ON;
+??blinkLED_0:
+        MOV       DPTR,#ledPin2 + 4
+        CLR       A
+        MOVX      @DPTR,A
+//   63         KeusGPIOSetPinValue(&ledPin2);
+        ; Setup parameters for call to function KeusGPIOSetPinValue
+        MOV       R2,#ledPin2 & 0xff
+        MOV       R3,#(ledPin2 >> 8) & 0xff
+??blinkLED_1:
+        LCALL     `??KeusGPIOSetPinValue::?relay`; Banked call to: KeusGPIOSetPinValue
+//   64     }
+//   65     KeusTimerUtilAddTimer(&ledBlinker);
+        ; Setup parameters for call to function KeusTimerUtilAddTimer
+        MOV       R2,#ledBlinker & 0xff
+        MOV       R3,#(ledBlinker >> 8) & 0xff
+        LCALL     `??KeusTimerUtilAddTimer::?relay`; Banked call to: KeusTimerUtilAddTimer
+//   66 }
+        SJMP      ??Subroutine5_0
+          CFI EndBlock cfiBlock8
+//   67 
+
+        RSEG BANKED_CODE:HUGECODE:NOROOT(0)
+//   68 void keusLEDInit(void)
+keusLEDInit:
+          CFI Block cfiBlock9 Using cfiCommon0
+          CFI Function keusLEDInit
+        CODE
+//   69 {
+        FUNCALL keusLEDInit, KeusGPIOSetDirection
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL keusLEDInit, KeusGPIOSetDirection
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL keusLEDInit, KeusGPIOSetPinValue
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL keusLEDInit, KeusGPIOSetPinValue
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        PUSH      DPL
+          CFI DPL0 Frame(CFA_SP, 4)
+          CFI CFA_SP SP+-4
+        PUSH      DPH
+          CFI DPH0 Frame(CFA_SP, 5)
+          CFI CFA_SP SP+-5
+        ; Saved register size: 2
+        ; Auto size: 0
+//   70     KeusGPIOSetDirection(&ledPin);
+        ; Setup parameters for call to function KeusGPIOSetDirection
+        MOV       R2,#ledPin & 0xff
+        MOV       R3,#(ledPin >> 8) & 0xff
+        LCALL     `??KeusGPIOSetDirection::?relay`; Banked call to: KeusGPIOSetDirection
+//   71     KeusGPIOSetDirection(&ledPin2);
+        ; Setup parameters for call to function KeusGPIOSetDirection
+        MOV       R2,#ledPin2 & 0xff
+        MOV       R3,#(ledPin2 >> 8) & 0xff
+        LCALL     `??KeusGPIOSetDirection::?relay`; Banked call to: KeusGPIOSetDirection
+//   72     KeusGPIOSetPinValue(&ledPin);
+        ; Setup parameters for call to function KeusGPIOSetPinValue
+        SJMP      ?Subroutine0
+//   73     KeusGPIOSetPinValue(&ledPin2);
+//   74 }
+          CFI EndBlock cfiBlock9
+//   75 
+
+        RSEG BANKED_CODE:HUGECODE:NOROOT(0)
+//   76 void parseUart(void)
+parseUart:
+          CFI Block cfiBlock10 Using cfiCommon0
+          CFI Function parseUart
+        CODE
+//   77 {
+        FUNCALL parseUart, taskHandler
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        PUSH      DPL
+          CFI DPL0 Frame(CFA_SP, 4)
+          CFI CFA_SP SP+-4
+        PUSH      DPH
+          CFI DPH0 Frame(CFA_SP, 5)
+          CFI CFA_SP SP+-5
+        ; Saved register size: 2
+        ; Auto size: 0
+//   78     int i = 0;
         MOV       R0,#0x0
         MOV       R1,#0x0
-//   17     commandId = g0_u8RecData[0];
+//   79     commandId = g0_u8RecData[0];
         MOV       DPTR,#g0_u8RecData
         MOVX      A,@DPTR
         MOV       DPTR,#commandId
         MOVX      @DPTR,A
-//   18 
-//   19     for (i = 0; i < MAX_UART_DATA_BUFFER; i++)
-//   20     {
-//   21         uartDataBuffer[i] = g0_u8RecData[i + 1];
+//   80 
+//   81     for (i = 0; i < MAX_UART_DATA_BUFFER; i++)
+//   82     {
+//   83         uartDataBuffer[i] = g0_u8RecData[i + 1];
 ??parseUart_0:
         MOV       A,#(g0_u8RecData + 1) & 0xff
         ADD       A,R0
@@ -367,7 +1060,7 @@ parseUart:
         POP       A
           CFI CFA_SP SP+-5
         MOVX      @DPTR,A
-//   22     }
+//   84     }
         INC       R0
         MOV       A,R0
         JNZ       ??parseUart_1
@@ -381,46 +1074,46 @@ parseUart:
         XRL       A,PSW
         RLC       A
         JC        ??parseUart_0
-//   23 
-//   24     taskHandler();
-        MOV       DPTR,#commandId
-        MOVX      A,@DPTR
-        XRL       A,#0x1
-        JNZ       ??parseUart_2
-        ; Setup parameters for call to function mapSwitch
-        LCALL     `??mapSwitch::?relay`; Banked call to: mapSwitch
-//   25 }
-??parseUart_2:
-          CFI EndBlock cfiBlock0
-        REQUIRE ?Subroutine0
-        ; // Fall through to label ?Subroutine0
+//   85 
+//   86     taskHandler();
+        ; Setup parameters for call to function taskHandler
+        LCALL     `??taskHandler::?relay`; Banked call to: taskHandler
+//   87 }
+        LJMP      ??Subroutine5_0 & 0xFFFF
+          CFI EndBlock cfiBlock10
+//   88 
+//   89 //Calls the required function as needed by UART received message
 
         RSEG BANKED_CODE:HUGECODE:NOROOT(0)
-?Subroutine0:
-          CFI Block cfiBlock1 Using cfiCommon0
-          CFI NoFunction
-          CFI CFA_SP SP+-5
-          CFI DPL0 Frame(CFA_SP, 4)
-          CFI DPH0 Frame(CFA_SP, 5)
-        POP       DPH
-          CFI CFA_SP SP+-4
-          CFI DPH0 SameValue
-        POP       DPL
-          CFI CFA_SP SP+-3
-          CFI DPL0 SameValue
-        LJMP      ?BRET
-          CFI EndBlock cfiBlock1
-//   26 
-//   27 //Calls the required function as needed by UART received message
-
-        RSEG BANKED_CODE:HUGECODE:NOROOT(0)
-//   28 void taskHandler(void)
+//   90 void taskHandler(void)
 taskHandler:
-          CFI Block cfiBlock2 Using cfiCommon0
+          CFI Block cfiBlock11 Using cfiCommon0
           CFI Function taskHandler
         CODE
-//   29 {
+//   91 {
         FUNCALL taskHandler, mapSwitch
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL taskHandler, enterDebugMode
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL taskHandler, exitDebugMode
         LOCFRAME ISTACK, 2, STACK
         LOCFRAME PSTACK, 0, STACK
         LOCFRAME XSTACK, 0, STACK
@@ -439,43 +1132,63 @@ taskHandler:
           CFI CFA_SP SP+-5
         ; Saved register size: 2
         ; Auto size: 0
-//   30     switch (commandId)
+//   92     switch (commandId)
         MOV       DPTR,#commandId
         MOVX      A,@DPTR
-        XRL       A,#0x1
-        JNZ       ??taskHandler_0
-//   31     {
-//   32     case TASK_MAP_SWITCH:
-//   33         mapSwitch();
+        DEC       A
+        JZ        ??taskHandler_0
+        DEC       A
+        JZ        ??taskHandler_1
+        DEC       A
+        JZ        ??taskHandler_2
+        SJMP      ??taskHandler_3
+//   93     {
+//   94     case TASK_MAP_SWITCH:
+//   95         mapSwitch();
+??taskHandler_0:
         ; Setup parameters for call to function mapSwitch
         LCALL     `??mapSwitch::?relay`; Banked call to: mapSwitch
-//   34         break;
-//   35 
-//   36     default:
-//   37         break;
-//   38     }
-//   39 }
-??taskHandler_0:
-        SJMP      ?Subroutine0
-          CFI EndBlock cfiBlock2
-//   40 
+//   96         break;
+        SJMP      ??taskHandler_3
+//   97     case TASK_ENTER_DEBUG:
+//   98         enterDebugMode();
+??taskHandler_1:
+        ; Setup parameters for call to function enterDebugMode
+        LCALL     `??enterDebugMode::?relay`; Banked call to: enterDebugMode
+//   99         break;
+        SJMP      ??taskHandler_3
+//  100     case TASK_EXIT_DEBUG:
+//  101         exitDebugMode();
+??taskHandler_2:
+        ; Setup parameters for call to function exitDebugMode
+        LCALL     `??exitDebugMode::?relay`; Banked call to: exitDebugMode
+//  102         break;
+//  103 
+//  104     default:
+//  105         break;
+//  106     }
+//  107 }
+??taskHandler_3:
+        LJMP      ??Subroutine5_0 & 0xFFFF
+          CFI EndBlock cfiBlock11
+//  108 
 
         RSEG BANKED_CODE:HUGECODE:NOROOT(0)
-//   41 void mapSwitch(void)
+//  109 void mapSwitch(void)
 mapSwitch:
-          CFI Block cfiBlock3 Using cfiCommon0
+          CFI Block cfiBlock12 Using cfiCommon0
           CFI Function mapSwitch
         CODE
-//   42 {
-        FUNCALL mapSwitch, KeusUartAckMsg
+//  110 {
+        FUNCALL mapSwitch, UART_tx
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
-        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME XSTACK, 10, STACK
         LOCFRAME IOVERLAY, 0, STATIC
         LOCFRAME DOVERLAY, 0, STATIC
         ARGFRAME ISTACK, 0, STACK
         ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME XSTACK, 10, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
         REQUIRE ?V0
@@ -493,42 +1206,45 @@ mapSwitch:
           CFI CFA_SP SP+0
           CFI CFA_XSP16 add(XSP16, 9)
         ; Saved register size: 9
-        ; Auto size: 0
-//   43     //Example msg: 28 06 01 | 02 01 54 02 64 | 29
-//   44     int noOfSwitch = uartDataBuffer[0];
+        ; Auto size: 1
+        MOV       A,#-0x1
+        LCALL     ?ALLOC_XSTACK8
+          CFI CFA_XSP16 add(XSP16, 10)
+//  111     //Example msg: 28 06 01 | 02 01 54 02 64 | 29
+//  112     int noOfSwitch = uartDataBuffer[0];
         MOV       DPTR,#uartDataBuffer
         MOVX      A,@DPTR
         MOV       R6,A
-//   45     uint8 position = 0, switchId, sceneID;
+//  113     uint8 position = 0, switchId, sceneID;
         MOV       R2,#0x0
-//   46 
-//   47     for (int i = 0; i < noOfSwitch; i++)
+//  114 
+//  115     for (int i = 0; i < noOfSwitch; i++)
         MOV       R4,#0x0
         MOV       R5,#0x0
         SJMP      ??mapSwitch_0
-//   48     {
-//   49         switchId = uartDataBuffer[position + 1];
-//   50         sceneID = uartDataBuffer[position + 2];
-//   51         position += 2;
-//   52         switch (switchId)
-//   53         {
-//   54         case BUTTON1_ID:
-//   55             scene_arr[0] = sceneID;
-//   56             break;
-//   57         case BUTTON2_ID:
-//   58             scene_arr[1] = sceneID;
-//   59             break;
-//   60         case BUTTON3_ID:
-//   61             scene_arr[2] = sceneID;
-//   62             break;
-//   63         case BUTTON4_ID:
-//   64             scene_arr[3] = sceneID;
+//  116     {
+//  117         switchId = uartDataBuffer[position + 1];
+//  118         sceneID = uartDataBuffer[position + 2];
+//  119         position += 2;
+//  120         switch (switchId)
+//  121         {
+//  122         case BUTTON1_ID:
+//  123             scene_arr[0] = sceneID;
+//  124             break;
+//  125         case BUTTON2_ID:
+//  126             scene_arr[1] = sceneID;
+//  127             break;
+//  128         case BUTTON3_ID:
+//  129             scene_arr[2] = sceneID;
+//  130             break;
+//  131         case BUTTON4_ID:
+//  132             scene_arr[3] = sceneID;
 ??mapSwitch_1:
         MOV       A,R0
         MOV       DPTR,#scene_arr + 3
 ??mapSwitch_2:
         MOVX      @DPTR,A
-//   65             break;
+//  133             break;
 ??mapSwitch_3:
         INC       R4
         MOV       A,R4
@@ -587,21 +1303,645 @@ mapSwitch:
         MOV       A,R0
         MOV       DPTR,#scene_arr + 2
         SJMP      ??mapSwitch_2
-//   66 
-//   67         default:
-//   68             break;
-//   69         }
-//   70     }
-//   71 
-//   72     KeusUartAckMsg(KEUS_UART_MSG_ACK);
+//  134 
+//  135         default:
+//  136             break;
+//  137         }
+//  138     }
+//  139     uint8 sendReply[1] = {KEUS_UART_MSG_ACK};
 ??mapSwitch_4:
-        ; Setup parameters for call to function KeusUartAckMsg
-        MOV       R1,#0x5
-        LCALL     `??KeusUartAckMsg::?relay`; Banked call to: KeusUartAckMsg
-//   73 }
+        MOV       DPTR,#`?<Constant {5}>`
+        MOV       R4,?XSP + 0
+        MOV       R5,?XSP + 1
+        MOV       A,#0x1
+        LCALL     ?MOVE_LONG8_XDATA_XDATA
+//  140     UART_tx(sendReply, 1);
+        ; Setup parameters for call to function UART_tx
+        MOV       R1,#0x1
+        MOV       R2,?XSP + 0
+        MOV       R3,?XSP + 1
+        LCALL     `??UART_tx::?relay`; Banked call to: UART_tx
+//  141     //KeusUartAckMsg(KEUS_UART_MSG_ACK);
+//  142 }
+        MOV       A,#0x1
+        LCALL     ?DEALLOC_XSTACK8
+          CFI CFA_XSP16 add(XSP16, 9)
         MOV       R7,#0x1
         LJMP      ?BANKED_LEAVE_XDATA
-          CFI EndBlock cfiBlock3
+          CFI EndBlock cfiBlock12
+//  143 
+
+        RSEG BANKED_CODE:HUGECODE:NOROOT(0)
+//  144 void buttonPressAction(uint8 buttonId)
+buttonPressAction:
+          CFI Block cfiBlock13 Using cfiCommon0
+          CFI Function buttonPressAction
+        CODE
+//  145 {
+        FUNCALL buttonPressAction, KeusTimerUtilRemoveTimer
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 14, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 14, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL buttonPressAction, KeusTimerUtilAddTimer
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 14, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 14, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL buttonPressAction, UART_tx
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 14, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 14, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL buttonPressAction, enterDebugMode
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 14, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 14, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL buttonPressAction, UART_tx
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 14, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 14, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL buttonPressAction, KeusTimerUtilAddTimer
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 14, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 14, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL buttonPressAction, KeusTimerUtilRemoveTimer
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 14, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 14, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL buttonPressAction, KeusTimerUtilAddTimer
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 14, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 14, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL buttonPressAction, UART_tx
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 14, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 14, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL buttonPressAction, KeusTimerUtilRemoveTimer
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 14, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 14, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL buttonPressAction, KeusTimerUtilAddTimer
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 14, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 14, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL buttonPressAction, UART_tx
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 14, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 14, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL buttonPressAction, blinkLED
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 14, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 14, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        REQUIRE ?V0
+        REQUIRE ?V1
+        REQUIRE ?V2
+        REQUIRE ?V3
+        MOV       A,#-0xc
+        LCALL     ?BANKED_ENTER_XDATA
+          CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+          CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+          CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+          CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+          CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+          CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+          CFI V3 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+          CFI V2 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+          CFI V1 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+          CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+          CFI VB load(1, XDATA, add(CFA_XSP16, literal(-11)))
+          CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-12)))
+          CFI CFA_SP SP+0
+          CFI CFA_XSP16 add(XSP16, 12)
+        ; Saved register size: 12
+        ; Auto size: 2
+        MOV       A,#-0x2
+        LCALL     ?ALLOC_XSTACK8
+          CFI CFA_XSP16 add(XSP16, 14)
+//  146     uint8 sendReply[2] = {EXECUTE_SCENE_COMMAND, 0};
+        MOV       DPTR,#`?<Constant {1, 0}>`
+        MOV       R4,?XSP + 0
+        MOV       R5,?XSP + 1
+        MOV       A,#0x2
+        LCALL     ?MOVE_LONG8_XDATA_XDATA
+//  147     if (debugModeActive)
+        MOV       DPTR,#debugModeActive
+        MOVX      A,@DPTR
+        JZ        ??buttonPressAction_0
+//  148     {
+//  149         switch (buttonId)
+        MOV       A,R1
+        DEC       A
+        JZ        ??buttonPressAction_1
+        DEC       A
+        JZ        ??buttonPressAction_2
+        DEC       A
+        JZ        ??buttonPressAction_3
+        DEC       A
+        JZ        ??buttonPressAction_4
+        LJMP      ??CrossCallReturnLabel_4 & 0xFFFF
+//  150         {
+//  151         case BUTTON1_ID:
+//  152             keusAppEvents |= KEUS_APP_EVT1;
+??buttonPressAction_1:
+        MOV       DPTR,#__Constant_20
+        SJMP      ??buttonPressAction_5
+//  153             break;
+//  154 
+//  155         case BUTTON2_ID:
+//  156             keusAppEvents |= KEUS_APP_EVT2;
+??buttonPressAction_2:
+        MOV       DPTR,#__Constant_40
+        SJMP      ??buttonPressAction_5
+//  157             break;
+//  158 
+//  159         case BUTTON3_ID:
+//  160             keusAppEvents |= KEUS_APP_EVT3;
+??buttonPressAction_3:
+        MOV       DPTR,#__Constant_80
+        SJMP      ??buttonPressAction_5
+//  161             break;
+//  162 
+//  163         case BUTTON4_ID:
+//  164             keusAppEvents |= KEUS_APP_EVT4;
+??buttonPressAction_4:
+        MOV       DPTR,#__Constant_100
+??buttonPressAction_5:
+        MOV       R0,#?V0
+        LCALL     ?L_MOV_X
+        MOV       DPTR,#keusAppEvents
+        MOV       R0,#?V0
+        LCALL     ?L_IOR_TO_X
+//  165             break;
+        LJMP      ??CrossCallReturnLabel_4 & 0xFFFF
+//  166         default:
+//  167             break;
+//  168         }
+//  169     }
+//  170     else
+//  171     {
+//  172         switch (buttonId)
+??buttonPressAction_0:
+        MOV       A,R1
+        DEC       A
+        JZ        ??buttonPressAction_6
+        DEC       A
+        JZ        ??buttonPressAction_7
+        DEC       A
+        JZ        ??buttonPressAction_8
+        DEC       A
+        JZ        ??buttonPressAction_9
+        SJMP      ??CrossCallReturnLabel_4
+//  173         {
+//  174         case BUTTON1_ID:
+//  175             if (debugSequence & KEUS_BUTTON4)
+??buttonPressAction_6:
+        MOV       DPTR,#debugSequence
+        MOVX      A,@DPTR
+        MOV       C,0xE0 /* A   */.3
+        JNC       ??buttonPressAction_10
+//  176             {
+//  177                 KeusTimerUtilRemoveTimer(&debugSequenceTimer);
+        ; Setup parameters for call to function KeusTimerUtilRemoveTimer
+        LCALL     ?Subroutine2 & 0xFFFF
+//  178                 KeusTimerUtilAddTimer(&debugSequenceTimer);
+//  179                 debugSequence |= KEUS_BUTTON1;
+//  180             }
+??CrossCallReturnLabel_0:
+        SETB      0xE0 /* A   */.0
+        SJMP      ??buttonPressAction_11
+//  181             else
+//  182             {
+//  183                 sendReply[1] = scene_arr[0];
+??buttonPressAction_10:
+        MOV       DPTR,#scene_arr
+        SJMP      ??buttonPressAction_12
+//  184                 UART_tx(sendReply, 2);
+//  185             }
+//  186             break;
+//  187 
+//  188         case BUTTON2_ID:
+//  189             if (debugSequence == 15)
+??buttonPressAction_7:
+        MOV       DPTR,#debugSequence
+        MOVX      A,@DPTR
+        XRL       A,#0xf
+        JNZ       ??buttonPressAction_13
+//  190             {
+//  191                 enterDebugMode();
+        ; Setup parameters for call to function enterDebugMode
+        LCALL     `??enterDebugMode::?relay`; Banked call to: enterDebugMode
+        SJMP      ??CrossCallReturnLabel_4
+//  192             }
+//  193             else
+//  194             {
+//  195                 sendReply[1] = scene_arr[1];
+??buttonPressAction_13:
+        MOV       DPTR,#scene_arr + 1
+        MOVX      A,@DPTR
+        PUSH      A
+          CFI CFA_SP SP+-1
+        MOV       A,#0x1
+        LCALL     ?XSTACK_DISP0_8
+        POP       A
+          CFI CFA_SP SP+0
+        LCALL     ?Subroutine3 & 0xFFFF
+//  196                 UART_tx(sendReply, 2);
+//  197                 KeusTimerUtilAddTimer(&debugSequenceTimer);
+??CrossCallReturnLabel_3:
+        ; Setup parameters for call to function KeusTimerUtilAddTimer
+        MOV       R2,#debugSequenceTimer & 0xff
+        MOV       R3,#(debugSequenceTimer >> 8) & 0xff
+        LCALL     `??KeusTimerUtilAddTimer::?relay`; Banked call to: KeusTimerUtilAddTimer
+//  198                 debugSequence |= KEUS_BUTTON2;
+        MOV       DPTR,#debugSequence
+        MOVX      A,@DPTR
+        SETB      0xE0 /* A   */.1
+        SJMP      ??buttonPressAction_11
+//  199             }
+//  200             break;
+//  201 
+//  202         case BUTTON3_ID:
+//  203             if (debugSequence & KEUS_BUTTON2)
+??buttonPressAction_8:
+        MOV       DPTR,#debugSequence
+        MOVX      A,@DPTR
+        MOV       C,0xE0 /* A   */.1
+        JNC       ??buttonPressAction_14
+//  204             {
+//  205                 KeusTimerUtilRemoveTimer(&debugSequenceTimer);
+        ; Setup parameters for call to function KeusTimerUtilRemoveTimer
+        LCALL     ?Subroutine2 & 0xFFFF
+//  206                 KeusTimerUtilAddTimer(&debugSequenceTimer);
+//  207                 debugSequence |= KEUS_BUTTON3;
+//  208             }
+??CrossCallReturnLabel_1:
+        SETB      0xE0 /* A   */.2
+        SJMP      ??buttonPressAction_11
+//  209             else
+//  210             {
+//  211                 sendReply[1] = scene_arr[2];
+??buttonPressAction_14:
+        MOV       DPTR,#scene_arr + 2
+        SJMP      ??buttonPressAction_12
+//  212                 UART_tx(sendReply, 2);
+//  213             }
+//  214             break;
+//  215 
+//  216         case BUTTON4_ID:
+//  217             if (debugSequence & KEUS_BUTTON3)
+??buttonPressAction_9:
+        MOV       DPTR,#debugSequence
+        MOVX      A,@DPTR
+        MOV       C,0xE0 /* A   */.2
+        JNC       ??buttonPressAction_15
+//  218             {
+//  219                 KeusTimerUtilRemoveTimer(&debugSequenceTimer);
+        ; Setup parameters for call to function KeusTimerUtilRemoveTimer
+        LCALL     ?Subroutine2 & 0xFFFF
+//  220                 KeusTimerUtilAddTimer(&debugSequenceTimer);
+//  221                 debugSequence |= KEUS_BUTTON4;
+//  222             }
+??CrossCallReturnLabel_2:
+        SETB      0xE0 /* A   */.3
+??buttonPressAction_11:
+        MOVX      @DPTR,A
+        SJMP      ??CrossCallReturnLabel_4
+//  223             else
+//  224             {
+//  225                 sendReply[1] = scene_arr[3];
+??buttonPressAction_15:
+        MOV       DPTR,#scene_arr + 3
+??buttonPressAction_12:
+        MOVX      A,@DPTR
+        PUSH      A
+          CFI CFA_SP SP+-1
+        MOV       A,#0x1
+        LCALL     ?XSTACK_DISP0_8
+        POP       A
+          CFI CFA_SP SP+0
+//  226                 UART_tx(sendReply, 2);
+//  227             }
+//  228             break;
+//  229         default:
+//  230             break;
+//  231         }
+//  232         // blinkLED();
+//  233     }
+        LCALL     ?Subroutine3 & 0xFFFF
+//  234     blinkLED();
+??CrossCallReturnLabel_4:
+        ; Setup parameters for call to function blinkLED
+        LCALL     `??blinkLED::?relay`; Banked call to: blinkLED
+//  235 }
+        MOV       A,#0x2
+        LCALL     ?DEALLOC_XSTACK8
+          CFI CFA_XSP16 add(XSP16, 12)
+        MOV       R7,#0x4
+        LJMP      ?BANKED_LEAVE_XDATA
+          CFI EndBlock cfiBlock13
+
+        RSEG BANKED_CODE:HUGECODE:NOROOT(0)
+?Subroutine3:
+          CFI Block cfiCond14 Using cfiCommon0
+          CFI Function buttonPressAction
+          CFI Conditional ??CrossCallReturnLabel_3
+          CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-12)))
+          CFI VB load(1, XDATA, add(CFA_XSP16, literal(-11)))
+          CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+          CFI V1 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+          CFI V2 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+          CFI V3 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+          CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+          CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+          CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+          CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+          CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+          CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+          CFI CFA_SP SP+-2
+          CFI CFA_XSP16 add(XSP16, 14)
+          CFI Block cfiCond15 Using cfiCommon0
+          CFI (cfiCond15) Function buttonPressAction
+          CFI (cfiCond15) Conditional ??CrossCallReturnLabel_4
+          CFI (cfiCond15) R6 load(1, XDATA, add(CFA_XSP16, literal(-12)))
+          CFI (cfiCond15) VB load(1, XDATA, add(CFA_XSP16, literal(-11)))
+          CFI (cfiCond15) V0 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+          CFI (cfiCond15) V1 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+          CFI (cfiCond15) V2 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+          CFI (cfiCond15) V3 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+          CFI (cfiCond15) R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+          CFI (cfiCond15) ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+          CFI (cfiCond15) ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+          CFI (cfiCond15) ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+          CFI (cfiCond15) DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+          CFI (cfiCond15) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+          CFI (cfiCond15) CFA_SP SP+-2
+          CFI (cfiCond15) CFA_XSP16 add(XSP16, 14)
+          CFI Block cfiPicker16 Using cfiCommon1
+          CFI (cfiPicker16) NoFunction
+          CFI (cfiPicker16) Picker
+        MOVX      @DPTR,A
+        ; Setup parameters for call to function UART_tx
+        ; Setup parameters for call to function UART_tx
+        MOV       R1,#0x2
+        MOV       R2,?XSP + 0
+        MOV       R3,?XSP + 1
+        LCALL     `??UART_tx::?relay`; Banked call to: UART_tx
+        RET
+          CFI EndBlock cfiCond14
+          CFI EndBlock cfiCond15
+          CFI EndBlock cfiPicker16
+
+        RSEG BANKED_CODE:HUGECODE:NOROOT(0)
+?Subroutine2:
+          CFI Block cfiCond17 Using cfiCommon0
+          CFI Function buttonPressAction
+          CFI Conditional ??CrossCallReturnLabel_0
+          CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-12)))
+          CFI VB load(1, XDATA, add(CFA_XSP16, literal(-11)))
+          CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+          CFI V1 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+          CFI V2 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+          CFI V3 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+          CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+          CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+          CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+          CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+          CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+          CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+          CFI CFA_SP SP+-2
+          CFI CFA_XSP16 add(XSP16, 14)
+          CFI Block cfiCond18 Using cfiCommon0
+          CFI (cfiCond18) Function buttonPressAction
+          CFI (cfiCond18) Conditional ??CrossCallReturnLabel_1
+          CFI (cfiCond18) R6 load(1, XDATA, add(CFA_XSP16, literal(-12)))
+          CFI (cfiCond18) VB load(1, XDATA, add(CFA_XSP16, literal(-11)))
+          CFI (cfiCond18) V0 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+          CFI (cfiCond18) V1 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+          CFI (cfiCond18) V2 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+          CFI (cfiCond18) V3 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+          CFI (cfiCond18) R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+          CFI (cfiCond18) ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+          CFI (cfiCond18) ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+          CFI (cfiCond18) ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+          CFI (cfiCond18) DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+          CFI (cfiCond18) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+          CFI (cfiCond18) CFA_SP SP+-2
+          CFI (cfiCond18) CFA_XSP16 add(XSP16, 14)
+          CFI Block cfiCond19 Using cfiCommon0
+          CFI (cfiCond19) Function buttonPressAction
+          CFI (cfiCond19) Conditional ??CrossCallReturnLabel_2
+          CFI (cfiCond19) R6 load(1, XDATA, add(CFA_XSP16, literal(-12)))
+          CFI (cfiCond19) VB load(1, XDATA, add(CFA_XSP16, literal(-11)))
+          CFI (cfiCond19) V0 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+          CFI (cfiCond19) V1 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+          CFI (cfiCond19) V2 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+          CFI (cfiCond19) V3 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+          CFI (cfiCond19) R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+          CFI (cfiCond19) ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+          CFI (cfiCond19) ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+          CFI (cfiCond19) ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+          CFI (cfiCond19) DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+          CFI (cfiCond19) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+          CFI (cfiCond19) CFA_SP SP+-2
+          CFI (cfiCond19) CFA_XSP16 add(XSP16, 14)
+          CFI Block cfiPicker20 Using cfiCommon1
+          CFI (cfiPicker20) NoFunction
+          CFI (cfiPicker20) Picker
+        MOV       R2,#debugSequenceTimer & 0xff
+        MOV       R3,#(debugSequenceTimer >> 8) & 0xff
+        LCALL     `??KeusTimerUtilRemoveTimer::?relay`; Banked call to: KeusTimerUtilRemoveTimer
+        ; Setup parameters for call to function KeusTimerUtilAddTimer
+        ; Setup parameters for call to function KeusTimerUtilAddTimer
+        ; Setup parameters for call to function KeusTimerUtilAddTimer
+        MOV       R2,#debugSequenceTimer & 0xff
+        MOV       R3,#(debugSequenceTimer >> 8) & 0xff
+        LCALL     `??KeusTimerUtilAddTimer::?relay`; Banked call to: KeusTimerUtilAddTimer
+        MOV       DPTR,#debugSequence
+        MOVX      A,@DPTR
+        RET
+          CFI EndBlock cfiCond17
+          CFI EndBlock cfiCond18
+          CFI EndBlock cfiCond19
+          CFI EndBlock cfiPicker20
+
+        RSEG XDATA_ID:CODE:NOROOT(0)
+`?<Initializer for ledPin>`:
+        DATA8
+        DB 0
+        DB 0
+        DB 1
+        DB 0
+        DB 1
+
+        RSEG XDATA_ID:CODE:NOROOT(0)
+`?<Initializer for ledPin2>`:
+        DATA8
+        DB 0
+        DB 1
+        DB 1
+        DB 0
+        DB 1
+
+        RSEG XDATA_ID:CODE:NOROOT(0)
+`?<Initializer for scene_arr>`:
+        DATA8
+        DB 1
+        DB 2
+        DB 3
+        DB 4
+
+        RSEG XDATA_ID:CODE:NOROOT(0)
+`?<Initializer for ledBlinker>`:
+        DATA16
+        DW `??blinkerTimerCbk::?relay`
+        DW 100
+        DATA8
+        DB 1
+        DB -1
+        DATA16
+        DW 0
+
+        RSEG XDATA_ID:CODE:NOROOT(0)
+`?<Initializer for debugSequenceTimer>`:
+        DATA16
+        DW `??debugSequenceTimerCbk::?relay`
+        DW 500
+        DATA8
+        DB 1
+        DB -1
+        DATA16
+        DW 0
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+`??debugSequenceTimerCbk::?relay`:
+        CODE
+        LCALL   ?BDISPATCH
+        DATA24
+        DC24    debugSequenceTimerCbk
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+`??enterDebugMode::?relay`:
+        CODE
+        LCALL   ?BDISPATCH
+        DATA24
+        DC24    enterDebugMode
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+`??exitDebugMode::?relay`:
+        CODE
+        LCALL   ?BDISPATCH
+        DATA24
+        DC24    exitDebugMode
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+`??blinkerTimerCbk::?relay`:
+        CODE
+        LCALL   ?BDISPATCH
+        DATA24
+        DC24    blinkerTimerCbk
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+`??blinkLED::?relay`:
+        CODE
+        LCALL   ?BDISPATCH
+        DATA24
+        DC24    blinkLED
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+`??keusLEDInit::?relay`:
+        CODE
+        LCALL   ?BDISPATCH
+        DATA24
+        DC24    keusLEDInit
 
         RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
 `??parseUart::?relay`:
@@ -624,15 +1964,58 @@ mapSwitch:
         DATA24
         DC24    mapSwitch
 
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+`??buttonPressAction::?relay`:
+        CODE
+        LCALL   ?BDISPATCH
+        DATA24
+        DC24    buttonPressAction
+
+        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
+        DATA8
+`?<Constant {5}>`:
+        DB 5
+
+        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
+        DATA16
+`?<Constant {1, 0}>`:
+        DATA8
+        DB 1
+        DB 0
+
+        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
+        DATA32
+__Constant_20:
+        DD 32
+
+        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
+        DATA32
+__Constant_40:
+        DD 64
+
+        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
+        DATA32
+__Constant_80:
+        DD 128
+
+        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
+        DATA32
+__Constant_100:
+        DD 256
+
         END
 // 
-// 206 bytes in segment BANKED_CODE
-//  18 bytes in segment BANK_RELAYS
-//  17 bytes in segment XDATA_Z
+// 673 bytes in segment BANKED_CODE
+//  60 bytes in segment BANK_RELAYS
+//  30 bytes in segment XDATA_I
+//  30 bytes in segment XDATA_ID
+//  19 bytes in segment XDATA_ROM_C
+//  15 bytes in segment XDATA_Z
 // 
-//  18 bytes of CODE     memory
-// 206 bytes of HUGECODE memory
-//  17 bytes of XDATA    memory
+//  90 bytes of CODE     memory
+//   3 bytes of CONST    memory (+ 16 bytes shared)
+// 673 bytes of HUGECODE memory
+//  45 bytes of XDATA    memory
 //
 //Errors: none
 //Warnings: none

@@ -6,3 +6,8 @@
 28 06 01 02 01 54 02 64 29
 reply: <28><size><uartack_id><29>
 
+## Enter Debug Mode:
+28 01 02 29
+
+## Exit Debug Mode:
+28 01 03 29

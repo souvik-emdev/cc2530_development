@@ -19,11 +19,10 @@ uint8 g0_shouldSaveToBuffer = 0;
 uint8 g0_endMessageIndex = 0;
 uint8 message_received = 0;
 
-extern uint32 keusAppEvents;
+extern volatile uint32 keusAppEvents;
 
 void initUart(void);
 void uartRxCb(uint8 port, uint8 event);
-void KeusUartAckMsg(uint8 data);
-
+void UART_tx(uint8 arr[], uint8 dataLen);
 
 #endif

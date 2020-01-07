@@ -9,7 +9,69 @@
 #include "OSAL_Nv.h"
 #include "ZComDef.h"
 #include "ZMAC.h"
+#include "keus_gpio_util.h"
+#include "keus_timer_util.h"
 #include "keusactions.h"
+
+void debugSequenceTimerCbk(uint8 timerId)
+{
+    debugSequence = 0;
+    KeusTimerUtilRemoveTimer(&debugSequenceTimer);
+}
+
+void enterDebugMode(void)
+{
+    debugModeActive = 1;
+    ledPin.state = LED_ON;
+    KeusGPIOSetPinValue(&ledPin);
+}
+
+void exitDebugMode(void)
+{
+    debugModeActive = 0;
+    ledPin.state = LED_OFF;
+    ledPin2.state = LED_OFF;
+    KeusGPIOSetPinValue(&ledPin);
+    KeusGPIOSetPinValue(&ledPin2);
+}
+
+void blinkerTimerCbk(uint8 timerId)
+{
+    if (!debugModeActive)
+    {
+        ledPin.state = LED_OFF;
+        KeusGPIOSetPinValue(&ledPin);
+    }
+    else
+    {
+        ledPin2.state = LED_OFF;
+        KeusGPIOSetPinValue(&ledPin2);
+    }
+    KeusTimerUtilRemoveTimer(&ledBlinker);
+}
+
+void blinkLED(void)
+{
+    if (!debugModeActive)
+    {
+        ledPin.state = LED_ON;
+        KeusGPIOSetPinValue(&ledPin);
+    }
+    else
+    {
+        ledPin2.state = LED_ON;
+        KeusGPIOSetPinValue(&ledPin2);
+    }
+    KeusTimerUtilAddTimer(&ledBlinker);
+}
+
+void keusLEDInit(void)
+{
+    KeusGPIOSetDirection(&ledPin);
+    KeusGPIOSetDirection(&ledPin2);
+    KeusGPIOSetPinValue(&ledPin);
+    KeusGPIOSetPinValue(&ledPin2);
+}
 
 void parseUart(void)
 {
@@ -31,6 +93,12 @@ void taskHandler(void)
     {
     case TASK_MAP_SWITCH:
         mapSwitch();
+        break;
+    case TASK_ENTER_DEBUG:
+        enterDebugMode();
+        break;
+    case TASK_EXIT_DEBUG:
+        exitDebugMode();
         break;
 
     default:
@@ -68,6 +136,100 @@ void mapSwitch(void)
             break;
         }
     }
+    uint8 sendReply[1] = {KEUS_UART_MSG_ACK};
+    UART_tx(sendReply, 1);
+    //KeusUartAckMsg(KEUS_UART_MSG_ACK);
+}
 
-    KeusUartAckMsg(KEUS_UART_MSG_ACK);
+void buttonPressAction(uint8 buttonId)
+{
+    uint8 sendReply[2] = {EXECUTE_SCENE_COMMAND, 0};
+    if (debugModeActive)
+    {
+        switch (buttonId)
+        {
+        case BUTTON1_ID:
+            keusAppEvents |= KEUS_APP_EVT1;
+            break;
+
+        case BUTTON2_ID:
+            keusAppEvents |= KEUS_APP_EVT2;
+            break;
+
+        case BUTTON3_ID:
+            keusAppEvents |= KEUS_APP_EVT3;
+            break;
+
+        case BUTTON4_ID:
+            keusAppEvents |= KEUS_APP_EVT4;
+            break;
+        default:
+            break;
+        }
+    }
+    else
+    {
+        switch (buttonId)
+        {
+        case BUTTON1_ID:
+            if (debugSequence & KEUS_BUTTON4)
+            {
+                KeusTimerUtilRemoveTimer(&debugSequenceTimer);
+                KeusTimerUtilAddTimer(&debugSequenceTimer);
+                debugSequence |= KEUS_BUTTON1;
+            }
+            else
+            {
+                sendReply[1] = scene_arr[0];
+                UART_tx(sendReply, 2);
+            }
+            break;
+
+        case BUTTON2_ID:
+            if (debugSequence == 15)
+            {
+                enterDebugMode();
+            }
+            else
+            {
+                sendReply[1] = scene_arr[1];
+                UART_tx(sendReply, 2);
+                KeusTimerUtilAddTimer(&debugSequenceTimer);
+                debugSequence |= KEUS_BUTTON2;
+            }
+            break;
+
+        case BUTTON3_ID:
+            if (debugSequence & KEUS_BUTTON2)
+            {
+                KeusTimerUtilRemoveTimer(&debugSequenceTimer);
+                KeusTimerUtilAddTimer(&debugSequenceTimer);
+                debugSequence |= KEUS_BUTTON3;
+            }
+            else
+            {
+                sendReply[1] = scene_arr[2];
+                UART_tx(sendReply, 2);
+            }
+            break;
+
+        case BUTTON4_ID:
+            if (debugSequence & KEUS_BUTTON3)
+            {
+                KeusTimerUtilRemoveTimer(&debugSequenceTimer);
+                KeusTimerUtilAddTimer(&debugSequenceTimer);
+                debugSequence |= KEUS_BUTTON4;
+            }
+            else
+            {
+                sendReply[1] = scene_arr[3];
+                UART_tx(sendReply, 2);
+            }
+            break;
+        default:
+            break;
+        }
+        // blinkLED();
+    }
+    blinkLED();
 }

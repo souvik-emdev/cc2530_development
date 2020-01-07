@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR C/C++ Compiler V10.30.1.6000 for 8051               06/Jan/2020  18:26:38
+# IAR C/C++ Compiler V10.30.1.6000 for 8051               07/Jan/2020  13:01:03
 # Copyright 2004-2018 IAR Systems AB.
 # PC-locked license - IAR Embedded Workbench for 8051
 #
@@ -15,7 +15,7 @@
 #        D:\VB_Shared\Zigbee Resources\CC2530
 #        Development\Projects\zstack\ZMain\TI2530DB\Theme_switch\keusbutton.c
 #    Command line       =  
-#        -f C:\Users\Souvik\AppData\Local\Temp\EW6D77.tmp ("D:\VB_Shared\Zigbee
+#        -f C:\Users\Souvik\AppData\Local\Temp\EWB23C.tmp ("D:\VB_Shared\Zigbee
 #        Resources\CC2530
 #        Development\Projects\zstack\ZMain\TI2530DB\Theme_switch\keusbutton.c"
 #        -D SECURE=1 -D TC_LINKKEY_JOIN -D NV_INIT -D NV_RESTORE -D
@@ -150,20 +150,6 @@ D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack\ZMain\TI2530DB\
      14          #include "keusbutton.h"
 
    \                                 In  segment XDATA_I, align 1, keep-with-next
-   \   KeusGPIOPin ledPin
-   \                     ledPin:
-   \   000000                DS 5
-   \   000005                REQUIRE `?<Initializer for ledPin>`
-   \   000005                REQUIRE __INIT_XDATA_I
-
-   \                                 In  segment XDATA_I, align 1, keep-with-next
-   \   KeusGPIOPin ledPin2
-   \                     ledPin2:
-   \   000000                DS 5
-   \   000005                REQUIRE `?<Initializer for ledPin2>`
-   \   000005                REQUIRE __INIT_XDATA_I
-
-   \                                 In  segment XDATA_I, align 1, keep-with-next
    \   KeusGPIOPin buttonPin
    \                     buttonPin:
    \   000000                DS 5
@@ -233,108 +219,91 @@ D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack\ZMain\TI2530DB\
    \   000002   D082         POP       DPL
    \   000004   02....       LJMP      ?BRET
      21          
-     22          
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-     23          void keusButtonInit(void)
+     22          void keusButtonInit(void)
    \                     keusButtonInit:
-     24          {
+     23          {
    \   000000   C082         PUSH      DPL
    \   000002   C083         PUSH      DPH
    \   000004                ; Saved register size: 2
    \   000004                ; Auto size: 0
-     25            KeusGPIOSetDirection(&ledPin);
+     24            KeusGPIOSetDirection(&buttonPin);
    \   000004                ; Setup parameters for call to function KeusGPIOSetDirection
-   \   000004   7A..         MOV       R2,#ledPin & 0xff
-   \   000006   7B..         MOV       R3,#(ledPin >> 8) & 0xff
+   \   000004   7A..         MOV       R2,#buttonPin & 0xff
+   \   000006   7B..         MOV       R3,#(buttonPin >> 8) & 0xff
    \   000008   12....       LCALL     `??KeusGPIOSetDirection::?relay`; Banked call to: KeusGPIOSetDirection
-     26            KeusGPIOSetDirection(&ledPin2);
+     25            KeusGPIOSetDirection(&buttonPin2);
    \   00000B                ; Setup parameters for call to function KeusGPIOSetDirection
-   \   00000B   7A..         MOV       R2,#ledPin2 & 0xff
-   \   00000D   7B..         MOV       R3,#(ledPin2 >> 8) & 0xff
+   \   00000B   7A..         MOV       R2,#buttonPin2 & 0xff
+   \   00000D   7B..         MOV       R3,#(buttonPin2 >> 8) & 0xff
    \   00000F   12....       LCALL     `??KeusGPIOSetDirection::?relay`; Banked call to: KeusGPIOSetDirection
-     27            KeusGPIOSetDirection(&buttonPin);
+     26            KeusGPIOSetDirection(&buttonPin3);
    \   000012                ; Setup parameters for call to function KeusGPIOSetDirection
-   \   000012   7A..         MOV       R2,#buttonPin & 0xff
-   \   000014   7B..         MOV       R3,#(buttonPin >> 8) & 0xff
+   \   000012   7A..         MOV       R2,#buttonPin3 & 0xff
+   \   000014   7B..         MOV       R3,#(buttonPin3 >> 8) & 0xff
    \   000016   12....       LCALL     `??KeusGPIOSetDirection::?relay`; Banked call to: KeusGPIOSetDirection
-     28            KeusGPIOSetDirection(&buttonPin2);
+     27            KeusGPIOSetDirection(&buttonPin4);
    \   000019                ; Setup parameters for call to function KeusGPIOSetDirection
-   \   000019   7A..         MOV       R2,#buttonPin2 & 0xff
-   \   00001B   7B..         MOV       R3,#(buttonPin2 >> 8) & 0xff
+   \   000019   7A..         MOV       R2,#buttonPin4 & 0xff
+   \   00001B   7B..         MOV       R3,#(buttonPin4 >> 8) & 0xff
    \   00001D   12....       LCALL     `??KeusGPIOSetDirection::?relay`; Banked call to: KeusGPIOSetDirection
-     29            KeusGPIOSetDirection(&buttonPin3);
-   \   000020                ; Setup parameters for call to function KeusGPIOSetDirection
-   \   000020   7A..         MOV       R2,#buttonPin3 & 0xff
-   \   000022   7B..         MOV       R3,#(buttonPin3 >> 8) & 0xff
-   \   000024   12....       LCALL     `??KeusGPIOSetDirection::?relay`; Banked call to: KeusGPIOSetDirection
-     30            KeusGPIOSetDirection(&buttonPin4);
-   \   000027                ; Setup parameters for call to function KeusGPIOSetDirection
-   \   000027   7A..         MOV       R2,#buttonPin4 & 0xff
-   \   000029   7B..         MOV       R3,#(buttonPin4 >> 8) & 0xff
-   \   00002B   12....       LCALL     `??KeusGPIOSetDirection::?relay`; Banked call to: KeusGPIOSetDirection
-     31            KeusGPIOSetPinValue(&ledPin);
-   \   00002E                ; Setup parameters for call to function KeusGPIOSetPinValue
-   \   00002E   7A..         MOV       R2,#ledPin & 0xff
-   \   000030   7B..         MOV       R3,#(ledPin >> 8) & 0xff
-   \   000032   12....       LCALL     `??KeusGPIOSetPinValue::?relay`; Banked call to: KeusGPIOSetPinValue
-     32            KeusGPIOSetPinValue(&ledPin2);
-   \   000035                ; Setup parameters for call to function KeusGPIOSetPinValue
-   \   000035   7A..         MOV       R2,#ledPin2 & 0xff
-   \   000037   7B..         MOV       R3,#(ledPin2 >> 8) & 0xff
-   \   000039   12....       LCALL     `??KeusGPIOSetPinValue::?relay`; Banked call to: KeusGPIOSetPinValue
-     33            KeusGPIOEdgeConfiguration(&buttonPin, GPIO_RISING_EDGE);
-   \   00003C                ; Setup parameters for call to function KeusGPIOEdgeConfiguration
-   \   00003C   7901         MOV       R1,#0x1
-   \   00003E   7A..         MOV       R2,#buttonPin & 0xff
-   \   000040   7B..         MOV       R3,#(buttonPin >> 8) & 0xff
-   \   000042   12....       LCALL     `??KeusGPIOEdgeConfiguration::?relay`; Banked call to: KeusGPIOEdgeConfiguration
-     34            KeusGPIOEdgeConfiguration(&buttonPin2, GPIO_RISING_EDGE);
-   \   000045                ; Setup parameters for call to function KeusGPIOEdgeConfiguration
-   \   000045   7901         MOV       R1,#0x1
-   \   000047   7A..         MOV       R2,#buttonPin2 & 0xff
-   \   000049   7B..         MOV       R3,#(buttonPin2 >> 8) & 0xff
-   \   00004B   12....       LCALL     `??KeusGPIOEdgeConfiguration::?relay`; Banked call to: KeusGPIOEdgeConfiguration
-     35            KeusGPIOEdgeConfiguration(&buttonPin3, GPIO_RISING_EDGE);
-   \   00004E                ; Setup parameters for call to function KeusGPIOEdgeConfiguration
-   \   00004E   7901         MOV       R1,#0x1
-   \   000050   7A..         MOV       R2,#buttonPin3 & 0xff
-   \   000052   7B..         MOV       R3,#(buttonPin3 >> 8) & 0xff
-   \   000054   12....       LCALL     `??KeusGPIOEdgeConfiguration::?relay`; Banked call to: KeusGPIOEdgeConfiguration
-     36            KeusGPIOEdgeConfiguration(&buttonPin4, GPIO_RISING_EDGE);
-   \   000057                ; Setup parameters for call to function KeusGPIOEdgeConfiguration
-   \   000057   7901         MOV       R1,#0x1
-   \   000059   7A..         MOV       R2,#buttonPin4 & 0xff
-   \   00005B   7B..         MOV       R3,#(buttonPin4 >> 8) & 0xff
-   \   00005D   12....       LCALL     `??KeusGPIOEdgeConfiguration::?relay`; Banked call to: KeusGPIOEdgeConfiguration
-     37            KeusGPIOInterruptEnable(&buttonPin);
-   \   000060                ; Setup parameters for call to function KeusGPIOInterruptEnable
-   \   000060   7A..         MOV       R2,#buttonPin & 0xff
-   \   000062   7B..         MOV       R3,#(buttonPin >> 8) & 0xff
-   \   000064   12....       LCALL     `??KeusGPIOInterruptEnable::?relay`; Banked call to: KeusGPIOInterruptEnable
-     38            KeusGPIOInterruptEnable(&buttonPin2);
-   \   000067                ; Setup parameters for call to function KeusGPIOInterruptEnable
-   \   000067   7A..         MOV       R2,#buttonPin2 & 0xff
-   \   000069   7B..         MOV       R3,#(buttonPin2 >> 8) & 0xff
-   \   00006B   12....       LCALL     `??KeusGPIOInterruptEnable::?relay`; Banked call to: KeusGPIOInterruptEnable
-     39            KeusGPIOInterruptEnable(&buttonPin3);
-   \   00006E                ; Setup parameters for call to function KeusGPIOInterruptEnable
-   \   00006E   7A..         MOV       R2,#buttonPin3 & 0xff
-   \   000070   7B..         MOV       R3,#(buttonPin3 >> 8) & 0xff
-   \   000072   12....       LCALL     `??KeusGPIOInterruptEnable::?relay`; Banked call to: KeusGPIOInterruptEnable
-     40            KeusGPIOInterruptEnable(&buttonPin4);    
-   \   000075                ; Setup parameters for call to function KeusGPIOInterruptEnable
-   \   000075   7A..         MOV       R2,#buttonPin4 & 0xff
-   \   000077   7B..         MOV       R3,#(buttonPin4 >> 8) & 0xff
-   \   000079   12....       LCALL     `??KeusGPIOInterruptEnable::?relay`; Banked call to: KeusGPIOInterruptEnable
-     41          }
-   \   00007C   02....       LJMP      ?Subroutine0 & 0xFFFF
-     42          
+     28          
+     29            KeusGPIOEdgeConfiguration(&buttonPin, GPIO_RISING_EDGE);
+   \   000020                ; Setup parameters for call to function KeusGPIOEdgeConfiguration
+   \   000020   7901         MOV       R1,#0x1
+   \   000022   7A..         MOV       R2,#buttonPin & 0xff
+   \   000024   7B..         MOV       R3,#(buttonPin >> 8) & 0xff
+   \   000026   12....       LCALL     `??KeusGPIOEdgeConfiguration::?relay`; Banked call to: KeusGPIOEdgeConfiguration
+     30            KeusGPIOEdgeConfiguration(&buttonPin2, GPIO_RISING_EDGE);
+   \   000029                ; Setup parameters for call to function KeusGPIOEdgeConfiguration
+   \   000029   7901         MOV       R1,#0x1
+   \   00002B   7A..         MOV       R2,#buttonPin2 & 0xff
+   \   00002D   7B..         MOV       R3,#(buttonPin2 >> 8) & 0xff
+   \   00002F   12....       LCALL     `??KeusGPIOEdgeConfiguration::?relay`; Banked call to: KeusGPIOEdgeConfiguration
+     31            KeusGPIOEdgeConfiguration(&buttonPin3, GPIO_RISING_EDGE);
+   \   000032                ; Setup parameters for call to function KeusGPIOEdgeConfiguration
+   \   000032   7901         MOV       R1,#0x1
+   \   000034   7A..         MOV       R2,#buttonPin3 & 0xff
+   \   000036   7B..         MOV       R3,#(buttonPin3 >> 8) & 0xff
+   \   000038   12....       LCALL     `??KeusGPIOEdgeConfiguration::?relay`; Banked call to: KeusGPIOEdgeConfiguration
+     32            KeusGPIOEdgeConfiguration(&buttonPin4, GPIO_RISING_EDGE);
+   \   00003B                ; Setup parameters for call to function KeusGPIOEdgeConfiguration
+   \   00003B   7901         MOV       R1,#0x1
+   \   00003D   7A..         MOV       R2,#buttonPin4 & 0xff
+   \   00003F   7B..         MOV       R3,#(buttonPin4 >> 8) & 0xff
+   \   000041   12....       LCALL     `??KeusGPIOEdgeConfiguration::?relay`; Banked call to: KeusGPIOEdgeConfiguration
+     33            P1IFG = 0; //Fix for one int hitting at first code run
+   \   000044   758A00       MOV       0x8a,#0x0
+     34            KeusGPIOInterruptEnable(&buttonPin);
+   \   000047                ; Setup parameters for call to function KeusGPIOInterruptEnable
+   \   000047   7A..         MOV       R2,#buttonPin & 0xff
+   \   000049   7B..         MOV       R3,#(buttonPin >> 8) & 0xff
+   \   00004B   12....       LCALL     `??KeusGPIOInterruptEnable::?relay`; Banked call to: KeusGPIOInterruptEnable
+     35            KeusGPIOInterruptEnable(&buttonPin2);
+   \   00004E                ; Setup parameters for call to function KeusGPIOInterruptEnable
+   \   00004E   7A..         MOV       R2,#buttonPin2 & 0xff
+   \   000050   7B..         MOV       R3,#(buttonPin2 >> 8) & 0xff
+   \   000052   12....       LCALL     `??KeusGPIOInterruptEnable::?relay`; Banked call to: KeusGPIOInterruptEnable
+     36            KeusGPIOInterruptEnable(&buttonPin3);
+   \   000055                ; Setup parameters for call to function KeusGPIOInterruptEnable
+   \   000055   7A..         MOV       R2,#buttonPin3 & 0xff
+   \   000057   7B..         MOV       R3,#(buttonPin3 >> 8) & 0xff
+   \   000059   12....       LCALL     `??KeusGPIOInterruptEnable::?relay`; Banked call to: KeusGPIOInterruptEnable
+     37            KeusGPIOInterruptEnable(&buttonPin4);
+   \   00005C                ; Setup parameters for call to function KeusGPIOInterruptEnable
+   \   00005C   7A..         MOV       R2,#buttonPin4 & 0xff
+   \   00005E   7B..         MOV       R3,#(buttonPin4 >> 8) & 0xff
+   \   000060   12....       LCALL     `??KeusGPIOInterruptEnable::?relay`; Banked call to: KeusGPIOInterruptEnable
+     38          }
+   \   000063   80..         SJMP      ?Subroutine0
+   \   000065                REQUIRE P1IFG
+     39          
 
    \                                 In  segment NEAR_CODE, align 1, keep-with-next
-     43          HAL_ISR_FUNCTION(halKeusPort1Isr, P1INT_VECTOR)
+     40          HAL_ISR_FUNCTION(halKeusPort1Isr, P1INT_VECTOR)
    \                     halKeusPort1Isr:
-     44          {
+     41          {
    \   000000                REQUIRE ?V0
    \   000000                REQUIRE ?V1
    \   000000                REQUIRE ?V2
@@ -344,24 +313,24 @@ D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack\ZMain\TI2530DB\
    \   000004   12....       LCALL     ?INTERRUPT_ENTER_XSP
    \   000007                ; Saved register size: 17
    \   000007                ; Auto size: 0
-     45            HAL_ENTER_ISR();
+     42            HAL_ENTER_ISR();
    \   000007   A2AF         MOV       C,0xa8.7
    \   000009   E4           CLR       A
    \   00000A   33           RLC       A
    \   00000B   FE           MOV       R6,A
    \   00000C   D2AF         SETB      0xa8.7
-     46          
-     47            if (debounce_read)
+     43          
+     44            if (debounce_read)
    \   00000E   90....       MOV       DPTR,#debounce_read
    \   000011   E0           MOVX      A,@DPTR
    \   000012   7003         JNZ       $+5
    \   000014   02....       LJMP      ??halKeusPort1Isr_0
-     48            {
-     49              debounce_read = false; //make sure it does not read untill the debounce timer CB sets it again
+     45            {
+     46              debounce_read = false; //make sure it does not read untill the debounce timer CB sets it again
    \   000017   E4           CLR       A
    \   000018   F0           MOVX      @DPTR,A
-     50          
-     51              if (P1IFG & BV(buttonPin.bit))
+     47          
+     48              if (P1IFG & BV(buttonPin.bit))
    \   000019   75..01       MOV       ?V0,#0x1
    \   00001C   F5..         MOV       ?V1,A
    \   00001E   90....       MOV       DPTR,#buttonPin + 1
@@ -371,17 +340,17 @@ D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack\ZMain\TI2530DB\
    \   000027   E5..         MOV       A,?V0
    \   000029   558A         ANL       A,0x8a
    \   00002B   6010         JZ        ??halKeusPort1Isr_1
-     52              {
-     53                keusAppEvents |= KEUS_BUTTON1;
+     49              {
+     50                keusAppEvents |= KEUS_BUTTON1;
    \   00002D   90....       MOV       DPTR,#__Constant_1
    \   000030   78..         MOV       R0,#?V0
    \   000032   12....       LCALL     ?L_MOV_X
    \   000035   90....       MOV       DPTR,#keusAppEvents
    \   000038   78..         MOV       R0,#?V0
    \   00003A   12....       LCALL     ?L_IOR_TO_X
-     54              }
-     55          
-     56              if (P1IFG & BV(buttonPin2.bit))
+     51              }
+     52          
+     53              if (P1IFG & BV(buttonPin2.bit))
    \                     ??halKeusPort1Isr_1:
    \   00003D   75..01       MOV       ?V0,#0x1
    \   000040   75..00       MOV       ?V1,#0x0
@@ -392,17 +361,17 @@ D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack\ZMain\TI2530DB\
    \   00004C   E5..         MOV       A,?V0
    \   00004E   558A         ANL       A,0x8a
    \   000050   6010         JZ        ??halKeusPort1Isr_2
-     57              {
-     58                keusAppEvents |= KEUS_BUTTON2;
+     54              {
+     55                keusAppEvents |= KEUS_BUTTON2;
    \   000052   90....       MOV       DPTR,#__Constant_2
    \   000055   78..         MOV       R0,#?V0
    \   000057   12....       LCALL     ?L_MOV_X
    \   00005A   90....       MOV       DPTR,#keusAppEvents
    \   00005D   78..         MOV       R0,#?V0
    \   00005F   12....       LCALL     ?L_IOR_TO_X
-     59              }
-     60          
-     61              if (P1IFG & BV(buttonPin3.bit))
+     56              }
+     57          
+     58              if (P1IFG & BV(buttonPin3.bit))
    \                     ??halKeusPort1Isr_2:
    \   000062   75..01       MOV       ?V0,#0x1
    \   000065   75..00       MOV       ?V1,#0x0
@@ -413,17 +382,17 @@ D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack\ZMain\TI2530DB\
    \   000071   E5..         MOV       A,?V0
    \   000073   558A         ANL       A,0x8a
    \   000075   6010         JZ        ??halKeusPort1Isr_3
-     62              {
-     63                keusAppEvents |= KEUS_BUTTON3;
+     59              {
+     60                keusAppEvents |= KEUS_BUTTON3;
    \   000077   90....       MOV       DPTR,#__Constant_4
    \   00007A   78..         MOV       R0,#?V0
    \   00007C   12....       LCALL     ?L_MOV_X
    \   00007F   90....       MOV       DPTR,#keusAppEvents
    \   000082   78..         MOV       R0,#?V0
    \   000084   12....       LCALL     ?L_IOR_TO_X
-     64              }
-     65          
-     66              if (P1IFG & BV(buttonPin4.bit))
+     61              }
+     62          
+     63              if (P1IFG & BV(buttonPin4.bit))
    \                     ??halKeusPort1Isr_3:
    \   000087   75..01       MOV       ?V0,#0x1
    \   00008A   75..00       MOV       ?V1,#0x0
@@ -434,39 +403,39 @@ D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack\ZMain\TI2530DB\
    \   000096   E5..         MOV       A,?V0
    \   000098   558A         ANL       A,0x8a
    \   00009A   6010         JZ        ??halKeusPort1Isr_4
-     67              {
-     68                keusAppEvents |= KEUS_BUTTON4;
+     64              {
+     65                keusAppEvents |= KEUS_BUTTON4;
    \   00009C   90....       MOV       DPTR,#__Constant_8
    \   00009F   78..         MOV       R0,#?V0
    \   0000A1   12....       LCALL     ?L_MOV_X
    \   0000A4   90....       MOV       DPTR,#keusAppEvents
    \   0000A7   78..         MOV       R0,#?V0
    \   0000A9   12....       LCALL     ?L_IOR_TO_X
-     69              }
-     70          
-     71              KeusTimerUtilAddTimer(&debounceTimer);
+     66              }
+     67          
+     68              KeusTimerUtilAddTimer(&debounceTimer);
    \                     ??halKeusPort1Isr_4:
    \   0000AC                ; Setup parameters for call to function KeusTimerUtilAddTimer
    \   0000AC   7A..         MOV       R2,#debounceTimer & 0xff
    \   0000AE   7B..         MOV       R3,#(debounceTimer >> 8) & 0xff
    \   0000B0   12....       LCALL     `??KeusTimerUtilAddTimer::?relay`; Banked call to: KeusTimerUtilAddTimer
-     72            }
-     73            /*
-     74             Clear the CPU interrupt flag for Port_0
-     75             PxIFG has to be cleared before PxIF
-     76           */
-     77            P1IFG = 0;
+     69            }
+     70            /*
+     71             Clear the CPU interrupt flag for Port_0
+     72             PxIFG has to be cleared before PxIF
+     73           */
+     74            P1IFG = 0;
    \                     ??halKeusPort1Isr_0:
    \   0000B3   758A00       MOV       0x8a,#0x0
-     78            P1IF = 0;
+     75            P1IF = 0;
    \   0000B6   C2EB         CLR       0xe8.3
-     79          
-     80            CLEAR_SLEEP_MODE();
-     81            HAL_EXIT_ISR();
+     76          
+     77            CLEAR_SLEEP_MODE();
+     78            HAL_EXIT_ISR();
    \   0000B8   EE           MOV       A,R6
    \   0000B9   A2E0         MOV       C,0xE0 /* A   */.0
    \   0000BB   92AF         MOV       0xa8.7,C
-     82          }
+     79          }
    \   0000BD   7F04         MOV       R7,#0x4
    \   0000BF   02....       LJMP      ?INTERRUPT_LEAVE_XSP
    \   0000C2                REQUIRE _A_IEN0
@@ -476,22 +445,6 @@ D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack\ZMain\TI2530DB\
    \                                 In  segment INTVEC, offset 0x7b, root
    \                     `??halKeusPort1Isr::??INTVEC 123`:
    \   00007B   02....       LJMP       (halKeusPort1Isr)
-
-   \                                 In  segment XDATA_ID, align 1, keep-with-next
-   \                     `?<Initializer for ledPin>`:
-   \   000000   00           DB 0
-   \   000001   00           DB 0
-   \   000002   01           DB 1
-   \   000003   00           DB 0
-   \   000004   01           DB 1
-
-   \                                 In  segment XDATA_ID, align 1, keep-with-next
-   \                     `?<Initializer for ledPin2>`:
-   \   000000   00           DB 0
-   \   000001   01           DB 1
-   \   000002   01           DB 1
-   \   000003   00           DB 0
-   \   000004   01           DB 1
 
    \                                 In  segment XDATA_ID, align 1, keep-with-next
    \                     `?<Initializer for buttonPin>`:
@@ -565,7 +518,6 @@ D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack\ZMain\TI2530DB\
         2      0   -> KeusGPIOEdgeConfiguration
         2      0   -> KeusGPIOInterruptEnable
         2      0   -> KeusGPIOSetDirection
-        2      0   -> KeusGPIOSetPinValue
 
 
    Segment part sizes:
@@ -578,8 +530,6 @@ D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack\ZMain\TI2530DB\
        5  ?<Initializer for buttonPin>
        8  ?<Initializer for debounceTimer>
        1  ?<Initializer for debounce_read>
-       5  ?<Initializer for ledPin2>
-       5  ?<Initializer for ledPin>
        7  ?Subroutine0
        1  P1IFG
        1  _A_IEN0
@@ -597,26 +547,24 @@ D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack\ZMain\TI2530DB\
        1  debounce_read
      194  halKeusPort1Isr
        3  halKeusPort1Isr::??INTVEC 123
-     127  keusButtonInit
-       5  ledPin
-       5  ledPin2
+     101  keusButtonInit
       12  -- Other
 
  
- 151 bytes in segment BANKED_CODE
+ 125 bytes in segment BANKED_CODE
   12 bytes in segment BANK_RELAYS
    3 bytes in segment INTVEC
  194 bytes in segment NEAR_CODE
    3 bytes in segment SFR_AN
-  39 bytes in segment XDATA_I
-  39 bytes in segment XDATA_ID
+  29 bytes in segment XDATA_I
+  29 bytes in segment XDATA_ID
   16 bytes in segment XDATA_ROM_C
  
- 245 bytes of CODE     memory (+  3 bytes shared)
+ 235 bytes of CODE     memory (+  3 bytes shared)
    0 bytes of CONST    memory (+ 16 bytes shared)
    0 bytes of DATA     memory (+  3 bytes shared)
- 151 bytes of HUGECODE memory
-  39 bytes of XDATA    memory
+ 125 bytes of HUGECODE memory
+  29 bytes of XDATA    memory
 
 Errors: none
 Warnings: none

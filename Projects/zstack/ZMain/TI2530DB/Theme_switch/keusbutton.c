@@ -19,25 +19,22 @@ void debounceTimerCbk(uint8 timerId)
   KeusTimerUtilRemoveTimer(&debounceTimer);
 }
 
-
 void keusButtonInit(void)
 {
-  KeusGPIOSetDirection(&ledPin);
-  KeusGPIOSetDirection(&ledPin2);
   KeusGPIOSetDirection(&buttonPin);
   KeusGPIOSetDirection(&buttonPin2);
   KeusGPIOSetDirection(&buttonPin3);
   KeusGPIOSetDirection(&buttonPin4);
-  KeusGPIOSetPinValue(&ledPin);
-  KeusGPIOSetPinValue(&ledPin2);
+
   KeusGPIOEdgeConfiguration(&buttonPin, GPIO_RISING_EDGE);
   KeusGPIOEdgeConfiguration(&buttonPin2, GPIO_RISING_EDGE);
   KeusGPIOEdgeConfiguration(&buttonPin3, GPIO_RISING_EDGE);
   KeusGPIOEdgeConfiguration(&buttonPin4, GPIO_RISING_EDGE);
+  P1IFG = 0; //Fix for one int hitting at first code run
   KeusGPIOInterruptEnable(&buttonPin);
   KeusGPIOInterruptEnable(&buttonPin2);
   KeusGPIOInterruptEnable(&buttonPin3);
-  KeusGPIOInterruptEnable(&buttonPin4);    
+  KeusGPIOInterruptEnable(&buttonPin4);
 }
 
 HAL_ISR_FUNCTION(halKeusPort1Isr, P1INT_VECTOR)

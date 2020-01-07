@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR C/C++ Compiler V10.30.1.6000 for 8051               06/Jan/2020  17:05:22
+# IAR C/C++ Compiler V10.30.1.6000 for 8051               07/Jan/2020  13:01:03
 # Copyright 2004-2018 IAR Systems AB.
 # PC-locked license - IAR Embedded Workbench for 8051
 #
@@ -15,7 +15,7 @@
 #        D:\VB_Shared\Zigbee Resources\CC2530
 #        Development\Projects\zstack\ZMain\TI2530DB\Theme_switch\keusuart.c
 #    Command line       =  
-#        -f C:\Users\Souvik\AppData\Local\Temp\EW5AB.tmp ("D:\VB_Shared\Zigbee
+#        -f C:\Users\Souvik\AppData\Local\Temp\EWB23B.tmp ("D:\VB_Shared\Zigbee
 #        Resources\CC2530
 #        Development\Projects\zstack\ZMain\TI2530DB\Theme_switch\keusuart.c" -D
 #        SECURE=1 -D TC_LINKKEY_JOIN -D NV_INIT -D NV_RESTORE -D HAL_KEY=FALSE
@@ -242,12 +242,11 @@ D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack\ZMain\TI2530DB\
    \   00006C   D082         POP       DPL
    \   00006E   02....       LJMP      ?BRET
      28          
-     29          
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-     30          void uartRxCb(uint8 port, uint8 event)
+     29          void uartRxCb(uint8 port, uint8 event)
    \                     uartRxCb:
-     31          { 
+     30          {
    \   000000                REQUIRE ?V0
    \   000000                REQUIRE ?V1
    \   000000                REQUIRE ?V2
@@ -261,39 +260,39 @@ D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack\ZMain\TI2530DB\
    \   00000A   E9           MOV       A,R1
    \   00000B   FE           MOV       R6,A
    \   00000C   800B         SJMP      ??uartRxCb_0
-     32            //Example syntax: 28 03 01 03 01 29
-     33            uint8 u8InChar;
-     34          
-     35            while (Hal_UART_RxBufLen(port))
-     36            {
-     37              // Read one byte from UART to ch
-     38              HalUARTRead(port, &u8InChar, 1);
-     39          
-     40              // if (u8InChar == 's')
-     41              // {
-     42              //   ledPin.state = LED_ON;
-     43              //   KeusGPIOSetPinValue(&ledPin);
-     44              // }
-     45              // else if (u8InChar == 'r')
-     46              // {
-     47              //   ledPin.state = LED_OFF;
-     48              //   KeusGPIOSetPinValue(&ledPin);
-     49              // }
-     50          
-     51              if (u8InChar == KEUS_UART_MSG_INITIATOR && g0_endMessageIndex == 0)
-     52              {
-     53                g0_shouldSaveToBuffer = 1;
+     31            //Example syntax: 28 03 01 03 01 29
+     32            uint8 u8InChar;
+     33          
+     34            while (Hal_UART_RxBufLen(port))
+     35            {
+     36              // Read one byte from UART to ch
+     37              HalUARTRead(port, &u8InChar, 1);
+     38          
+     39              // if (u8InChar == 's')
+     40              // {
+     41              //   ledPin.state = LED_ON;
+     42              //   KeusGPIOSetPinValue(&ledPin);
+     43              // }
+     44              // else if (u8InChar == 'r')
+     45              // {
+     46              //   ledPin.state = LED_OFF;
+     47              //   KeusGPIOSetPinValue(&ledPin);
+     48              // }
+     49          
+     50              if (u8InChar == KEUS_UART_MSG_INITIATOR && g0_endMessageIndex == 0)
+     51              {
+     52                g0_shouldSaveToBuffer = 1;
    \                     ??uartRxCb_1:
    \   00000E   90....       MOV       DPTR,#g0_shouldSaveToBuffer
    \   000011   7401         MOV       A,#0x1
    \   000013   F0           MOVX      @DPTR,A
-     54                g0_bufferCounter = 0;
+     53                g0_bufferCounter = 0;
    \   000014   90....       MOV       DPTR,#g0_bufferCounter
    \                     ??uartRxCb_2:
    \   000017   E4           CLR       A
    \                     ??uartRxCb_3:
    \   000018   F0           MOVX      @DPTR,A
-     55              }
+     54              }
    \                     ??uartRxCb_0:
    \   000019                ; Setup parameters for call to function Hal_UART_RxBufLen
    \   000019   EE           MOV       A,R6
@@ -319,7 +318,7 @@ D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack\ZMain\TI2530DB\
    \   00003D   90....       MOV       DPTR,#g0_endMessageIndex
    \   000040   E0           MOVX      A,@DPTR
    \   000041   60CB         JZ        ??uartRxCb_1
-     56              else if (g0_endMessageIndex == 0 && g0_shouldSaveToBuffer)
+     55              else if (g0_endMessageIndex == 0 && g0_shouldSaveToBuffer)
    \                     ??uartRxCb_5:
    \   000043   90....       MOV       DPTR,#g0_endMessageIndex
    \   000046   E0           MOVX      A,@DPTR
@@ -327,16 +326,16 @@ D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack\ZMain\TI2530DB\
    \   000049   90....       MOV       DPTR,#g0_shouldSaveToBuffer
    \   00004C   E0           MOVX      A,@DPTR
    \   00004D   600C         JZ        ??uartRxCb_6
-     57              {
-     58                g0_endMessageIndex = u8InChar;
+     56              {
+     57                g0_endMessageIndex = u8InChar;
    \   00004F   85..82       MOV       DPL,?XSP + 0
    \   000052   85..83       MOV       DPH,?XSP + 1
    \   000055   E0           MOVX      A,@DPTR
    \                     ??uartRxCb_7:
    \   000056   90....       MOV       DPTR,#g0_endMessageIndex
    \   000059   80BD         SJMP      ??uartRxCb_3
-     59              }
-     60              else if (u8InChar == KEUS_UART_MSG_TERMINATOR && g0_endMessageIndex == g0_bufferCounter)
+     58              }
+     59              else if (u8InChar == KEUS_UART_MSG_TERMINATOR && g0_endMessageIndex == g0_bufferCounter)
    \                     ??uartRxCb_6:
    \   00005B   85..82       MOV       DPL,?XSP + 0
    \   00005E   85..83       MOV       DPH,?XSP + 1
@@ -350,17 +349,17 @@ D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack\ZMain\TI2530DB\
    \   00006E   E0           MOVX      A,@DPTR
    \   00006F   68           XRL       A,R0
    \   000070   701B         JNZ       ??uartRxCb_8
-     61              {
-     62                g0_shouldSaveToBuffer = 0;
+     60              {
+     61                g0_shouldSaveToBuffer = 0;
    \   000072   90....       MOV       DPTR,#g0_shouldSaveToBuffer
    \   000075   E4           CLR       A
    \   000076   F0           MOVX      @DPTR,A
-     63                g0_endMessageIndex = 0;
+     62                g0_endMessageIndex = 0;
    \   000077   90....       MOV       DPTR,#g0_endMessageIndex
    \   00007A   F0           MOVX      @DPTR,A
-     64          
-     65                //message_received = 1; //flag to process data
-     66                keusAppEvents |= KEUS_UART;
+     63          
+     64                //message_received = 1; //flag to process data
+     65                keusAppEvents |= KEUS_UART;
    \   00007B   90....       MOV       DPTR,#__Constant_10
    \   00007E   78..         MOV       R0,#?V0
    \   000080   12....       LCALL     ?L_MOV_X
@@ -368,8 +367,8 @@ D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack\ZMain\TI2530DB\
    \   000086   78..         MOV       R0,#?V0
    \   000088   12....       LCALL     ?L_IOR_TO_X
    \   00008B   808C         SJMP      ??uartRxCb_0
-     67              }
-     68              else if (g0_bufferCounter > g0_endMessageIndex)
+     66              }
+     67              else if (g0_bufferCounter > g0_endMessageIndex)
    \                     ??uartRxCb_8:
    \   00008D   90....       MOV       DPTR,#g0_bufferCounter
    \   000090   E0           MOVX      A,@DPTR
@@ -380,20 +379,20 @@ D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack\ZMain\TI2530DB\
    \   000097   98           SUBB      A,R0
    \   000098   90....       MOV       DPTR,#g0_shouldSaveToBuffer
    \   00009B   5004         JNC       ??uartRxCb_9
-     69              {
-     70                g0_shouldSaveToBuffer = 0;
+     68              {
+     69                g0_shouldSaveToBuffer = 0;
    \   00009D   E4           CLR       A
    \   00009E   F0           MOVX      @DPTR,A
-     71                g0_endMessageIndex = 0;
+     70                g0_endMessageIndex = 0;
    \   00009F   80B5         SJMP      ??uartRxCb_7
-     72              }
-     73          
-     74              else if (g0_shouldSaveToBuffer)
+     71              }
+     72          
+     73              else if (g0_shouldSaveToBuffer)
    \                     ??uartRxCb_9:
    \   0000A1   E0           MOVX      A,@DPTR
    \   0000A2   601E         JZ        ??uartRxCb_10
-     75              {
-     76                g0_u8RecData[g0_bufferCounter++] = u8InChar;
+     74              {
+     75                g0_u8RecData[g0_bufferCounter++] = u8InChar;
    \   0000A4   85..82       MOV       DPL,?XSP + 0
    \   0000A7   85..83       MOV       DPH,?XSP + 1
    \   0000AA   E0           MOVX      A,@DPTR
@@ -410,72 +409,118 @@ D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack\ZMain\TI2530DB\
    \   0000BD   E0           MOVX      A,@DPTR
    \   0000BE   04           INC       A
    \   0000BF   02....       LJMP      ??uartRxCb_3 & 0xFFFF
-     77              }
-     78              else
-     79                g0_endMessageIndex = 0;
+     76              }
+     77              else
+     78                g0_endMessageIndex = 0;
    \                     ??uartRxCb_10:
    \   0000C2   90....       MOV       DPTR,#g0_endMessageIndex
    \   0000C5   02....       LJMP      ??uartRxCb_2 & 0xFFFF
-     80            }
-     81          }
+     79            }
+     80          }
    \                     ??uartRxCb_4:
    \   0000C8   7401         MOV       A,#0x1
    \   0000CA   12....       LCALL     ?DEALLOC_XSTACK8
    \   0000CD   7F04         MOV       R7,#0x4
    \   0000CF   02....       LJMP      ?BANKED_LEAVE_XDATA
-     82          
+     81          
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-     83          void KeusUartAckMsg(uint8 data)
-   \                     KeusUartAckMsg:
-     84          {
+     82          void UART_tx(uint8 arr[], uint8 dataLen)
+   \                     UART_tx:
+     83          {
+   \   000000                REQUIRE ?V0
    \   000000   74F7         MOV       A,#-0x9
    \   000002   12....       LCALL     ?BANKED_ENTER_XDATA
    \   000005                ; Saved register size: 9
-   \   000005                ; Auto size: 32
-   \   000005   74E0         MOV       A,#-0x20
+   \   000005                ; Auto size: 10
+   \   000005   74F6         MOV       A,#-0xa
    \   000007   12....       LCALL     ?ALLOC_XSTACK8
-     85            uint8 ackMsgData[32];
-     86            uint8 dataLen = 0;
-     87          
-     88            ackMsgData[dataLen++] = KEUS_UART_MSG_INITIATOR;
-   \   00000A   85..82       MOV       DPL,?XSP + 0
-   \   00000D   85..83       MOV       DPH,?XSP + 1
-   \   000010   7428         MOV       A,#0x28
-   \   000012   F0           MOVX      @DPTR,A
-     89          
-     90            ackMsgData[dataLen++] = 0x01; //one byte of ackdata
-   \   000013   7401         MOV       A,#0x1
-   \   000015   12....       LCALL     ?XSTACK_DISP0_8
-   \   000018   7401         MOV       A,#0x1
-   \   00001A   F0           MOVX      @DPTR,A
-     91          
-     92            ackMsgData[dataLen++] = data;
-   \   00001B   7402         MOV       A,#0x2
-   \   00001D   12....       LCALL     ?XSTACK_DISP0_8
-   \   000020   E9           MOV       A,R1
-   \   000021   F0           MOVX      @DPTR,A
-     93          
-     94            ackMsgData[dataLen++] = KEUS_UART_MSG_TERMINATOR;
-   \   000022   7403         MOV       A,#0x3
-   \   000024   12....       LCALL     ?XSTACK_DISP0_8
-   \   000027   7429         MOV       A,#0x29
-   \   000029   F0           MOVX      @DPTR,A
-     95          
-     96            //UART_Write(UART0, ackMsgData, dataLen);
-     97            HalUARTWrite(HAL_UART_PORT_0, ackMsgData, dataLen);
-   \   00002A                ; Setup parameters for call to function HalUARTWrite
-   \   00002A   7C04         MOV       R4,#0x4
-   \   00002C   7D00         MOV       R5,#0x0
-   \   00002E   AA..         MOV       R2,?XSP + 0
-   \   000030   AB..         MOV       R3,?XSP + 1
-   \   000032   7900         MOV       R1,#0x0
-   \   000034   12....       LCALL     `??HalUARTWrite::?relay`; Banked call to: HalUARTWrite
-     98          }
-   \   000037   7420         MOV       A,#0x20
-   \   000039   12....       LCALL     ?DEALLOC_XSTACK8
-   \   00003C   7F01         MOV       R7,#0x1
-   \   00003E   02....       LJMP      ?BANKED_LEAVE_XDATA
+   \   00000A   89..         MOV       ?V0,R1
+     84            uint8 sendBuffer[10], bufferLength = 0;
+     85            sendBuffer[0] = KEUS_UART_MSG_INITIATOR;
+   \   00000C   85..82       MOV       DPL,?XSP + 0
+   \   00000F   85..83       MOV       DPH,?XSP + 1
+   \   000012   7428         MOV       A,#0x28
+   \   000014   F0           MOVX      @DPTR,A
+     86            bufferLength++;
+     87            sendBuffer[1] = dataLen;
+   \   000015   7401         MOV       A,#0x1
+   \   000017   12....       LCALL     ?XSTACK_DISP0_8
+   \   00001A   E9           MOV       A,R1
+   \   00001B   F0           MOVX      @DPTR,A
+     88            bufferLength++;
+   \   00001C   7C02         MOV       R4,#0x2
+     89            for (int i = 0; i < dataLen; i++)
+   \   00001E   7800         MOV       R0,#0x0
+   \   000020   7900         MOV       R1,#0x0
+   \   000022   8026         SJMP      ??UART_tx_0
+     90            {
+     91              sendBuffer[i + 2] = arr[i];
+   \                     ??UART_tx_1:
+   \   000024   EA           MOV       A,R2
+   \   000025   28           ADD       A,R0
+   \   000026   F582         MOV       DPL,A
+   \   000028   EB           MOV       A,R3
+   \   000029   39           ADDC      A,R1
+   \   00002A   F583         MOV       DPH,A
+   \   00002C   E0           MOVX      A,@DPTR
+   \   00002D   C0E0         PUSH      A
+   \   00002F   85..82       MOV       DPL,?XSP + 0
+   \   000032   85..83       MOV       DPH,?XSP + 1
+   \   000035   E582         MOV       A,DPL
+   \   000037   28           ADD       A,R0
+   \   000038   F582         MOV       DPL,A
+   \   00003A   E583         MOV       A,DPH
+   \   00003C   39           ADDC      A,R1
+   \   00003D   F583         MOV       DPH,A
+   \   00003F   A3           INC       DPTR
+   \   000040   A3           INC       DPTR
+   \   000041   D0E0         POP       A
+   \   000043   F0           MOVX      @DPTR,A
+     92              bufferLength++;
+   \   000044   0C           INC       R4
+     93            }
+   \   000045   08           INC       R0
+   \   000046   E8           MOV       A,R0
+   \   000047   7001         JNZ       ??UART_tx_0
+   \   000049   09           INC       R1
+   \                     ??UART_tx_0:
+   \   00004A   AE..         MOV       R6,?V0
+   \   00004C   C3           CLR       C
+   \   00004D   E8           MOV       A,R0
+   \   00004E   9E           SUBB      A,R6
+   \   00004F   E9           MOV       A,R1
+   \   000050   9400         SUBB      A,#0x0
+   \   000052   A2D2         MOV       C,0xD0 /* PSW */.2
+   \   000054   65D0         XRL       A,PSW
+   \   000056   33           RLC       A
+   \   000057   40CB         JC        ??UART_tx_1
+     94            sendBuffer[bufferLength++] = KEUS_UART_MSG_TERMINATOR;
+   \   000059   EC           MOV       A,R4
+   \   00005A   F8           MOV       R0,A
+   \   00005B   85..82       MOV       DPL,?XSP + 0
+   \   00005E   85..83       MOV       DPH,?XSP + 1
+   \   000061   E582         MOV       A,DPL
+   \   000063   28           ADD       A,R0
+   \   000064   F582         MOV       DPL,A
+   \   000066   E4           CLR       A
+   \   000067   3583         ADDC      A,DPH
+   \   000069   F583         MOV       DPH,A
+   \   00006B   7429         MOV       A,#0x29
+   \   00006D   F0           MOVX      @DPTR,A
+     95            HalUARTWrite(HAL_UART_PORT_0, sendBuffer, bufferLength);
+   \   00006E                ; Setup parameters for call to function HalUARTWrite
+   \   00006E   0C           INC       R4
+   \   00006F   7D00         MOV       R5,#0x0
+   \   000071   AA..         MOV       R2,?XSP + 0
+   \   000073   AB..         MOV       R3,?XSP + 1
+   \   000075   7900         MOV       R1,#0x0
+   \   000077   12....       LCALL     `??HalUARTWrite::?relay`; Banked call to: HalUARTWrite
+     96          }
+   \   00007A   740A         MOV       A,#0xa
+   \   00007C   12....       LCALL     ?DEALLOC_XSTACK8
+   \   00007F   7F01         MOV       R7,#0x1
+   \   000081   02....       LJMP      ?BANKED_LEAVE_XDATA
 
    \                                 In  segment XDATA_ROM_C, align 1
    \                     __Constant_10:
@@ -485,8 +530,8 @@ D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack\ZMain\TI2530DB\
 
    ISTACK XSTACK Function
    ------ ------ --------
-      1     41   KeusUartAckMsg
-        0     41   -> HalUARTWrite
+      1     19   UART_tx
+        0     19   -> HalUARTWrite
       2     29   initUart
         2     29   -> HalUARTOpen
       1     13   uartRxCb
@@ -498,7 +543,7 @@ D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack\ZMain\TI2530DB\
 
    Bytes  Function/Label
    -----  --------------
-      65  KeusUartAckMsg
+     132  UART_tx
        4  __Constant_10
        1  g0_bufferCounter
        1  g0_endMessageIndex
@@ -510,14 +555,14 @@ D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack\ZMain\TI2530DB\
       18  -- Other
 
  
- 388 bytes in segment BANKED_CODE
+ 455 bytes in segment BANKED_CODE
   18 bytes in segment BANK_RELAYS
    4 bytes in segment XDATA_ROM_C
   36 bytes in segment XDATA_Z
  
   18 bytes of CODE     memory
    0 bytes of CONST    memory (+ 4 bytes shared)
- 388 bytes of HUGECODE memory
+ 455 bytes of HUGECODE memory
   36 bytes of XDATA    memory
 
 Errors: none

@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR C/C++ Compiler V10.30.1.6000 for 8051              06/Jan/2020  17:05:22
+// IAR C/C++ Compiler V10.30.1.6000 for 8051              07/Jan/2020  13:01:03
 // Copyright 2004-2018 IAR Systems AB.
 // PC-locked license - IAR Embedded Workbench for 8051
 //
@@ -15,8 +15,8 @@
 //        D:\VB_Shared\Zigbee Resources\CC2530
 //        Development\Projects\zstack\ZMain\TI2530DB\Theme_switch\keusuart.c
 //    Command line       =  
-//        -f C:\Users\Souvik\AppData\Local\Temp\EW5AB.tmp ("D:\VB_Shared\Zigbee
-//        Resources\CC2530
+//        -f C:\Users\Souvik\AppData\Local\Temp\EWB23B.tmp
+//        ("D:\VB_Shared\Zigbee Resources\CC2530
 //        Development\Projects\zstack\ZMain\TI2530DB\Theme_switch\keusuart.c"
 //        -D SECURE=1 -D TC_LINKKEY_JOIN -D NV_INIT -D NV_RESTORE -D
 //        HAL_KEY=FALSE -D HAL_LCD=FALSE -D HAL_LED=FALSE -D
@@ -151,17 +151,17 @@
         EXTERN ?XSTACK_DISP0_8
         EXTERN __INIT_XDATA_Z
 
-        PUBLIC `??KeusUartAckMsg::?relay`
-        FUNCTION `??KeusUartAckMsg::?relay`,0203H
+        PUBLIC `??UART_tx::?relay`
+        FUNCTION `??UART_tx::?relay`,0203H
         PUBLIC `??initUart::?relay`
         FUNCTION `??initUart::?relay`,0203H
         PUBLIC `??uartRxCb::?relay`
         FUNCTION `??uartRxCb::?relay`,0203H
-        PUBLIC KeusUartAckMsg
-        FUNCTION KeusUartAckMsg,021203H
+        PUBLIC UART_tx
+        FUNCTION UART_tx,0a1203H
         ARGFRAME XSTACK, 0, STACK
         LOCFRAME ISTACK, 1, STACK
-        LOCFRAME XSTACK, 41, STACK
+        LOCFRAME XSTACK, 19, STACK
         PUBWEAK __Constant_10
         PUBLIC g0_bufferCounter
         PUBLIC g0_endMessageIndex
@@ -275,8 +275,8 @@ HalUARTWrite        SYMBOL "HalUARTWrite"
 `??HalUARTWrite::?relay` SYMBOL "?relay", HalUARTWrite
 Hal_UART_RxBufLen   SYMBOL "Hal_UART_RxBufLen"
 `??Hal_UART_RxBufLen::?relay` SYMBOL "?relay", Hal_UART_RxBufLen
-KeusUartAckMsg      SYMBOL "KeusUartAckMsg"
-`??KeusUartAckMsg::?relay` SYMBOL "?relay", KeusUartAckMsg
+UART_tx             SYMBOL "UART_tx"
+`??UART_tx::?relay` SYMBOL "?relay", UART_tx
 initUart            SYMBOL "initUart"
 `??initUart::?relay` SYMBOL "?relay", initUart
 uartRxCb            SYMBOL "uartRxCb"
@@ -308,7 +308,7 @@ uartRxCb            SYMBOL "uartRxCb"
         FUNCTION HalUARTWrite,0202H
         ARGFRAME ISTACK, 0, STACK
         ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 41, STACK
+        ARGFRAME XSTACK, 19, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
         EXTERN Hal_UART_RxBufLen
@@ -475,15 +475,14 @@ initUart:
         LJMP      ?BRET
           CFI EndBlock cfiBlock0
 //   28 
-//   29 
 
         RSEG BANKED_CODE:HUGECODE:NOROOT(0)
-//   30 void uartRxCb(uint8 port, uint8 event)
+//   29 void uartRxCb(uint8 port, uint8 event)
 uartRxCb:
           CFI Block cfiBlock1 Using cfiCommon0
           CFI Function uartRxCb
         CODE
-//   31 { 
+//   30 {
         FUNCALL uartRxCb, Hal_UART_RxBufLen
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
@@ -534,39 +533,39 @@ uartRxCb:
         MOV       A,R1
         MOV       R6,A
         SJMP      ??uartRxCb_0
-//   32   //Example syntax: 28 03 01 03 01 29
-//   33   uint8 u8InChar;
-//   34 
-//   35   while (Hal_UART_RxBufLen(port))
-//   36   {
-//   37     // Read one byte from UART to ch
-//   38     HalUARTRead(port, &u8InChar, 1);
-//   39 
-//   40     // if (u8InChar == 's')
-//   41     // {
-//   42     //   ledPin.state = LED_ON;
-//   43     //   KeusGPIOSetPinValue(&ledPin);
-//   44     // }
-//   45     // else if (u8InChar == 'r')
-//   46     // {
-//   47     //   ledPin.state = LED_OFF;
-//   48     //   KeusGPIOSetPinValue(&ledPin);
-//   49     // }
-//   50 
-//   51     if (u8InChar == KEUS_UART_MSG_INITIATOR && g0_endMessageIndex == 0)
-//   52     {
-//   53       g0_shouldSaveToBuffer = 1;
+//   31   //Example syntax: 28 03 01 03 01 29
+//   32   uint8 u8InChar;
+//   33 
+//   34   while (Hal_UART_RxBufLen(port))
+//   35   {
+//   36     // Read one byte from UART to ch
+//   37     HalUARTRead(port, &u8InChar, 1);
+//   38 
+//   39     // if (u8InChar == 's')
+//   40     // {
+//   41     //   ledPin.state = LED_ON;
+//   42     //   KeusGPIOSetPinValue(&ledPin);
+//   43     // }
+//   44     // else if (u8InChar == 'r')
+//   45     // {
+//   46     //   ledPin.state = LED_OFF;
+//   47     //   KeusGPIOSetPinValue(&ledPin);
+//   48     // }
+//   49 
+//   50     if (u8InChar == KEUS_UART_MSG_INITIATOR && g0_endMessageIndex == 0)
+//   51     {
+//   52       g0_shouldSaveToBuffer = 1;
 ??uartRxCb_1:
         MOV       DPTR,#g0_shouldSaveToBuffer
         MOV       A,#0x1
         MOVX      @DPTR,A
-//   54       g0_bufferCounter = 0;
+//   53       g0_bufferCounter = 0;
         MOV       DPTR,#g0_bufferCounter
 ??uartRxCb_2:
         CLR       A
 ??uartRxCb_3:
         MOVX      @DPTR,A
-//   55     }
+//   54     }
 ??uartRxCb_0:
         ; Setup parameters for call to function Hal_UART_RxBufLen
         MOV       A,R6
@@ -592,7 +591,7 @@ uartRxCb:
         MOV       DPTR,#g0_endMessageIndex
         MOVX      A,@DPTR
         JZ        ??uartRxCb_1
-//   56     else if (g0_endMessageIndex == 0 && g0_shouldSaveToBuffer)
+//   55     else if (g0_endMessageIndex == 0 && g0_shouldSaveToBuffer)
 ??uartRxCb_5:
         MOV       DPTR,#g0_endMessageIndex
         MOVX      A,@DPTR
@@ -600,16 +599,16 @@ uartRxCb:
         MOV       DPTR,#g0_shouldSaveToBuffer
         MOVX      A,@DPTR
         JZ        ??uartRxCb_6
-//   57     {
-//   58       g0_endMessageIndex = u8InChar;
+//   56     {
+//   57       g0_endMessageIndex = u8InChar;
         MOV       DPL,?XSP + 0
         MOV       DPH,?XSP + 1
         MOVX      A,@DPTR
 ??uartRxCb_7:
         MOV       DPTR,#g0_endMessageIndex
         SJMP      ??uartRxCb_3
-//   59     }
-//   60     else if (u8InChar == KEUS_UART_MSG_TERMINATOR && g0_endMessageIndex == g0_bufferCounter)
+//   58     }
+//   59     else if (u8InChar == KEUS_UART_MSG_TERMINATOR && g0_endMessageIndex == g0_bufferCounter)
 ??uartRxCb_6:
         MOV       DPL,?XSP + 0
         MOV       DPH,?XSP + 1
@@ -623,17 +622,17 @@ uartRxCb:
         MOVX      A,@DPTR
         XRL       A,R0
         JNZ       ??uartRxCb_8
-//   61     {
-//   62       g0_shouldSaveToBuffer = 0;
+//   60     {
+//   61       g0_shouldSaveToBuffer = 0;
         MOV       DPTR,#g0_shouldSaveToBuffer
         CLR       A
         MOVX      @DPTR,A
-//   63       g0_endMessageIndex = 0;
+//   62       g0_endMessageIndex = 0;
         MOV       DPTR,#g0_endMessageIndex
         MOVX      @DPTR,A
-//   64 
-//   65       //message_received = 1; //flag to process data
-//   66       keusAppEvents |= KEUS_UART;
+//   63 
+//   64       //message_received = 1; //flag to process data
+//   65       keusAppEvents |= KEUS_UART;
         MOV       DPTR,#__Constant_10
         MOV       R0,#?V0
         LCALL     ?L_MOV_X
@@ -641,8 +640,8 @@ uartRxCb:
         MOV       R0,#?V0
         LCALL     ?L_IOR_TO_X
         SJMP      ??uartRxCb_0
-//   67     }
-//   68     else if (g0_bufferCounter > g0_endMessageIndex)
+//   66     }
+//   67     else if (g0_bufferCounter > g0_endMessageIndex)
 ??uartRxCb_8:
         MOV       DPTR,#g0_bufferCounter
         MOVX      A,@DPTR
@@ -653,20 +652,20 @@ uartRxCb:
         SUBB      A,R0
         MOV       DPTR,#g0_shouldSaveToBuffer
         JNC       ??uartRxCb_9
-//   69     {
-//   70       g0_shouldSaveToBuffer = 0;
+//   68     {
+//   69       g0_shouldSaveToBuffer = 0;
         CLR       A
         MOVX      @DPTR,A
-//   71       g0_endMessageIndex = 0;
+//   70       g0_endMessageIndex = 0;
         SJMP      ??uartRxCb_7
-//   72     }
-//   73 
-//   74     else if (g0_shouldSaveToBuffer)
+//   71     }
+//   72 
+//   73     else if (g0_shouldSaveToBuffer)
 ??uartRxCb_9:
         MOVX      A,@DPTR
         JZ        ??uartRxCb_10
-//   75     {
-//   76       g0_u8RecData[g0_bufferCounter++] = u8InChar;
+//   74     {
+//   75       g0_u8RecData[g0_bufferCounter++] = u8InChar;
         MOV       DPL,?XSP + 0
         MOV       DPH,?XSP + 1
         MOVX      A,@DPTR
@@ -685,14 +684,14 @@ uartRxCb:
         MOVX      A,@DPTR
         INC       A
         LJMP      ??uartRxCb_3 & 0xFFFF
-//   77     }
-//   78     else
-//   79       g0_endMessageIndex = 0;
+//   76     }
+//   77     else
+//   78       g0_endMessageIndex = 0;
 ??uartRxCb_10:
         MOV       DPTR,#g0_endMessageIndex
         LJMP      ??uartRxCb_2 & 0xFFFF
-//   80   }
-//   81 }
+//   79   }
+//   80 }
 ??uartRxCb_4:
         MOV       A,#0x1
         LCALL     ?DEALLOC_XSTACK8
@@ -700,26 +699,27 @@ uartRxCb:
         MOV       R7,#0x4
         LJMP      ?BANKED_LEAVE_XDATA
           CFI EndBlock cfiBlock1
-//   82 
+//   81 
 
         RSEG BANKED_CODE:HUGECODE:NOROOT(0)
-//   83 void KeusUartAckMsg(uint8 data)
-KeusUartAckMsg:
+//   82 void UART_tx(uint8 arr[], uint8 dataLen)
+UART_tx:
           CFI Block cfiBlock2 Using cfiCommon0
-          CFI Function KeusUartAckMsg
+          CFI Function UART_tx
         CODE
-//   84 {
-        FUNCALL KeusUartAckMsg, HalUARTWrite
+//   83 {
+        FUNCALL UART_tx, HalUARTWrite
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
-        LOCFRAME XSTACK, 41, STACK
+        LOCFRAME XSTACK, 19, STACK
         LOCFRAME IOVERLAY, 0, STATIC
         LOCFRAME DOVERLAY, 0, STATIC
         ARGFRAME ISTACK, 0, STACK
         ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 41, STACK
+        ARGFRAME XSTACK, 19, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
+        REQUIRE ?V0
         MOV       A,#-0x9
         LCALL     ?BANKED_ENTER_XDATA
           CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
@@ -734,48 +734,95 @@ KeusUartAckMsg:
           CFI CFA_SP SP+0
           CFI CFA_XSP16 add(XSP16, 9)
         ; Saved register size: 9
-        ; Auto size: 32
-        MOV       A,#-0x20
+        ; Auto size: 10
+        MOV       A,#-0xa
         LCALL     ?ALLOC_XSTACK8
-          CFI CFA_XSP16 add(XSP16, 41)
-//   85   uint8 ackMsgData[32];
-//   86   uint8 dataLen = 0;
-//   87 
-//   88   ackMsgData[dataLen++] = KEUS_UART_MSG_INITIATOR;
+          CFI CFA_XSP16 add(XSP16, 19)
+        MOV       ?V0,R1
+//   84   uint8 sendBuffer[10], bufferLength = 0;
+//   85   sendBuffer[0] = KEUS_UART_MSG_INITIATOR;
         MOV       DPL,?XSP + 0
         MOV       DPH,?XSP + 1
         MOV       A,#0x28
         MOVX      @DPTR,A
-//   89 
-//   90   ackMsgData[dataLen++] = 0x01; //one byte of ackdata
+//   86   bufferLength++;
+//   87   sendBuffer[1] = dataLen;
         MOV       A,#0x1
-        LCALL     ?XSTACK_DISP0_8
-        MOV       A,#0x1
-        MOVX      @DPTR,A
-//   91 
-//   92   ackMsgData[dataLen++] = data;
-        MOV       A,#0x2
         LCALL     ?XSTACK_DISP0_8
         MOV       A,R1
         MOVX      @DPTR,A
-//   93 
-//   94   ackMsgData[dataLen++] = KEUS_UART_MSG_TERMINATOR;
-        MOV       A,#0x3
-        LCALL     ?XSTACK_DISP0_8
+//   88   bufferLength++;
+        MOV       R4,#0x2
+//   89   for (int i = 0; i < dataLen; i++)
+        MOV       R0,#0x0
+        MOV       R1,#0x0
+        SJMP      ??UART_tx_0
+//   90   {
+//   91     sendBuffer[i + 2] = arr[i];
+??UART_tx_1:
+        MOV       A,R2
+        ADD       A,R0
+        MOV       DPL,A
+        MOV       A,R3
+        ADDC      A,R1
+        MOV       DPH,A
+        MOVX      A,@DPTR
+        PUSH      A
+          CFI CFA_SP SP+-1
+        MOV       DPL,?XSP + 0
+        MOV       DPH,?XSP + 1
+        MOV       A,DPL
+        ADD       A,R0
+        MOV       DPL,A
+        MOV       A,DPH
+        ADDC      A,R1
+        MOV       DPH,A
+        INC       DPTR
+        INC       DPTR
+        POP       A
+          CFI CFA_SP SP+0
+        MOVX      @DPTR,A
+//   92     bufferLength++;
+        INC       R4
+//   93   }
+        INC       R0
+        MOV       A,R0
+        JNZ       ??UART_tx_0
+        INC       R1
+??UART_tx_0:
+        MOV       R6,?V0
+        CLR       C
+        MOV       A,R0
+        SUBB      A,R6
+        MOV       A,R1
+        SUBB      A,#0x0
+        MOV       C,0xD0 /* PSW */.2
+        XRL       A,PSW
+        RLC       A
+        JC        ??UART_tx_1
+//   94   sendBuffer[bufferLength++] = KEUS_UART_MSG_TERMINATOR;
+        MOV       A,R4
+        MOV       R0,A
+        MOV       DPL,?XSP + 0
+        MOV       DPH,?XSP + 1
+        MOV       A,DPL
+        ADD       A,R0
+        MOV       DPL,A
+        CLR       A
+        ADDC      A,DPH
+        MOV       DPH,A
         MOV       A,#0x29
         MOVX      @DPTR,A
-//   95 
-//   96   //UART_Write(UART0, ackMsgData, dataLen);
-//   97   HalUARTWrite(HAL_UART_PORT_0, ackMsgData, dataLen);
+//   95   HalUARTWrite(HAL_UART_PORT_0, sendBuffer, bufferLength);
         ; Setup parameters for call to function HalUARTWrite
-        MOV       R4,#0x4
+        INC       R4
         MOV       R5,#0x0
         MOV       R2,?XSP + 0
         MOV       R3,?XSP + 1
         MOV       R1,#0x0
         LCALL     `??HalUARTWrite::?relay`; Banked call to: HalUARTWrite
-//   98 }
-        MOV       A,#0x20
+//   96 }
+        MOV       A,#0xa
         LCALL     ?DEALLOC_XSTACK8
           CFI CFA_XSP16 add(XSP16, 9)
         MOV       R7,#0x1
@@ -802,22 +849,22 @@ __Constant_10:
         DC24    uartRxCb
 
         RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
-`??KeusUartAckMsg::?relay`:
+`??UART_tx::?relay`:
         CODE
         LCALL   ?BDISPATCH
         DATA24
-        DC24    KeusUartAckMsg
+        DC24    UART_tx
 
         END
 // 
-// 388 bytes in segment BANKED_CODE
+// 455 bytes in segment BANKED_CODE
 //  18 bytes in segment BANK_RELAYS
 //   4 bytes in segment XDATA_ROM_C
 //  36 bytes in segment XDATA_Z
 // 
 //  18 bytes of CODE     memory
 //   0 bytes of CONST    memory (+ 4 bytes shared)
-// 388 bytes of HUGECODE memory
+// 455 bytes of HUGECODE memory
 //  36 bytes of XDATA    memory
 //
 //Errors: none

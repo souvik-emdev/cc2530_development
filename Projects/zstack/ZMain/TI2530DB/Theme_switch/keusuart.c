@@ -26,9 +26,8 @@ void initUart()
   HalUARTOpen(HAL_UART_PORT_0, &uartConfig);
 }
 
-
 void uartRxCb(uint8 port, uint8 event)
-{ 
+{
   //Example syntax: 28 03 01 03 01 29
   uint8 u8InChar;
 
@@ -80,19 +79,18 @@ void uartRxCb(uint8 port, uint8 event)
   }
 }
 
-void KeusUartAckMsg(uint8 data)
+void UART_tx(uint8 arr[], uint8 dataLen)
 {
-  uint8 ackMsgData[32];
-  uint8 dataLen = 0;
-
-  ackMsgData[dataLen++] = KEUS_UART_MSG_INITIATOR;
-
-  ackMsgData[dataLen++] = 0x01; //one byte of ackdata
-
-  ackMsgData[dataLen++] = data;
-
-  ackMsgData[dataLen++] = KEUS_UART_MSG_TERMINATOR;
-
-  //UART_Write(UART0, ackMsgData, dataLen);
-  HalUARTWrite(HAL_UART_PORT_0, ackMsgData, dataLen);
+  uint8 sendBuffer[10], bufferLength = 0;
+  sendBuffer[0] = KEUS_UART_MSG_INITIATOR;
+  bufferLength++;
+  sendBuffer[1] = dataLen;
+  bufferLength++;
+  for (int i = 0; i < dataLen; i++)
+  {
+    sendBuffer[i + 2] = arr[i];
+    bufferLength++;
+  }
+  sendBuffer[bufferLength++] = KEUS_UART_MSG_TERMINATOR;
+  HalUARTWrite(HAL_UART_PORT_0, sendBuffer, bufferLength);
 }

@@ -12,7 +12,7 @@
         <ByteLimit>50</ByteLimit>
     </Stack>
     <DebugChecksum>
-        <Checksum>3345725485</Checksum>
+        <Checksum>2679467782</Checksum>
     </DebugChecksum>
     <CallStack>
         <ShowArgs>0</ShowArgs>
@@ -24,14 +24,12 @@
         <Placement>_ 665 342 1255 689</Placement>
     </BreakpointUsageDialog>
     <watch_formats>
-        <Fmt0>{W}1:keusAppEvents	4	0</Fmt0>
+        <Fmt0>{W}1:debugSequence	1	0</Fmt0>
+        <Fmt1>{W}1:keusAppEvents	1	0</Fmt1>
     </watch_formats>
     <Breakpoints>
-        <Bp0>_ "STD_CODE" "{$PROJ_DIR$\..\..\..\ZMain\TI2530DB\Theme_switch\keusactions.c}.55.13" 1 0 0 0 "" 0 ""</Bp0>
-        <Bp1>_ "STD_CODE" "{$PROJ_DIR$\..\..\..\ZMain\TI2530DB\Theme_switch\keusactions.c}.58.13" 1 0 0 0 "" 0 ""</Bp1>
-        <Bp2>_ "STD_CODE" "{$PROJ_DIR$\..\..\..\ZMain\TI2530DB\Theme_switch\keusactions.c}.61.13" 1 0 0 0 "" 0 ""</Bp2>
-        <Bp3>_ "STD_CODE" "{$PROJ_DIR$\..\..\..\ZMain\TI2530DB\Theme_switch\keusactions.c}.64.13" 1 0 0 0 "" 0 ""</Bp3>
-        <Count>4</Count>
+        <Bp0>_ "STD_CODE" "{$PROJ_DIR$\..\..\..\ZMain\TI2530DB\Theme_switch\keusactions.c}.173.13" 0 0 0 0 "" 0 ""</Bp0>
+        <Count>1</Count>
     </Breakpoints>
     <ChipconEmu>
         <StopTimersOnHalt>0</StopTimersOnHalt>

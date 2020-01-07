@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR C/C++ Compiler V10.30.1.6000 for 8051              06/Jan/2020  18:50:58
+// IAR C/C++ Compiler V10.30.1.6000 for 8051              07/Jan/2020  13:49:55
 // Copyright 2004-2018 IAR Systems AB.
 // PC-locked license - IAR Embedded Workbench for 8051
 //
@@ -15,7 +15,7 @@
 //        D:\VB_Shared\Zigbee Resources\CC2530
 //        Development\Projects\zstack\ZMain\TI2530DB\ZMain.c
 //    Command line       =  
-//        -f C:\Users\Souvik\AppData\Local\Temp\EWB1E5.tmp
+//        -f C:\Users\Souvik\AppData\Local\Temp\EW7201.tmp
 //        ("D:\VB_Shared\Zigbee Resources\CC2530
 //        Development\Projects\zstack\ZMain\TI2530DB\ZMain.c" -D SECURE=1 -D
 //        TC_LINKKEY_JOIN -D NV_INIT -D NV_RESTORE -D HAL_KEY=FALSE -D
@@ -186,7 +186,15 @@
         PUBWEAK SLEEPSTA
         PUBWEAK _A_P0
         PUBWEAK _A_P1
+        PUBWEAK __Constant_1
         PUBWEAK __Constant_10
+        PUBWEAK __Constant_100
+        PUBWEAK __Constant_2
+        PUBWEAK __Constant_20
+        PUBWEAK __Constant_4
+        PUBWEAK __Constant_40
+        PUBWEAK __Constant_8
+        PUBWEAK __Constant_80
         PUBLIC keusAppEvents
         PUBLIC main
         FUNCTION main,0a1a03H
@@ -440,10 +448,16 @@ ZMacInit            SYMBOL "ZMacInit"
 `??ZMacInit::?relay` SYMBOL "?relay", ZMacInit
 ZMacSetReq          SYMBOL "ZMacSetReq"
 `??ZMacSetReq::?relay` SYMBOL "?relay", ZMacSetReq
+buttonPressAction   SYMBOL "buttonPressAction"
+`??buttonPressAction::?relay` SYMBOL "?relay", buttonPressAction
+exitDebugMode       SYMBOL "exitDebugMode"
+`??exitDebugMode::?relay` SYMBOL "?relay", exitDebugMode
 initUart            SYMBOL "initUart"
 `??initUart::?relay` SYMBOL "?relay", initUart
 keusButtonInit      SYMBOL "keusButtonInit"
 `??keusButtonInit::?relay` SYMBOL "?relay", keusButtonInit
+keusLEDInit         SYMBOL "keusLEDInit"
+`??keusLEDInit::?relay` SYMBOL "?relay", keusLEDInit
 osal_init_system    SYMBOL "osal_init_system"
 `??osal_init_system::?relay` SYMBOL "?relay", osal_init_system
 osal_int_disable    SYMBOL "osal_int_disable"
@@ -499,10 +513,16 @@ main                SYMBOL "main"
         FUNCTION `??ZMacInit::?relay`,00H
         EXTERN `??ZMacSetReq::?relay`
         FUNCTION `??ZMacSetReq::?relay`,00H
+        EXTERN `??buttonPressAction::?relay`
+        FUNCTION `??buttonPressAction::?relay`,00H
+        EXTERN `??exitDebugMode::?relay`
+        FUNCTION `??exitDebugMode::?relay`,00H
         EXTERN `??initUart::?relay`
         FUNCTION `??initUart::?relay`,00H
         EXTERN `??keusButtonInit::?relay`
         FUNCTION `??keusButtonInit::?relay`,00H
+        EXTERN `??keusLEDInit::?relay`
+        FUNCTION `??keusLEDInit::?relay`,00H
         EXTERN `??osal_init_system::?relay`
         FUNCTION `??osal_init_system::?relay`,00H
         EXTERN `??osal_int_disable::?relay`
@@ -602,6 +622,20 @@ main                SYMBOL "main"
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
         EXTERN aExtendedAddress
+        EXTERN buttonPressAction
+        FUNCTION buttonPressAction,0202H
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 12, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN exitDebugMode
+        FUNCTION exitDebugMode,0202H
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 12, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
         EXTERN initUart
         FUNCTION initUart,0202H
         ARGFRAME ISTACK, 0, STACK
@@ -611,6 +645,13 @@ main                SYMBOL "main"
         ARGFRAME DOVERLAY, 0, STATIC
         EXTERN keusButtonInit
         FUNCTION keusButtonInit,0202H
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 10, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN keusLEDInit
+        FUNCTION keusLEDInit,0202H
         ARGFRAME ISTACK, 0, STACK
         ARGFRAME PSTACK, 0, STACK
         ARGFRAME XSTACK, 10, STACK
@@ -718,34 +759,26 @@ main                SYMBOL "main"
 // D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack\ZMain\TI2530DB\ZMain.c
 //    1 /**************************************************************************************************
 //    2   Filename:       ZMain.c
-//    3   Revised:        $Date: 2019-12-05 16:25:30 -0700 (Thrusday, 05 Dec 2019) $
+//    3   Revised:        $Date: 2020-06-01 18:54:30 -0700 (Monday, 06 Jan 2020) $
 //    4 
-//    5   Description:    Storing and executing KEUS Scene, Switch press action, Controlling GPIOs through UART.
-//    6                   Data transmission format: Startbyte-datalength-data-endbyte
-//    7                   Switch press should toggle corresponding LED
-//    8                   UART Commands to set single/group led state, save scene, execute scene, delete scene
-//    9                   & single blink, wait and blink, continuous blink.
-//   10                   LED Control:
-//   11                   00 - off
-//   12                   01 - on
-//   13                   02 - if previously off turnon<wait>turnoff
-//   14                        if previously on turnoff<wait>turnon<wait>turnoff
-//   15                   03 - Blink continuously
-//   16                   All scene data is being saved to nvic memory and should retain after power cycle
-//   17   Notes:          This version targets the Chipcon CC2530
+//    5   Description:    Mapping Scene to buttons
+//    6                   Blinking indication LEDs
+//    7                   Keus Theme Switch
+//    8 
+//    9   Notes:          This version targets the Chipcon CC2530
+//   10 
+//   11 
+//   12 
+//   13 **************************************************************************************************/
+//   14 
+//   15 /*********************************************************************
+//   16  * INCLUDES
+//   17  */
 //   18 
-//   19 
-//   20 
-//   21 **************************************************************************************************/
-//   22 
-//   23 /*********************************************************************
-//   24  * INCLUDES
-//   25  */
-//   26 
-//   27 #ifndef NONWK
-//   28 #include "AF.h"
-//   29 #endif
-//   30 #include "hal_adc.h"
+//   19 #ifndef NONWK
+//   20 #include "AF.h"
+//   21 #endif
+//   22 #include "hal_adc.h"
 
         ASEGN SFR_AN:DATA:NOROOT,080H
 // union <unnamed> volatile __sfr _A_P0
@@ -800,48 +833,56 @@ P0DIR:
 P1DIR:
         DATA8
         DS 1
-//   31 #include "hal_flash.h"
-//   32 #include "hal_lcd.h"
-//   33 #include "hal_led.h"
-//   34 #include "hal_uart.h"
-//   35 #include "hal_drivers.h"
-//   36 #include "OnBoard.h"
-//   37 #include "OSAL.h"
-//   38 #include "OSAL_Nv.h"
-//   39 #include "ZComDef.h"
-//   40 #include "ZMAC.h"
-//   41 #include "keus_gpio_util.h"
-//   42 #include "keus_timer_util.h"
-//   43 
-//   44 /*********************************************************************
-//   45  * CUSTOM CODE
-//   46  */
-//   47 
+//   23 #include "hal_flash.h"
+//   24 #include "hal_lcd.h"
+//   25 #include "hal_led.h"
+//   26 #include "hal_uart.h"
+//   27 #include "hal_drivers.h"
+//   28 #include "OnBoard.h"
+//   29 #include "OSAL.h"
+//   30 #include "OSAL_Nv.h"
+//   31 #include "ZComDef.h"
+//   32 #include "ZMAC.h"
+//   33 #include "keus_gpio_util.h"
+//   34 #include "keus_timer_util.h"
+//   35 
+//   36 /*********************************************************************
+//   37  * CUSTOM CODE
+//   38  */
+//   39 
 
         RSEG XDATA_Z:XDATA:NOROOT(0)
         DATA32
-//   48 uint32 keusAppEvents;
+//   40 volatile uint32 keusAppEvents = 0;
 keusAppEvents:
         DS 4
         REQUIRE __INIT_XDATA_Z
-//   49 
-//   50 //Event bit masks
-//   51 #define KEUS_BUTTON1 0x1
-//   52 #define KEUS_BUTTON2 0x2
-//   53 #define KEUS_BUTTON3 0x4
-//   54 #define KEUS_BUTTON4 0x8
-//   55 #define KEUS_UART 0x10
-//   56 
+//   41 
+//   42 //Event bit masks
+//   43 #define KEUS_BUTTON1 0x1
+//   44 #define KEUS_BUTTON2 0x2
+//   45 #define KEUS_BUTTON3 0x4
+//   46 #define KEUS_BUTTON4 0x8
+//   47 #define KEUS_UART 0x10
+//   48 #define KEUS_APP_EVT1 0X20
+//   49 #define KEUS_APP_EVT2 0X40
+//   50 #define KEUS_APP_EVT3 0X80
+//   51 #define KEUS_APP_EVT4 0X100
+//   52 
+//   53 #define BUTTON1_ID 1
+//   54 #define BUTTON2_ID 2
+//   55 #define BUTTON3_ID 3
+//   56 #define BUTTON4_ID 4
 //   57 
-//   58 #define KEUS_UART_BUFFER 32
-//   59 extern uint8 g0_u8RecData[KEUS_UART_BUFFER];
-//   60 extern void keusButtonInit(void);
-//   61 
-//   62 #define SCN_ARR_NVIC_LOCATION 0x10
-//   63 
-//   64 
-//   65 extern void parseUart(void);
-//   66 extern void initUart(void);
+//   58 extern void keusButtonInit(void);
+//   59 extern void exitDebugMode(void);
+//   60 
+//   61 #define SCN_ARR_NVIC_LOCATION 0x10
+//   62 
+//   63 extern void parseUart(void);
+//   64 extern void initUart(void);
+//   65 extern void keusLEDInit(void);
+//   66 void buttonPressAction(uint8 buttonId);
 //   67 
 //   68 //void KEUS_delayms(uint16 ms);
 //   69 void KEUS_init(void);
@@ -857,23 +898,22 @@ keusAppEvents:
 //   79 // uint8 writeStatus = 0;
 //   80 // uint8 readStatus = 0;
 //   81 
-//   82 
-//   83 // void KEUS_delayms(uint16 ms)
-//   84 // {
-//   85 //   for (uint16 i = 0; i < ms; i++)
-//   86 //   {
-//   87 //     Onboard_wait(1000);
-//   88 //   }
-//   89 // }
-//   90 
+//   82 // void KEUS_delayms(uint16 ms)
+//   83 // {
+//   84 //   for (uint16 i = 0; i < ms; i++)
+//   85 //   {
+//   86 //     Onboard_wait(1000);
+//   87 //   }
+//   88 // }
+//   89 
 
         RSEG BANKED_CODE:HUGECODE:NOROOT(0)
-//   91 void KEUS_init()
+//   90 void KEUS_init()
 KEUS_init:
           CFI Block cfiBlock0 Using cfiCommon0
           CFI Function KEUS_init
         CODE
-//   92 {
+//   91 {
         FUNCALL KEUS_init, initUart
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
@@ -886,6 +926,17 @@ KEUS_init:
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
         FUNCALL KEUS_init, keusButtonInit
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 10, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 10, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL KEUS_init, keusLEDInit
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
         LOCFRAME XSTACK, 10, STACK
@@ -958,12 +1009,15 @@ KEUS_init:
           CFI CFA_XSP16 add(XSP16, 10)
         ; Saved register size: 10
         ; Auto size: 0
-//   93   initUart();
+//   92   initUart();
         ; Setup parameters for call to function initUart
         LCALL     `??initUart::?relay`; Banked call to: initUart
-//   94   keusButtonInit();
+//   93   keusButtonInit();
         ; Setup parameters for call to function keusButtonInit
         LCALL     `??keusButtonInit::?relay`; Banked call to: keusButtonInit
+//   94   keusLEDInit();
+        ; Setup parameters for call to function keusLEDInit
+        LCALL     `??keusLEDInit::?relay`; Banked call to: keusLEDInit
 //   95 
 //   96   KeusTimerUtilInit();
         ; Setup parameters for call to function KeusTimerUtilInit
@@ -1045,6 +1099,17 @@ KEUS_loop:
           CFI Function KEUS_loop
         CODE
 //  150 {
+        FUNCALL KEUS_loop, parseUart
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 12, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 12, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
         FUNCALL KEUS_loop, HalUARTPoll
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
@@ -1056,7 +1121,51 @@ KEUS_loop:
         ARGFRAME XSTACK, 12, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
-        FUNCALL KEUS_loop, parseUart
+        FUNCALL KEUS_loop, buttonPressAction
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 12, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 12, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL KEUS_loop, buttonPressAction
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 12, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 12, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL KEUS_loop, buttonPressAction
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 12, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 12, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL KEUS_loop, buttonPressAction
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 12, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 12, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL KEUS_loop, exitDebugMode
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
         LOCFRAME XSTACK, 12, STACK
@@ -1073,84 +1182,210 @@ KEUS_loop:
         REQUIRE ?V3
         MOV       A,#-0xc
         LCALL     ?BANKED_ENTER_XDATA
-          CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-12)))
-          CFI VB load(1, XDATA, add(CFA_XSP16, literal(-11)))
-          CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-10)))
-          CFI V1 load(1, XDATA, add(CFA_XSP16, literal(-9)))
-          CFI V2 load(1, XDATA, add(CFA_XSP16, literal(-8)))
-          CFI V3 load(1, XDATA, add(CFA_XSP16, literal(-7)))
-          CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
-          CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
-          CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
-          CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
-          CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
           CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+          CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+          CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+          CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+          CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+          CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+          CFI V3 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+          CFI V2 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+          CFI V1 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+          CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+          CFI VB load(1, XDATA, add(CFA_XSP16, literal(-11)))
+          CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-12)))
           CFI CFA_SP SP+0
           CFI CFA_XSP16 add(XSP16, 12)
         ; Saved register size: 12
         ; Auto size: 0
+        SJMP      ??KEUS_loop_0
 //  151   while (1)
 //  152   {
 //  153     HalUARTPoll();
-??KEUS_loop_0:
-        ; Setup parameters for call to function HalUARTPoll
-        LCALL     `??HalUARTPoll::?relay`; Banked call to: HalUARTPoll
 //  154     //KEUS_delayms(1000);
 //  155 
 //  156     if (keusAppEvents & KEUS_UART)
-        MOV       DPTR,#keusAppEvents
-        MOV       R0,#?V0
-        LCALL     ?L_MOV_X
-        MOV       A,?V0
-        ANL       A,#0x10
-        JZ        ??KEUS_loop_0
 //  157     {
 //  158       parseUart();
+??KEUS_loop_1:
         ; Setup parameters for call to function parseUart
         LCALL     `??parseUart::?relay`; Banked call to: parseUart
 //  159       keusAppEvents ^= KEUS_UART;
         MOV       DPTR,#__Constant_10
+??KEUS_loop_2:
         MOV       R0,#?V0
         LCALL     ?L_MOV_X
         MOV       DPTR,#keusAppEvents
         MOV       R0,#?V0
         LCALL     ?L_XOR_TO_X
-        SJMP      ??KEUS_loop_0
 //  160     }
-//  161 
-//  162   }
-//  163 }
+??KEUS_loop_0:
+        ; Setup parameters for call to function HalUARTPoll
+        LCALL     `??HalUARTPoll::?relay`; Banked call to: HalUARTPoll
+        MOV       DPTR,#keusAppEvents
+        MOV       R0,#?V0
+        LCALL     ?L_MOV_X
+        MOV       A,?V0
+        ANL       A,#0x10
+        JNZ       ??KEUS_loop_1
+//  161     else if (keusAppEvents & KEUS_BUTTON1)
+        MOV       DPTR,#keusAppEvents
+        MOV       R0,#?V0
+        LCALL     ?L_MOV_X
+        MOV       A,?V0
+        MOV       C,0xE0 /* A   */.0
+        JNC       ??KEUS_loop_3
+//  162     {
+//  163       buttonPressAction(BUTTON1_ID);
+        ; Setup parameters for call to function buttonPressAction
+        MOV       R1,#0x1
+        LCALL     `??buttonPressAction::?relay`; Banked call to: buttonPressAction
+//  164       keusAppEvents ^= KEUS_BUTTON1;
+        MOV       DPTR,#__Constant_1
+        SJMP      ??KEUS_loop_2
+//  165     }
+//  166     else if (keusAppEvents & KEUS_BUTTON2)
+??KEUS_loop_3:
+        MOV       DPTR,#keusAppEvents
+        MOV       R0,#?V0
+        LCALL     ?L_MOV_X
+        MOV       A,?V0
+        ANL       A,#0x2
+        JZ        ??KEUS_loop_4
+//  167     {
+//  168       buttonPressAction(BUTTON2_ID);
+        ; Setup parameters for call to function buttonPressAction
+        MOV       R1,#0x2
+        LCALL     `??buttonPressAction::?relay`; Banked call to: buttonPressAction
+//  169       keusAppEvents ^= KEUS_BUTTON2;
+        MOV       DPTR,#__Constant_2
+        SJMP      ??KEUS_loop_2
+//  170     }
+//  171     else if (keusAppEvents & KEUS_BUTTON3)
+??KEUS_loop_4:
+        MOV       DPTR,#keusAppEvents
+        MOV       R0,#?V0
+        LCALL     ?L_MOV_X
+        MOV       A,?V0
+        ANL       A,#0x4
+        JZ        ??KEUS_loop_5
+//  172     {
+//  173       buttonPressAction(BUTTON3_ID);
+        ; Setup parameters for call to function buttonPressAction
+        MOV       R1,#0x3
+        LCALL     `??buttonPressAction::?relay`; Banked call to: buttonPressAction
+//  174       keusAppEvents ^= KEUS_BUTTON3;
+        MOV       DPTR,#__Constant_4
+        SJMP      ??KEUS_loop_2
+//  175     }
+//  176     else if (keusAppEvents & KEUS_BUTTON4)
+??KEUS_loop_5:
+        MOV       DPTR,#keusAppEvents
+        MOV       R0,#?V0
+        LCALL     ?L_MOV_X
+        MOV       A,?V0
+        ANL       A,#0x8
+        JZ        ??KEUS_loop_6
+//  177     {
+//  178       buttonPressAction(BUTTON4_ID);
+        ; Setup parameters for call to function buttonPressAction
+        MOV       R1,#0x4
+        LCALL     `??buttonPressAction::?relay`; Banked call to: buttonPressAction
+//  179       keusAppEvents ^= KEUS_BUTTON4;
+        MOV       DPTR,#__Constant_8
+        SJMP      ??KEUS_loop_2
+//  180     }
+//  181     else if (keusAppEvents & KEUS_APP_EVT1)
+??KEUS_loop_6:
+        MOV       DPTR,#keusAppEvents
+        MOV       R0,#?V0
+        LCALL     ?L_MOV_X
+        MOV       A,?V0
+        ANL       A,#0x20
+        JZ        ??KEUS_loop_7
+//  182     {
+//  183       //action here
+//  184       keusAppEvents ^= KEUS_APP_EVT1;
+        MOV       DPTR,#__Constant_20
+        LJMP      ??KEUS_loop_2 & 0xFFFF
+//  185     }
+//  186     else if (keusAppEvents & KEUS_APP_EVT2)
+??KEUS_loop_7:
+        MOV       DPTR,#keusAppEvents
+        MOV       R0,#?V0
+        LCALL     ?L_MOV_X
+        MOV       A,?V0
+        ANL       A,#0x40
+        JZ        ??KEUS_loop_8
+//  187     {
+//  188       //action here
+//  189       keusAppEvents ^= KEUS_APP_EVT2;
+        MOV       DPTR,#__Constant_40
+        LJMP      ??KEUS_loop_2 & 0xFFFF
+//  190     }
+//  191     else if (keusAppEvents & KEUS_APP_EVT3)
+??KEUS_loop_8:
+        MOV       DPTR,#keusAppEvents
+        MOV       R0,#?V0
+        LCALL     ?L_MOV_X
+        MOV       A,?V0
+        ANL       A,#0x80
+        JZ        ??KEUS_loop_9
+//  192     {
+//  193       //action here
+//  194       keusAppEvents ^= KEUS_APP_EVT3;
+        MOV       DPTR,#__Constant_80
+        LJMP      ??KEUS_loop_2 & 0xFFFF
+//  195     }
+//  196     else if (keusAppEvents & KEUS_APP_EVT4)
+??KEUS_loop_9:
+        MOV       DPTR,#keusAppEvents
+        MOV       R0,#?V0
+        LCALL     ?L_MOV_X
+        MOV       A,?V1
+        ANL       A,#0x1
+        JNZ       $+5
+        LJMP      ??KEUS_loop_0 & 0xFFFF
+//  197     {
+//  198       exitDebugMode();
+        ; Setup parameters for call to function exitDebugMode
+        LCALL     `??exitDebugMode::?relay`; Banked call to: exitDebugMode
+//  199       keusAppEvents ^= KEUS_APP_EVT4;
+        MOV       DPTR,#__Constant_100
+        LJMP      ??KEUS_loop_2 & 0xFFFF
+//  200     }
+//  201   }
+//  202 }
           CFI EndBlock cfiBlock1
-//  164 
-//  165 
-//  166 /*********************************************************************
-//  167  * LOCAL FUNCTIONS
-//  168  */
-//  169 
-//  170 static void zmain_ext_addr(void);
-//  171 #if defined ZCL_KEY_ESTABLISH
-//  172 static void zmain_cert_init(void);
-//  173 #endif
-//  174 static void zmain_dev_info(void);
-//  175 static void zmain_vdd_check(void);
-//  176 
-//  177 #ifdef LCD_SUPPORTED
-//  178 static void zmain_lcd_init(void);
-//  179 #endif
-//  180 
-//  181 /*********************************************************************
-//  182  * @fn      main
-//  183  * @brief   First function called after startup.
-//  184  * @return  don't care
-//  185  */
+//  203 
+//  204 /*********************************************************************
+//  205  * LOCAL FUNCTIONS
+//  206  */
+//  207 
+//  208 static void zmain_ext_addr(void);
+//  209 #if defined ZCL_KEY_ESTABLISH
+//  210 static void zmain_cert_init(void);
+//  211 #endif
+//  212 static void zmain_dev_info(void);
+//  213 static void zmain_vdd_check(void);
+//  214 
+//  215 #ifdef LCD_SUPPORTED
+//  216 static void zmain_lcd_init(void);
+//  217 #endif
+//  218 
+//  219 /*********************************************************************
+//  220  * @fn      main
+//  221  * @brief   First function called after startup.
+//  222  * @return  don't care
+//  223  */
 
         RSEG BANKED_CODE:HUGECODE:NOROOT(0)
-//  186 int main(void)
+//  224 int main(void)
 main:
           CFI Block cfiBlock2 Using cfiCommon1
           CFI Function main
         CODE
-//  187 {
+//  225 {
         FUNCALL main, osal_int_disable
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
@@ -1306,14 +1541,14 @@ main:
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
         ; Auto size: 0
-//  188   // Turn off interrupts
-//  189   osal_int_disable(INTS_ALL);
+//  226   // Turn off interrupts
+//  227   osal_int_disable(INTS_ALL);
         ; Setup parameters for call to function osal_int_disable
         MOV       R1,#-0x1
         LCALL     `??osal_int_disable::?relay`; Banked call to: osal_int_disable
-//  190 
-//  191   // Initialization for board related stuff such as LEDs
-//  192   HAL_BOARD_INIT();
+//  228 
+//  229   // Initialization for board related stuff such as LEDs
+//  230   HAL_BOARD_INIT();
         ANL       0xbe,#0xfb
 ??main_0:
         MOV       A,0x9d
@@ -1350,9 +1585,9 @@ main:
         CLR       0x80.1
         ORL       0xfd,#0x2
         ORL       0x8f,#0x1
-//  193 
-//  194   // Make sure supply voltage is high enough to run
-//  195   zmain_vdd_check();
+//  231 
+//  232   // Make sure supply voltage is high enough to run
+//  233   zmain_vdd_check();
         MOV       R6,#0x10
 ??main_3:
         ; Setup parameters for call to function HalAdcCheckVdd
@@ -1363,88 +1598,88 @@ main:
         DEC       R6
         MOV       A,R6
         JNZ       ??main_3
-//  196 
-//  197   // Initialize board I/O
-//  198   InitBoard(OB_COLD);
+//  234 
+//  235   // Initialize board I/O
+//  236   InitBoard(OB_COLD);
         ; Setup parameters for call to function InitBoard
         MOV       R1,#0x0
         LCALL     `??InitBoard::?relay`; Banked call to: InitBoard
-//  199 
-//  200   // Initialze HAL drivers
-//  201   HalDriverInit();
+//  237 
+//  238   // Initialze HAL drivers
+//  239   HalDriverInit();
         ; Setup parameters for call to function HalDriverInit
         LCALL     `??HalDriverInit::?relay`; Banked call to: HalDriverInit
-//  202 
-//  203   // Initialize NV System
-//  204   osal_nv_init(NULL);
+//  240 
+//  241   // Initialize NV System
+//  242   osal_nv_init(NULL);
         ; Setup parameters for call to function osal_nv_init
         MOV       R2,#0x0
         MOV       R3,#0x0
         LCALL     `??osal_nv_init::?relay`; Banked call to: osal_nv_init
-//  205 
-//  206   // Initialize the MAC
-//  207   ZMacInit();
+//  243 
+//  244   // Initialize the MAC
+//  245   ZMacInit();
         ; Setup parameters for call to function ZMacInit
         LCALL     `??ZMacInit::?relay`; Banked call to: ZMacInit
-//  208 
-//  209   // Determine the extended address
-//  210   zmain_ext_addr();
+//  246 
+//  247   // Determine the extended address
+//  248   zmain_ext_addr();
         ; Setup parameters for call to function zmain_ext_addr
         LCALL     `??zmain_ext_addr::?relay`; Banked call to: zmain_ext_addr
-//  211 
-//  212 #if defined ZCL_KEY_ESTABLISH
-//  213   // Initialize the Certicom certificate information.
-//  214   zmain_cert_init();
-//  215 #endif
-//  216 
-//  217   // Initialize basic NV items
-//  218   zgInit();
+//  249 
+//  250 #if defined ZCL_KEY_ESTABLISH
+//  251   // Initialize the Certicom certificate information.
+//  252   zmain_cert_init();
+//  253 #endif
+//  254 
+//  255   // Initialize basic NV items
+//  256   zgInit();
         ; Setup parameters for call to function zgInit
         LCALL     `??zgInit::?relay`; Banked call to: zgInit
-//  219 
-//  220 #ifndef NONWK
-//  221   // Since the AF isn't a task, call it's initialization routine
-//  222   afInit();
-//  223 #endif
-//  224 
-//  225   // Initialize the operating system
-//  226   osal_init_system();
+//  257 
+//  258 #ifndef NONWK
+//  259   // Since the AF isn't a task, call it's initialization routine
+//  260   afInit();
+//  261 #endif
+//  262 
+//  263   // Initialize the operating system
+//  264   osal_init_system();
         ; Setup parameters for call to function osal_init_system
         LCALL     `??osal_init_system::?relay`; Banked call to: osal_init_system
-//  227 
-//  228   // Allow interrupts
-//  229   osal_int_enable(INTS_ALL);
+//  265 
+//  266   // Allow interrupts
+//  267   osal_int_enable(INTS_ALL);
         ; Setup parameters for call to function osal_int_enable
         MOV       R1,#-0x1
         LCALL     `??osal_int_enable::?relay`; Banked call to: osal_int_enable
-//  230 
-//  231   // Final board initialization
-//  232   InitBoard(OB_READY);
+//  268 
+//  269   // Final board initialization
+//  270   InitBoard(OB_READY);
         ; Setup parameters for call to function InitBoard
         MOV       R1,#0x2
         LCALL     `??InitBoard::?relay`; Banked call to: InitBoard
-//  233 
-//  234   KEUS_init();
+//  271 
+//  272   KEUS_init();
         ; Setup parameters for call to function KEUS_init
         LCALL     `??KEUS_init::?relay`; Banked call to: KEUS_init
-//  235 
-//  236   KEUS_loop();
+//  273 
+//  274   KEUS_loop();
         ; Setup parameters for call to function KEUS_loop
         LCALL     `??KEUS_loop::?relay`; Banked call to: KEUS_loop
-//  237 
-//  238   // Display information about this device
-//  239   zmain_dev_info();
-//  240 
-//  241 #ifdef WDT_IN_PM1
-//  242   /* If WDT is used, this is a good place to enable it. */
-//  243   WatchDogEnable(WDTIMX);
-//  244 #endif
-//  245 
-//  246   osal_start_system(); // No Return from here
+//  275 
+//  276   // Display information about this device
+//  277   zmain_dev_info();
+//  278 
+//  279 #ifdef WDT_IN_PM1
+//  280   /* If WDT is used, this is a good place to enable it. */
+//  281   WatchDogEnable(WDTIMX);
+//  282 #endif
+//  283 
+//  284   osal_start_system(); // No Return from here
         ; Setup parameters for call to function osal_start_system
         LCALL     `??osal_start_system::?relay`; Banked call to: osal_start_system
-//  247 
-//  248   return 0; // Shouldn't get here.
+//  285 
+//  286   return 0; // Shouldn't get here.
         MOV       R2,#0x0
         MOV       R3,#0x0
         LJMP      ?BRET
@@ -1458,51 +1693,49 @@ main:
         REQUIRE _A_P0
         REQUIRE P0DIR
         REQUIRE P0INP
-//  249 } // main()
-//  250 
-//  251 
-//  252 
-//  253 /*********************************************************************
-//  254  * @fn      zmain_vdd_check
-//  255  * @brief   Check if the Vdd is OK to run the processor.
-//  256  * @return  Return if Vdd is ok; otherwise, flash LED, then reset
-//  257  *********************************************************************/
-//  258 static void zmain_vdd_check(void)
-//  259 {
-//  260   uint8 cnt = 16;
-//  261 
-//  262   do
-//  263   {
-//  264     while (!HalAdcCheckVdd(VDD_MIN_RUN))
-//  265       ;
-//  266   } while (--cnt);
-//  267 }
-//  268 
-//  269 /**************************************************************************************************
-//  270  * @fn          zmain_ext_addr
-//  271  *
-//  272  * @brief       Execute a prioritized search for a valid extended address and write the results
-//  273  *              into the OSAL NV system for use by the system. Temporary address not saved to NV.
-//  274  *
-//  275  * input parameters
-//  276  *
-//  277  * None.
-//  278  *
-//  279  * output parameters
-//  280  *
-//  281  * None.
-//  282  *
-//  283  * @return      None.
-//  284  **************************************************************************************************
-//  285  */
+//  287 } // main()
+//  288 
+//  289 /*********************************************************************
+//  290  * @fn      zmain_vdd_check
+//  291  * @brief   Check if the Vdd is OK to run the processor.
+//  292  * @return  Return if Vdd is ok; otherwise, flash LED, then reset
+//  293  *********************************************************************/
+//  294 static void zmain_vdd_check(void)
+//  295 {
+//  296   uint8 cnt = 16;
+//  297 
+//  298   do
+//  299   {
+//  300     while (!HalAdcCheckVdd(VDD_MIN_RUN))
+//  301       ;
+//  302   } while (--cnt);
+//  303 }
+//  304 
+//  305 /**************************************************************************************************
+//  306  * @fn          zmain_ext_addr
+//  307  *
+//  308  * @brief       Execute a prioritized search for a valid extended address and write the results
+//  309  *              into the OSAL NV system for use by the system. Temporary address not saved to NV.
+//  310  *
+//  311  * input parameters
+//  312  *
+//  313  * None.
+//  314  *
+//  315  * output parameters
+//  316  *
+//  317  * None.
+//  318  *
+//  319  * @return      None.
+//  320  **************************************************************************************************
+//  321  */
 
         RSEG BANKED_CODE:HUGECODE:NOROOT(0)
-//  286 static void zmain_ext_addr(void)
+//  322 static void zmain_ext_addr(void)
 zmain_ext_addr:
           CFI Block cfiBlock3 Using cfiCommon0
           CFI Function zmain_ext_addr
         CODE
-//  287 {
+//  323 {
         FUNCALL zmain_ext_addr, osal_nv_item_init
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
@@ -1648,18 +1881,18 @@ zmain_ext_addr:
         MOV       A,#-0x8
         LCALL     ?ALLOC_XSTACK8
           CFI CFA_XSP16 add(XSP16, 26)
-//  288   uint8 nullAddr[Z_EXTADDR_LEN] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
+//  324   uint8 nullAddr[Z_EXTADDR_LEN] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
         MOV       DPTR,#`?<Constant {255, 255, 255, 255, 255, 255, 255,`
         MOV       R4,?XSP + 0
         MOV       R5,?XSP + 1
         MOV       A,#0x8
         LCALL     ?MOVE_LONG8_XDATA_XDATA
-//  289   uint8 writeNV = TRUE;
-//  290 
-//  291   // First check whether a non-erased extended address exists in the OSAL NV.
-//  292   if ((SUCCESS != osal_nv_item_init(ZCD_NV_EXTADDR, Z_EXTADDR_LEN, NULL)) ||
-//  293       (SUCCESS != osal_nv_read(ZCD_NV_EXTADDR, 0, Z_EXTADDR_LEN, aExtendedAddress)) ||
-//  294       (osal_memcmp(aExtendedAddress, nullAddr, Z_EXTADDR_LEN)))
+//  325   uint8 writeNV = TRUE;
+//  326 
+//  327   // First check whether a non-erased extended address exists in the OSAL NV.
+//  328   if ((SUCCESS != osal_nv_item_init(ZCD_NV_EXTADDR, Z_EXTADDR_LEN, NULL)) ||
+//  329       (SUCCESS != osal_nv_read(ZCD_NV_EXTADDR, 0, Z_EXTADDR_LEN, aExtendedAddress)) ||
+//  330       (osal_memcmp(aExtendedAddress, nullAddr, Z_EXTADDR_LEN)))
         MOV       ?V0,#aExtendedAddress & 0xff
         MOV       ?V1,#(aExtendedAddress >> 8) & 0xff
         MOV       ?V2,A
@@ -1721,10 +1954,10 @@ zmain_ext_addr:
         MOV       A,R1
         JNZ       $+5
         LJMP      ??zmain_ext_addr_1 & 0xFFFF
-//  295   {
-//  296     // Attempt to read the extended address from the location on the lock bits page
-//  297     // where the programming tools know to reserve it.
-//  298     HalFlashRead(HAL_FLASH_IEEE_PAGE, HAL_FLASH_IEEE_OSET, aExtendedAddress, Z_EXTADDR_LEN);
+//  331   {
+//  332     // Attempt to read the extended address from the location on the lock bits page
+//  333     // where the programming tools know to reserve it.
+//  334     HalFlashRead(HAL_FLASH_IEEE_PAGE, HAL_FLASH_IEEE_OSET, aExtendedAddress, Z_EXTADDR_LEN);
 ??zmain_ext_addr_0:
         ; Setup parameters for call to function HalFlashRead
         MOV       ?V8,#0x8
@@ -1740,8 +1973,8 @@ zmain_ext_addr:
         MOV       A,#0x2
         LCALL     ?DEALLOC_XSTACK8
           CFI CFA_XSP16 add(XSP16, 26)
-//  299 
-//  300     if (osal_memcmp(aExtendedAddress, nullAddr, Z_EXTADDR_LEN))
+//  335 
+//  336     if (osal_memcmp(aExtendedAddress, nullAddr, Z_EXTADDR_LEN))
         ; Setup parameters for call to function osal_memcmp
         MOV       R0,#?V4
         LCALL     ?PUSH_XSTACK_I_THREE
@@ -1757,9 +1990,9 @@ zmain_ext_addr:
           CFI CFA_XSP16 add(XSP16, 26)
         MOV       A,R1
         JZ        ??zmain_ext_addr_2
-//  301     {
-//  302       // Attempt to read the extended address from the designated location in the Info Page.
-//  303       if (!osal_memcmp((uint8 *)(P_INFOPAGE + HAL_INFOP_IEEE_OSET), nullAddr, Z_EXTADDR_LEN))
+//  337     {
+//  338       // Attempt to read the extended address from the designated location in the Info Page.
+//  339       if (!osal_memcmp((uint8 *)(P_INFOPAGE + HAL_INFOP_IEEE_OSET), nullAddr, Z_EXTADDR_LEN))
         ; Setup parameters for call to function osal_memcmp
         MOV       R0,#?V4
         LCALL     ?PUSH_XSTACK_I_THREE
@@ -1775,8 +2008,8 @@ zmain_ext_addr:
           CFI CFA_XSP16 add(XSP16, 26)
         MOV       A,R1
         JNZ       ??zmain_ext_addr_3
-//  304       {
-//  305         osal_memcpy(aExtendedAddress, (uint8 *)(P_INFOPAGE + HAL_INFOP_IEEE_OSET), Z_EXTADDR_LEN);
+//  340       {
+//  341         osal_memcpy(aExtendedAddress, (uint8 *)(P_INFOPAGE + HAL_INFOP_IEEE_OSET), Z_EXTADDR_LEN);
         ; Setup parameters for call to function osal_memcpy
         MOV       ?V0,#0xc
         MOV       ?V1,#0x78
@@ -1792,29 +2025,29 @@ zmain_ext_addr:
         LCALL     ?DEALLOC_XSTACK8
           CFI CFA_XSP16 add(XSP16, 26)
         SJMP      ??zmain_ext_addr_2
-//  306       }
-//  307       else // No valid extended address was found.
-//  308       {
-//  309         uint8 idx;
-//  310 
-//  311 #if !defined(NV_RESTORE)
-//  312         writeNV = FALSE; // Make this a temporary IEEE address
-//  313 #endif
-//  314 
-//  315         /* Attempt to create a sufficiently random extended address for expediency.
-//  316          * Note: this is only valid/legal in a test environment and
-//  317          *       must never be used for a commercial product.
-//  318          */
-//  319         for (idx = 0; idx < (Z_EXTADDR_LEN - 2);)
+//  342       }
+//  343       else // No valid extended address was found.
+//  344       {
+//  345         uint8 idx;
+//  346 
+//  347 #if !defined(NV_RESTORE)
+//  348         writeNV = FALSE; // Make this a temporary IEEE address
+//  349 #endif
+//  350 
+//  351         /* Attempt to create a sufficiently random extended address for expediency.
+//  352          * Note: this is only valid/legal in a test environment and
+//  353          *       must never be used for a commercial product.
+//  354          */
+//  355         for (idx = 0; idx < (Z_EXTADDR_LEN - 2);)
 ??zmain_ext_addr_3:
         MOV       R6,#0x0
-//  320         {
-//  321           uint16 randy = osal_rand();
+//  356         {
+//  357           uint16 randy = osal_rand();
 ??zmain_ext_addr_4:
         ; Setup parameters for call to function osal_rand
         LCALL     `??osal_rand::?relay`; Banked call to: osal_rand
         MOV       ?V0,R2
-//  322           aExtendedAddress[idx++] = LO_UINT16(randy);
+//  358           aExtendedAddress[idx++] = LO_UINT16(randy);
         MOV       A,R6
         MOV       R2,A
         MOV       A,#aExtendedAddress & 0xff
@@ -1826,11 +2059,11 @@ zmain_ext_addr:
         MOV       A,?V0
         MOVX      @DPTR,A
         INC       R6
-//  323           aExtendedAddress[idx++] = HI_UINT16(randy);
+//  359           aExtendedAddress[idx++] = HI_UINT16(randy);
         MOV       A,R6
         MOV       R0,A
         LCALL     ?Subroutine0 & 0xFFFF
-//  324         }
+//  360         }
 ??CrossCallReturnLabel_0:
         MOV       A,R3
         MOVX      @DPTR,A
@@ -1839,21 +2072,21 @@ zmain_ext_addr:
         CLR       C
         SUBB      A,#0x6
         JC        ??zmain_ext_addr_4
-//  325         // Next-to-MSB identifies ZigBee devicetype.
-//  326 #if ZG_BUILD_COORDINATOR_TYPE && !ZG_BUILD_JOINING_TYPE
-//  327         aExtendedAddress[idx++] = 0x10;
-//  328 #elif ZG_BUILD_RTRONLY_TYPE
-//  329         aExtendedAddress[idx++] = 0x20;
-//  330 #else
-//  331         aExtendedAddress[idx++] = 0x30;
+//  361         // Next-to-MSB identifies ZigBee devicetype.
+//  362 #if ZG_BUILD_COORDINATOR_TYPE && !ZG_BUILD_JOINING_TYPE
+//  363         aExtendedAddress[idx++] = 0x10;
+//  364 #elif ZG_BUILD_RTRONLY_TYPE
+//  365         aExtendedAddress[idx++] = 0x20;
+//  366 #else
+//  367         aExtendedAddress[idx++] = 0x30;
         INC       R0
         LCALL     ?Subroutine0 & 0xFFFF
 ??CrossCallReturnLabel_1:
         MOV       A,#0x30
         MOVX      @DPTR,A
-//  332 #endif
-//  333         // MSB has historical signficance.
-//  334         aExtendedAddress[idx] = 0xF8;
+//  368 #endif
+//  369         // MSB has historical signficance.
+//  370         aExtendedAddress[idx] = 0xF8;
         INC       R0
         MOV       A,#aExtendedAddress & 0xff
         ADD       A,R0
@@ -1863,12 +2096,12 @@ zmain_ext_addr:
         MOV       DPH,A
         MOV       A,#-0x8
         MOVX      @DPTR,A
-//  335       }
-//  336     }
-//  337 
-//  338     if (writeNV)
-//  339     {
-//  340       (void)osal_nv_write(ZCD_NV_EXTADDR, 0, Z_EXTADDR_LEN, aExtendedAddress);
+//  371       }
+//  372     }
+//  373 
+//  374     if (writeNV)
+//  375     {
+//  376       (void)osal_nv_write(ZCD_NV_EXTADDR, 0, Z_EXTADDR_LEN, aExtendedAddress);
 ??zmain_ext_addr_2:
         ; Setup parameters for call to function osal_nv_write
         MOV       ?V0,#aExtendedAddress & 0xff
@@ -1889,18 +2122,18 @@ zmain_ext_addr:
         MOV       A,#0x4
         LCALL     ?DEALLOC_XSTACK8
           CFI CFA_XSP16 add(XSP16, 26)
-//  341     }
-//  342   }
-//  343 
-//  344   // Set the MAC PIB extended address according to results from above.
-//  345   (void)ZMacSetReq(MAC_EXTENDED_ADDRESS, aExtendedAddress);
+//  377     }
+//  378   }
+//  379 
+//  380   // Set the MAC PIB extended address according to results from above.
+//  381   (void)ZMacSetReq(MAC_EXTENDED_ADDRESS, aExtendedAddress);
 ??zmain_ext_addr_1:
         ; Setup parameters for call to function ZMacSetReq
         MOV       R2,#aExtendedAddress & 0xff
         MOV       R3,#(aExtendedAddress >> 8) & 0xff
         MOV       R1,#-0x1e
         LCALL     `??ZMacSetReq::?relay`; Banked call to: ZMacSetReq
-//  346 }
+//  382 }
         MOV       A,#0x8
         LCALL     ?DEALLOC_XSTACK8
           CFI CFA_XSP16 add(XSP16, 18)
@@ -2020,148 +2253,188 @@ zmain_ext_addr:
 __Constant_10:
         DD 16
 
+        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
+        DATA32
+__Constant_1:
+        DD 1
+
+        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
+        DATA32
+__Constant_2:
+        DD 2
+
+        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
+        DATA32
+__Constant_4:
+        DD 4
+
+        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
+        DATA32
+__Constant_8:
+        DD 8
+
+        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
+        DATA32
+__Constant_20:
+        DD 32
+
+        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
+        DATA32
+__Constant_40:
+        DD 64
+
+        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
+        DATA32
+__Constant_80:
+        DD 128
+
+        RSEG XDATA_ROM_C:CONST:REORDER:NOROOT(0)
+        DATA32
+__Constant_100:
+        DD 256
+
         END
-//  347 
-//  348 #if defined ZCL_KEY_ESTABLISH
-//  349 /**************************************************************************************************
-//  350  * @fn          zmain_cert_init
-//  351  *
-//  352  * @brief       Initialize the Certicom certificate information.
-//  353  *
-//  354  * input parameters
-//  355  *
-//  356  * None.
-//  357  *
-//  358  * output parameters
-//  359  *
-//  360  * None.
-//  361  *
-//  362  * @return      None.
-//  363  **************************************************************************************************
-//  364  */
-//  365 static void zmain_cert_init(void)
-//  366 {
-//  367   uint8 certData[ZCL_KE_IMPLICIT_CERTIFICATE_LEN];
-//  368   uint8 nullData[ZCL_KE_IMPLICIT_CERTIFICATE_LEN] = {
-//  369       0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
-//  370       0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
-//  371       0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
-//  372       0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
-//  373       0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
-//  374       0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
-//  375 
-//  376   (void)osal_nv_item_init(ZCD_NV_IMPLICIT_CERTIFICATE, ZCL_KE_IMPLICIT_CERTIFICATE_LEN, NULL);
-//  377   (void)osal_nv_item_init(ZCD_NV_DEVICE_PRIVATE_KEY, ZCL_KE_DEVICE_PRIVATE_KEY_LEN, NULL);
-//  378 
-//  379   // First check whether non-null certificate data exists in the OSAL NV. To save on code space,
-//  380   // just use the ZCD_NV_CA_PUBLIC_KEY as the bellwether for all three.
-//  381   if ((SUCCESS != osal_nv_item_init(ZCD_NV_CA_PUBLIC_KEY, ZCL_KE_CA_PUBLIC_KEY_LEN, NULL)) ||
-//  382       (SUCCESS != osal_nv_read(ZCD_NV_CA_PUBLIC_KEY, 0, ZCL_KE_CA_PUBLIC_KEY_LEN, certData)) ||
-//  383       (osal_memcmp(certData, nullData, ZCL_KE_CA_PUBLIC_KEY_LEN)))
-//  384   {
-//  385     // Attempt to read the certificate data from its corresponding location on the lock bits page.
-//  386     HalFlashRead(HAL_FLASH_IEEE_PAGE, HAL_FLASH_CA_PUBLIC_KEY_OSET, certData,
-//  387                  ZCL_KE_CA_PUBLIC_KEY_LEN);
-//  388     // If the certificate data is not NULL, use it to update the corresponding NV items.
-//  389     if (!osal_memcmp(certData, nullData, ZCL_KE_CA_PUBLIC_KEY_LEN))
-//  390     {
-//  391       (void)osal_nv_write(ZCD_NV_CA_PUBLIC_KEY, 0, ZCL_KE_CA_PUBLIC_KEY_LEN, certData);
-//  392       HalFlashRead(HAL_FLASH_IEEE_PAGE, HAL_FLASH_IMPLICIT_CERT_OSET, certData,
-//  393                    ZCL_KE_IMPLICIT_CERTIFICATE_LEN);
-//  394       (void)osal_nv_write(ZCD_NV_IMPLICIT_CERTIFICATE, 0,
-//  395                           ZCL_KE_IMPLICIT_CERTIFICATE_LEN, certData);
-//  396       HalFlashRead(HAL_FLASH_IEEE_PAGE, HAL_FLASH_DEV_PRIVATE_KEY_OSET, certData,
-//  397                    ZCL_KE_DEVICE_PRIVATE_KEY_LEN);
-//  398       (void)osal_nv_write(ZCD_NV_DEVICE_PRIVATE_KEY, 0, ZCL_KE_DEVICE_PRIVATE_KEY_LEN, certData);
-//  399     }
-//  400   }
-//  401 }
-//  402 #endif
-//  403 
-//  404 /**************************************************************************************************
-//  405  * @fn          zmain_dev_info
-//  406  *
-//  407  * @brief       This displays the IEEE (MSB to LSB) on the LCD.
-//  408  *
-//  409  * input parameters
-//  410  *
-//  411  * None.
-//  412  *
-//  413  * output parameters
-//  414  *
-//  415  * None.
-//  416  *
-//  417  * @return      None.
-//  418  **************************************************************************************************
-//  419  */
-//  420 static void zmain_dev_info(void)
-//  421 {
-//  422 
-//  423 #if defined(SERIAL_DEBUG_SUPPORTED) || (defined(LEGACY_LCD_DEBUG) && defined(LCD_SUPPORTED))
-//  424   uint8 i;
-//  425   uint8 *xad;
-//  426   uint8 lcd_buf[Z_EXTADDR_LEN * 2 + 1];
-//  427 
-//  428   // Display the extended address.
-//  429   xad = aExtendedAddress + Z_EXTADDR_LEN - 1;
-//  430 
-//  431   for (i = 0; i < Z_EXTADDR_LEN * 2; xad--)
-//  432   {
-//  433     uint8 ch;
-//  434     ch = (*xad >> 4) & 0x0F;
-//  435     lcd_buf[i++] = ch + ((ch < 10) ? '0' : '7');
-//  436     ch = *xad & 0x0F;
-//  437     lcd_buf[i++] = ch + ((ch < 10) ? '0' : '7');
-//  438   }
-//  439   lcd_buf[Z_EXTADDR_LEN * 2] = '\0';
-//  440   HalLcdWriteString("IEEE: ", HAL_LCD_DEBUG_LINE_1);
-//  441   HalLcdWriteString((char *)lcd_buf, HAL_LCD_DEBUG_LINE_2);
-//  442 #endif
-//  443 }
-//  444 
-//  445 #ifdef LCD_SUPPORTED
-//  446 /*********************************************************************
-//  447  * @fn      zmain_lcd_init
-//  448  * @brief   Initialize LCD at start up.
-//  449  * @return  none
-//  450  *********************************************************************/
-//  451 static void zmain_lcd_init(void)
-//  452 {
-//  453 #ifdef SERIAL_DEBUG_SUPPORTED
-//  454   {
-//  455     HalLcdWriteString("TexasInstruments", HAL_LCD_DEBUG_LINE_1);
-//  456 
-//  457 #if defined(MT_MAC_FUNC)
-//  458 #if defined(ZDO_COORDINATOR)
-//  459     HalLcdWriteString("MAC-MT Coord", HAL_LCD_DEBUG_LINE_2);
-//  460 #else
-//  461     HalLcdWriteString("MAC-MT Device", HAL_LCD_DEBUG_LINE_2);
-//  462 #endif // ZDO
-//  463 #elif defined(MT_NWK_FUNC)
-//  464 #if defined(ZDO_COORDINATOR)
-//  465     HalLcdWriteString("NWK Coordinator", HAL_LCD_DEBUG_LINE_2);
-//  466 #else
-//  467     HalLcdWriteString("NWK Device", HAL_LCD_DEBUG_LINE_2);
-//  468 #endif // ZDO
-//  469 #endif // MT_FUNC
-//  470   }
-//  471 #endif // SERIAL_DEBUG_SUPPORTED
-//  472 }
-//  473 #endif
-//  474 
-//  475 /*********************************************************************
-//  476 *********************************************************************/
+//  383 
+//  384 #if defined ZCL_KEY_ESTABLISH
+//  385 /**************************************************************************************************
+//  386  * @fn          zmain_cert_init
+//  387  *
+//  388  * @brief       Initialize the Certicom certificate information.
+//  389  *
+//  390  * input parameters
+//  391  *
+//  392  * None.
+//  393  *
+//  394  * output parameters
+//  395  *
+//  396  * None.
+//  397  *
+//  398  * @return      None.
+//  399  **************************************************************************************************
+//  400  */
+//  401 static void zmain_cert_init(void)
+//  402 {
+//  403   uint8 certData[ZCL_KE_IMPLICIT_CERTIFICATE_LEN];
+//  404   uint8 nullData[ZCL_KE_IMPLICIT_CERTIFICATE_LEN] = {
+//  405       0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+//  406       0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+//  407       0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+//  408       0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+//  409       0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+//  410       0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
+//  411 
+//  412   (void)osal_nv_item_init(ZCD_NV_IMPLICIT_CERTIFICATE, ZCL_KE_IMPLICIT_CERTIFICATE_LEN, NULL);
+//  413   (void)osal_nv_item_init(ZCD_NV_DEVICE_PRIVATE_KEY, ZCL_KE_DEVICE_PRIVATE_KEY_LEN, NULL);
+//  414 
+//  415   // First check whether non-null certificate data exists in the OSAL NV. To save on code space,
+//  416   // just use the ZCD_NV_CA_PUBLIC_KEY as the bellwether for all three.
+//  417   if ((SUCCESS != osal_nv_item_init(ZCD_NV_CA_PUBLIC_KEY, ZCL_KE_CA_PUBLIC_KEY_LEN, NULL)) ||
+//  418       (SUCCESS != osal_nv_read(ZCD_NV_CA_PUBLIC_KEY, 0, ZCL_KE_CA_PUBLIC_KEY_LEN, certData)) ||
+//  419       (osal_memcmp(certData, nullData, ZCL_KE_CA_PUBLIC_KEY_LEN)))
+//  420   {
+//  421     // Attempt to read the certificate data from its corresponding location on the lock bits page.
+//  422     HalFlashRead(HAL_FLASH_IEEE_PAGE, HAL_FLASH_CA_PUBLIC_KEY_OSET, certData,
+//  423                  ZCL_KE_CA_PUBLIC_KEY_LEN);
+//  424     // If the certificate data is not NULL, use it to update the corresponding NV items.
+//  425     if (!osal_memcmp(certData, nullData, ZCL_KE_CA_PUBLIC_KEY_LEN))
+//  426     {
+//  427       (void)osal_nv_write(ZCD_NV_CA_PUBLIC_KEY, 0, ZCL_KE_CA_PUBLIC_KEY_LEN, certData);
+//  428       HalFlashRead(HAL_FLASH_IEEE_PAGE, HAL_FLASH_IMPLICIT_CERT_OSET, certData,
+//  429                    ZCL_KE_IMPLICIT_CERTIFICATE_LEN);
+//  430       (void)osal_nv_write(ZCD_NV_IMPLICIT_CERTIFICATE, 0,
+//  431                           ZCL_KE_IMPLICIT_CERTIFICATE_LEN, certData);
+//  432       HalFlashRead(HAL_FLASH_IEEE_PAGE, HAL_FLASH_DEV_PRIVATE_KEY_OSET, certData,
+//  433                    ZCL_KE_DEVICE_PRIVATE_KEY_LEN);
+//  434       (void)osal_nv_write(ZCD_NV_DEVICE_PRIVATE_KEY, 0, ZCL_KE_DEVICE_PRIVATE_KEY_LEN, certData);
+//  435     }
+//  436   }
+//  437 }
+//  438 #endif
+//  439 
+//  440 /**************************************************************************************************
+//  441  * @fn          zmain_dev_info
+//  442  *
+//  443  * @brief       This displays the IEEE (MSB to LSB) on the LCD.
+//  444  *
+//  445  * input parameters
+//  446  *
+//  447  * None.
+//  448  *
+//  449  * output parameters
+//  450  *
+//  451  * None.
+//  452  *
+//  453  * @return      None.
+//  454  **************************************************************************************************
+//  455  */
+//  456 static void zmain_dev_info(void)
+//  457 {
+//  458 
+//  459 #if defined(SERIAL_DEBUG_SUPPORTED) || (defined(LEGACY_LCD_DEBUG) && defined(LCD_SUPPORTED))
+//  460   uint8 i;
+//  461   uint8 *xad;
+//  462   uint8 lcd_buf[Z_EXTADDR_LEN * 2 + 1];
+//  463 
+//  464   // Display the extended address.
+//  465   xad = aExtendedAddress + Z_EXTADDR_LEN - 1;
+//  466 
+//  467   for (i = 0; i < Z_EXTADDR_LEN * 2; xad--)
+//  468   {
+//  469     uint8 ch;
+//  470     ch = (*xad >> 4) & 0x0F;
+//  471     lcd_buf[i++] = ch + ((ch < 10) ? '0' : '7');
+//  472     ch = *xad & 0x0F;
+//  473     lcd_buf[i++] = ch + ((ch < 10) ? '0' : '7');
+//  474   }
+//  475   lcd_buf[Z_EXTADDR_LEN * 2] = '\0';
+//  476   HalLcdWriteString("IEEE: ", HAL_LCD_DEBUG_LINE_1);
+//  477   HalLcdWriteString((char *)lcd_buf, HAL_LCD_DEBUG_LINE_2);
+//  478 #endif
+//  479 }
+//  480 
+//  481 #ifdef LCD_SUPPORTED
+//  482 /*********************************************************************
+//  483  * @fn      zmain_lcd_init
+//  484  * @brief   Initialize LCD at start up.
+//  485  * @return  none
+//  486  *********************************************************************/
+//  487 static void zmain_lcd_init(void)
+//  488 {
+//  489 #ifdef SERIAL_DEBUG_SUPPORTED
+//  490   {
+//  491     HalLcdWriteString("TexasInstruments", HAL_LCD_DEBUG_LINE_1);
+//  492 
+//  493 #if defined(MT_MAC_FUNC)
+//  494 #if defined(ZDO_COORDINATOR)
+//  495     HalLcdWriteString("MAC-MT Coord", HAL_LCD_DEBUG_LINE_2);
+//  496 #else
+//  497     HalLcdWriteString("MAC-MT Device", HAL_LCD_DEBUG_LINE_2);
+//  498 #endif // ZDO
+//  499 #elif defined(MT_NWK_FUNC)
+//  500 #if defined(ZDO_COORDINATOR)
+//  501     HalLcdWriteString("NWK Coordinator", HAL_LCD_DEBUG_LINE_2);
+//  502 #else
+//  503     HalLcdWriteString("NWK Device", HAL_LCD_DEBUG_LINE_2);
+//  504 #endif // ZDO
+//  505 #endif // MT_FUNC
+//  506   }
+//  507 #endif // SERIAL_DEBUG_SUPPORTED
+//  508 }
+//  509 #endif
+//  510 
+//  511 /*********************************************************************
+//  512 *********************************************************************/
 // 
-// 596 bytes in segment BANKED_CODE
+// 781 bytes in segment BANKED_CODE
 //  24 bytes in segment BANK_RELAYS
 //   9 bytes in segment SFR_AN
-//  22 bytes in segment XDATA_ROM_C
+//  54 bytes in segment XDATA_ROM_C
 //   4 bytes in segment XDATA_Z
 // 
 //  24 bytes of CODE     memory
-//  18 bytes of CONST    memory (+ 4 bytes shared)
-//   0 bytes of DATA     memory (+ 9 bytes shared)
-// 596 bytes of HUGECODE memory
+//  18 bytes of CONST    memory (+ 36 bytes shared)
+//   0 bytes of DATA     memory (+  9 bytes shared)
+// 781 bytes of HUGECODE memory
 //   4 bytes of XDATA    memory
 //
 //Errors: none
