@@ -1,0 +1,1723 @@
+///////////////////////////////////////////////////////////////////////////////
+//
+// IAR C/C++ Compiler V10.30.1.6000 for 8051              06/Jan/2020  13:53:00
+// Copyright 2004-2018 IAR Systems AB.
+// PC-locked license - IAR Embedded Workbench for 8051
+//
+//    Core               =  plain
+//    Code model         =  banked
+//    Data model         =  large
+//    Calling convention =  xdata reentrant
+//    Constant location  =  data_rom
+//    Dptr setup         =  1,16
+//                          
+//    Source file        =  
+//        D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\COMPONENTS\keus\keus_gpio_util.c
+//    Command line       =  
+//        -f C:\Users\Souvik\AppData\Local\Temp\EWE872.tmp
+//        ("D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\COMPONENTS\keus\keus_gpio_util.c" -D SECURE=1 -D
+//        TC_LINKKEY_JOIN -D NV_INIT -D NV_RESTORE -D HAL_KEY=FALSE -D
+//        HAL_LCD=FALSE -D HAL_LED=FALSE -D MULTICAST_ENABLED=FALSE -D ZCL_READ
+//        -D ZCL_WRITE -D ZCL_BASIC -D ZCL_IDENTIFY -D
+//        KEUS_GPIO_INTERRUPT_HANDLER_DISABLE -D HAL_UART=TRUE -D
+//        HAL_UART_ISR=1 -D HAL_UART_DMA=2 -D HAL_UART_DMA_RX_MAX=64 -D
+//        HAL_UART_DMA_TX_MAX=64 -D INT_HEAP_LEN=3172 -lC "D:\VB_Shared\Zigbee
+//        Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\EndDeviceEB\List" -lA "D:\VB_Shared\Zigbee
+//        Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\EndDeviceEB\List" --diag_suppress Pe001,Pa010 -o
+//        "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\EndDeviceEB\Obj" -e --debug --core=plain --dptr=16,1
+//        --data_model=large --code_model=banked
+//        --calling_convention=xdata_reentrant --place_constants=data_rom
+//        --nr_virtual_regs 16 -f "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\..\Tools\CC2530DB\f8wEndev.cfg" (-DCPU32MHZ
+//        -DROOT=__near_func -DMAC_CFG_TX_DATA_MAX=3 -DMAC_CFG_TX_MAX=6
+//        -DMAC_CFG_RX_MAX=3) -f "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\..\Tools\CC2530DB\f8wConfig.cfg" (-DZIGBEEPRO
+//        -DSECURE=1 -DZG_SECURE_DYNAMIC=0 -DREFLECTOR
+//        -DDEFAULT_CHANLIST=0x00000800 -DZDAPP_CONFIG_PAN_ID=0xFFFF
+//        -DNWK_START_DELAY=100 -DEXTENDED_JOINING_RANDOM_MASK=0x007F
+//        -DBEACON_REQUEST_DELAY=100 -DBEACON_REQ_DELAY_MASK=0x00FF
+//        -DLINK_STATUS_JITTER_MASK=0x007F -DROUTE_EXPIRY_TIME=30
+//        -DAPSC_ACK_WAIT_DURATION_POLLED=3000 -DNWK_INDIRECT_MSG_TIMEOUT=7
+//        -DMAX_RREQ_ENTRIES=8 -DAPSC_MAX_FRAME_RETRIES=3
+//        -DNWK_MAX_DATA_RETRIES=2 -DMAX_POLL_FAILURE_RETRIES=2 -DMAX_BCAST=9
+//        -DAPS_MAX_GROUPS=16 -DMAX_RTG_ENTRIES=40 -DNWK_MAX_BINDING_ENTRIES=4
+//        -DMAX_BINDING_CLUSTER_IDS=4 -DDEFAULT_KEY={0}
+//        -DMAC_MAX_FRAME_SIZE=116 -DZDNWKMGR_MIN_TRANSMISSIONS=20
+//        "-DCONST=const __code" -DGENERIC=__generic -DRFD_RCVC_ALWAYS_ON=FALSE
+//        -DPOLL_RATE=1000 -DQUEUED_POLL_RATE=100 -DRESPONSE_POLL_RATE=100
+//        -DREJOIN_POLL_RATE=440 -DREJOIN_BACKOFF=900000 -DREJOIN_SCAN=900000
+//        -DENABLE_LED4_DISABLE_S1) -f "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\..\Tools\CC2530DB\f8wZCL.cfg" -I
+//        "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\" -I "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\Source\" -I "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\Source\" -I "D:\VB_Shared\Zigbee
+//        Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\..\ZMain\TI2530DB\" -I "D:\VB_Shared\Zigbee
+//        Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\..\..\..\Components\hal\include\" -I
+//        "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\..\..\..\Components\hal\target\CC2530EB\" -I
+//        "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\..\..\..\Components\mac\include\" -I
+//        "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\..\..\..\Components\mac\high_level\" -I
+//        "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\..\..\..\Components\mac\low_level\srf04\" -I
+//        "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\..\..\..\Components\mac\low_level\srf04\single_chip\"
+//        -I "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\..\..\..\Components\mt\" -I
+//        "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\..\..\..\Components\osal\include\" -I
+//        "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\..\..\..\Components\services\saddr\" -I
+//        "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\..\..\..\Components\services\sdata\" -I
+//        "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\..\..\..\Components\stack\af\" -I
+//        "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\..\..\..\Components\stack\bdb\" -I
+//        "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\..\..\..\Components\stack\gp\" -I
+//        "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\..\..\..\Components\stack\nwk\" -I
+//        "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\..\..\..\Components\stack\sapi\" -I
+//        "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\..\..\..\Components\stack\sec\" -I
+//        "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\..\..\..\Components\stack\sys\" -I
+//        "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\..\..\..\Components\stack\zcl\" -I
+//        "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\..\..\..\Components\stack\zdo\" -I
+//        "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\..\..\..\Components\zmac\" -I
+//        "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\..\..\..\Components\zmac\f8w\" -I
+//        "D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\..\..\..\..\..\Components\keus\" -Ohz
+//        --require_prototypes)
+//    Locale             =  English_USA.1252
+//    List file          =  
+//        D:\VB_Shared\Zigbee Resources\CC2530
+//        Development\Projects\zstack\HomeAutomation\GenericApp -
+//        Backup\CC2530DB\EndDeviceEB\List\keus_gpio_util.s51
+//
+///////////////////////////////////////////////////////////////////////////////
+
+        NAME keus_gpio_util
+
+        RTMODEL "__SystemLibrary", "CLib"
+        RTMODEL "__calling_convention", "xdata_reentrant"
+        RTMODEL "__code_model", "banked"
+        RTMODEL "__core", "plain"
+        RTMODEL "__data_model", "large"
+        RTMODEL "__dptr_size", "16"
+        RTMODEL "__extended_stack", "disabled"
+        RTMODEL "__location_for_constants", "data"
+        RTMODEL "__number_of_dptrs", "1"
+        RTMODEL "__register_banks", "*"
+        RTMODEL "__rt_version", "1"
+
+        RSEG DOVERLAY:DATA:NOROOT(0)
+        RSEG IOVERLAY:IDATA:NOROOT(0)
+        RSEG ISTACK:IDATA:NOROOT(0)
+        RSEG PSTACK:XDATA:NOROOT(0)
+        RSEG XSTACK:XDATA:NOROOT(0)
+
+        EXTERN ?V0
+        EXTERN ?V1
+        EXTERN ?BANKED_ENTER_XDATA
+        EXTERN ?BANKED_LEAVE_XDATA
+        EXTERN ?BDISPATCH
+        EXTERN ?BRET
+        EXTERN ?S_SHL
+
+        PUBLIC `??KeusGPIOEdgeConfiguration::?relay`
+        FUNCTION `??KeusGPIOEdgeConfiguration::?relay`,0203H
+        PUBLIC `??KeusGPIOInterruptEnable::?relay`
+        FUNCTION `??KeusGPIOInterruptEnable::?relay`,0203H
+        PUBLIC `??KeusGPIOReadPinValue::?relay`
+        FUNCTION `??KeusGPIOReadPinValue::?relay`,0203H
+        PUBLIC `??KeusGPIOSetDirection::?relay`
+        FUNCTION `??KeusGPIOSetDirection::?relay`,0203H
+        PUBLIC `??KeusGPIOSetPinValue::?relay`
+        FUNCTION `??KeusGPIOSetPinValue::?relay`,0203H
+        PUBLIC `??KeusGPIOToggledState::?relay`
+        FUNCTION `??KeusGPIOToggledState::?relay`,0203H
+        PUBWEAK IEN2
+        PUBLIC KeusGPIOEdgeConfiguration
+        FUNCTION KeusGPIOEdgeConfiguration,0203H
+        ARGFRAME XSTACK, 0, STACK
+        LOCFRAME ISTACK, 2, STACK
+        PUBLIC KeusGPIOInterruptEnable
+        FUNCTION KeusGPIOInterruptEnable,080203H
+        ARGFRAME XSTACK, 0, STACK
+        LOCFRAME XSTACK, 10, STACK
+        PUBLIC KeusGPIOReadPinValue
+        FUNCTION KeusGPIOReadPinValue,080203H
+        ARGFRAME XSTACK, 0, STACK
+        LOCFRAME XSTACK, 10, STACK
+        PUBLIC KeusGPIOSetDirection
+        FUNCTION KeusGPIOSetDirection,080203H
+        ARGFRAME XSTACK, 0, STACK
+        LOCFRAME XSTACK, 10, STACK
+        PUBLIC KeusGPIOSetPinValue
+        FUNCTION KeusGPIOSetPinValue,080203H
+        ARGFRAME XSTACK, 0, STACK
+        LOCFRAME XSTACK, 10, STACK
+        PUBLIC KeusGPIOToggledState
+        FUNCTION KeusGPIOToggledState,0203H
+        ARGFRAME XSTACK, 0, STACK
+        PUBWEAK P0DIR
+        PUBWEAK P0IEN
+        PUBWEAK P0IFG
+        PUBWEAK P0INP
+        PUBWEAK P0SEL
+        PUBWEAK P1DIR
+        PUBWEAK P1IEN
+        PUBWEAK P1IFG
+        PUBWEAK P1INP
+        PUBWEAK P1SEL
+        PUBWEAK P2DIR
+        PUBWEAK P2IEN
+        PUBWEAK P2IFG
+        PUBWEAK P2INP
+        PUBWEAK P2SEL
+        PUBWEAK PICTL
+        PUBWEAK _A_IEN1
+        PUBWEAK _A_P0
+        PUBWEAK _A_P1
+        PUBWEAK _A_P2
+        
+          CFI Names cfiNames0
+          CFI StackFrame CFA_SP SP IDATA
+          CFI StackFrame CFA_PSP16 PSP16 XDATA
+          CFI StackFrame CFA_XSP16 XSP16 XDATA
+          CFI StaticOverlayFrame CFA_IOVERLAY IOVERLAY
+          CFI StaticOverlayFrame CFA_DOVERLAY DOVERLAY
+          CFI Resource `PSW.CY`:1, `B.BR0`:1, `B.BR1`:1, `B.BR2`:1, `B.BR3`:1
+          CFI Resource `B.BR4`:1, `B.BR5`:1, `B.BR6`:1, `B.BR7`:1, `VB.BR8`:1
+          CFI Resource `VB.BR9`:1, `VB.BR10`:1, `VB.BR11`:1, `VB.BR12`:1
+          CFI Resource `VB.BR13`:1, `VB.BR14`:1, `VB.BR15`:1, VB:8, B:8, A:8
+          CFI Resource PSW:8, DPL0:8, DPH0:8, R0:8, R1:8, R2:8, R3:8, R4:8, R5:8
+          CFI Resource R6:8, R7:8, V0:8, V1:8, V2:8, V3:8, V4:8, V5:8, V6:8, V7:8
+          CFI Resource V8:8, V9:8, V10:8, V11:8, V12:8, V13:8, V14:8, V15:8, SP:8
+          CFI Resource PSPH:8, PSPL:8, PSP16:16, XSPH:8, XSPL:8, XSP16:16
+          CFI VirtualResource ?RET:24
+          CFI Resource ?BRET_EXT:8
+          CFI VirtualResource ?RET_HIGH:8, ?RET_LOW:8
+          CFI ResourceParts PSP16 PSPH, PSPL
+          CFI ResourceParts XSP16 XSPH, XSPL
+          CFI ResourceParts ?RET ?BRET_EXT, ?RET_HIGH, ?RET_LOW
+          CFI EndNames cfiNames0
+        
+          CFI Common cfiCommon0 Using cfiNames0
+          CFI CodeAlign 1
+          CFI DataAlign -1
+          CFI ReturnAddress ?RET CODE
+          CFI CFA_DOVERLAY Used
+          CFI CFA_IOVERLAY Used
+          CFI CFA_SP SP+-3
+          CFI CFA_PSP16 PSP16+0
+          CFI CFA_XSP16 XSP16+0
+          CFI `PSW.CY` SameValue
+          CFI `B.BR0` SameValue
+          CFI `B.BR1` SameValue
+          CFI `B.BR2` SameValue
+          CFI `B.BR3` SameValue
+          CFI `B.BR4` SameValue
+          CFI `B.BR5` SameValue
+          CFI `B.BR6` SameValue
+          CFI `B.BR7` SameValue
+          CFI `VB.BR8` SameValue
+          CFI `VB.BR9` SameValue
+          CFI `VB.BR10` SameValue
+          CFI `VB.BR11` SameValue
+          CFI `VB.BR12` SameValue
+          CFI `VB.BR13` SameValue
+          CFI `VB.BR14` SameValue
+          CFI `VB.BR15` SameValue
+          CFI VB SameValue
+          CFI B Undefined
+          CFI A Undefined
+          CFI PSW SameValue
+          CFI DPL0 SameValue
+          CFI DPH0 SameValue
+          CFI R0 Undefined
+          CFI R1 Undefined
+          CFI R2 Undefined
+          CFI R3 Undefined
+          CFI R4 Undefined
+          CFI R5 Undefined
+          CFI R6 SameValue
+          CFI R7 SameValue
+          CFI V0 SameValue
+          CFI V1 SameValue
+          CFI V2 SameValue
+          CFI V3 SameValue
+          CFI V4 SameValue
+          CFI V5 SameValue
+          CFI V6 SameValue
+          CFI V7 SameValue
+          CFI V8 SameValue
+          CFI V9 SameValue
+          CFI V10 SameValue
+          CFI V11 SameValue
+          CFI V12 SameValue
+          CFI V13 SameValue
+          CFI V14 SameValue
+          CFI V15 SameValue
+          CFI PSPH Undefined
+          CFI PSPL Undefined
+          CFI XSPH Undefined
+          CFI XSPL Undefined
+          CFI ?RET Concat
+          CFI ?BRET_EXT Frame(CFA_SP, 3)
+          CFI ?RET_HIGH Frame(CFA_SP, 2)
+          CFI ?RET_LOW Frame(CFA_SP, 1)
+          CFI EndCommon cfiCommon0
+        
+        
+          CFI Common cfiCommon1 Using cfiNames0
+          CFI CodeAlign 1
+          CFI DataAlign -1
+          CFI ReturnAddress ?RET CODE
+          CFI CFA_DOVERLAY Used
+          CFI CFA_IOVERLAY Used
+          CFI CFA_SP SP+-2
+          CFI CFA_PSP16 PSP16+0
+          CFI CFA_XSP16 XSP16+0
+          CFI `PSW.CY` SameValue
+          CFI `B.BR0` SameValue
+          CFI `B.BR1` SameValue
+          CFI `B.BR2` SameValue
+          CFI `B.BR3` SameValue
+          CFI `B.BR4` SameValue
+          CFI `B.BR5` SameValue
+          CFI `B.BR6` SameValue
+          CFI `B.BR7` SameValue
+          CFI `VB.BR8` SameValue
+          CFI `VB.BR9` SameValue
+          CFI `VB.BR10` SameValue
+          CFI `VB.BR11` SameValue
+          CFI `VB.BR12` SameValue
+          CFI `VB.BR13` SameValue
+          CFI `VB.BR14` SameValue
+          CFI `VB.BR15` SameValue
+          CFI VB SameValue
+          CFI B SameValue
+          CFI A SameValue
+          CFI PSW SameValue
+          CFI DPL0 SameValue
+          CFI DPH0 SameValue
+          CFI R0 SameValue
+          CFI R1 SameValue
+          CFI R2 SameValue
+          CFI R3 SameValue
+          CFI R4 SameValue
+          CFI R5 SameValue
+          CFI R6 SameValue
+          CFI R7 SameValue
+          CFI V0 SameValue
+          CFI V1 SameValue
+          CFI V2 SameValue
+          CFI V3 SameValue
+          CFI V4 SameValue
+          CFI V5 SameValue
+          CFI V6 SameValue
+          CFI V7 SameValue
+          CFI V8 SameValue
+          CFI V9 SameValue
+          CFI V10 SameValue
+          CFI V11 SameValue
+          CFI V12 SameValue
+          CFI V13 SameValue
+          CFI V14 SameValue
+          CFI V15 SameValue
+          CFI PSPH Undefined
+          CFI PSPL Undefined
+          CFI XSPH Undefined
+          CFI XSPL Undefined
+          CFI ?RET Concat
+          CFI ?BRET_EXT SameValue
+          CFI ?RET_HIGH Frame(CFA_SP, 2)
+          CFI ?RET_LOW Frame(CFA_SP, 1)
+          CFI EndCommon cfiCommon1
+        
+KeusGPIOEdgeConfiguration SYMBOL "KeusGPIOEdgeConfiguration"
+`??KeusGPIOEdgeConfiguration::?relay` SYMBOL "?relay", KeusGPIOEdgeConfiguration
+KeusGPIOInterruptEnable SYMBOL "KeusGPIOInterruptEnable"
+`??KeusGPIOInterruptEnable::?relay` SYMBOL "?relay", KeusGPIOInterruptEnable
+KeusGPIOReadPinValue SYMBOL "KeusGPIOReadPinValue"
+`??KeusGPIOReadPinValue::?relay` SYMBOL "?relay", KeusGPIOReadPinValue
+KeusGPIOSetDirection SYMBOL "KeusGPIOSetDirection"
+`??KeusGPIOSetDirection::?relay` SYMBOL "?relay", KeusGPIOSetDirection
+KeusGPIOSetPinValue SYMBOL "KeusGPIOSetPinValue"
+`??KeusGPIOSetPinValue::?relay` SYMBOL "?relay", KeusGPIOSetPinValue
+KeusGPIOToggledState SYMBOL "KeusGPIOToggledState"
+`??KeusGPIOToggledState::?relay` SYMBOL "?relay", KeusGPIOToggledState
+
+// D:\VB_Shared\Zigbee Resources\CC2530 Development\COMPONENTS\keus\keus_gpio_util.c
+//    1 #include "keus_gpio_util.h"
+
+        ASEGN SFR_AN:DATA:NOROOT,080H
+// union <unnamed> volatile __sfr _A_P0
+_A_P0:
+        DATA8
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,089H
+// unsigned char volatile __sfr P0IFG
+P0IFG:
+        DATA8
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,08aH
+// unsigned char volatile __sfr P1IFG
+P1IFG:
+        DATA8
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,08bH
+// unsigned char volatile __sfr P2IFG
+P2IFG:
+        DATA8
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,08cH
+// unsigned char volatile __sfr PICTL
+PICTL:
+        DATA8
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,08dH
+// unsigned char volatile __sfr P1IEN
+P1IEN:
+        DATA8
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,08fH
+// unsigned char volatile __sfr P0INP
+P0INP:
+        DATA8
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,090H
+// union <unnamed> volatile __sfr _A_P1
+_A_P1:
+        DATA8
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,09aH
+// unsigned char volatile __sfr IEN2
+IEN2:
+        DATA8
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,0a0H
+// union <unnamed> volatile __sfr _A_P2
+_A_P2:
+        DATA8
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,0abH
+// unsigned char volatile __sfr P0IEN
+P0IEN:
+        DATA8
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,0acH
+// unsigned char volatile __sfr P2IEN
+P2IEN:
+        DATA8
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,0b8H
+// union <unnamed> volatile __sfr _A_IEN1
+_A_IEN1:
+        DATA8
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,0f3H
+// unsigned char volatile __sfr P0SEL
+P0SEL:
+        DATA8
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,0f4H
+// unsigned char volatile __sfr P1SEL
+P1SEL:
+        DATA8
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,0f5H
+// unsigned char volatile __sfr P2SEL
+P2SEL:
+        DATA8
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,0f6H
+// unsigned char volatile __sfr P1INP
+P1INP:
+        DATA8
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,0f7H
+// unsigned char volatile __sfr P2INP
+P2INP:
+        DATA8
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,0fdH
+// unsigned char volatile __sfr P0DIR
+P0DIR:
+        DATA8
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,0feH
+// unsigned char volatile __sfr P1DIR
+P1DIR:
+        DATA8
+        DS 1
+
+        ASEGN SFR_AN:DATA:NOROOT,0ffH
+// unsigned char volatile __sfr P2DIR
+P2DIR:
+        DATA8
+        DS 1
+//    2 
+//    3 #ifndef KEUS_GPIO_INTERRUPT_HANDLER_DISABLE
+//    4 KeusGPIOPin *pins[1] = {NULL};
+//    5 #endif
+//    6 
+
+        RSEG BANKED_CODE:HUGECODE:NOROOT(0)
+//    7 void KeusGPIOSetDirection(KeusGPIOPin *pin) {
+KeusGPIOSetDirection:
+          CFI Block cfiBlock0 Using cfiCommon0
+          CFI Function KeusGPIOSetDirection
+        CODE
+        REQUIRE ?V0
+        REQUIRE ?V1
+        MOV       A,#-0xa
+        LCALL     ?BANKED_ENTER_XDATA
+          CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+          CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+          CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+          CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+          CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+          CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+          CFI V1 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+          CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+          CFI VB load(1, XDATA, add(CFA_XSP16, literal(-9)))
+          CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+          CFI CFA_SP SP+0
+          CFI CFA_XSP16 add(XSP16, 10)
+        ; Saved register size: 10
+        ; Auto size: 0
+//    8   if (pin->dir == GPIO_INPUT) {
+        MOV       DPL,R2
+        MOV       DPH,R3
+        INC       DPTR
+        MOV       R4,DPL
+        MOV       R5,DPH
+        MOV       DPL,R2
+        MOV       DPH,R3
+        MOVX      A,@DPTR
+        MOV       R6,A
+        INC       DPTR
+        INC       DPTR
+        MOVX      A,@DPTR
+        JZ        $+5
+        LJMP      ??KeusGPIOSetDirection_0 & 0xFFFF
+//    9     switch (pin->port) {
+        MOV       A,R2
+        ADD       A,#0x3
+        CLR       A
+        ADDC      A,R3
+        MOV       R1,A
+        INC       R2
+        INC       R2
+        INC       R2
+        MOV       A,R6
+        JZ        ??KeusGPIOSetDirection_1
+        DEC       A
+        JZ        ??KeusGPIOSetDirection_2
+        DEC       A
+        JZ        ??KeusGPIOSetDirection_3
+        LJMP      ??KeusGPIOSetDirection_4 & 0xFFFF
+//   10       case 0:
+//   11         P0SEL &= (~ BV(pin->bit));
+??KeusGPIOSetDirection_1:
+        MOV       ?V0,#0x1
+        MOV       ?V1,#0x0
+        MOV       DPL,R4
+        MOV       DPH,R5
+        MOVX      A,@DPTR
+        MOV       R0,#?V0
+        LCALL     ?S_SHL
+        LCALL     ?Subroutine1 & 0xFFFF
+//   12         P0DIR &= (~ BV(pin->bit));
+??CrossCallReturnLabel_0:
+        LCALL     ?S_SHL
+        MOV       A,?V0
+        CPL       A
+        ANL       0xfd,A
+//   13 
+//   14         if (pin->istristate) {
+        MOV       ?V0,#0x1
+        MOV       ?V1,#0x0
+        MOVX      A,@DPTR
+        MOV       R0,#?V0
+        LCALL     ?S_SHL
+        MOV       A,?V0
+        MOV       R0,A
+        MOV       DPL,R2
+        MOV       DPH,R1
+        MOVX      A,@DPTR
+        JZ        ??KeusGPIOSetDirection_5
+//   15           P0INP |= BV(pin->bit);
+        MOV       A,R0
+        ORL       0x8f,A
+        LJMP      ??KeusGPIOSetDirection_4 & 0xFFFF
+//   16         } else {
+//   17           P0INP &= (~ BV(pin->bit));
+??KeusGPIOSetDirection_5:
+        MOV       A,R0
+        CPL       A
+        ANL       0x8f,A
+        LJMP      ??KeusGPIOSetDirection_4 & 0xFFFF
+//   18         }
+//   19         break;
+//   20       case 1:
+//   21         P1SEL &= (~ BV(pin->bit));
+??KeusGPIOSetDirection_2:
+        MOV       ?V0,#0x1
+        MOV       ?V1,#0x0
+        MOV       DPL,R4
+        MOV       DPH,R5
+        MOVX      A,@DPTR
+        MOV       R0,#?V0
+        LCALL     ?S_SHL
+        LCALL     ?Subroutine2 & 0xFFFF
+//   22         P1DIR &= (~ BV(pin->bit));
+??CrossCallReturnLabel_3:
+        LCALL     ?S_SHL
+        MOV       A,?V0
+        CPL       A
+        ANL       0xfe,A
+//   23         
+//   24         if (pin->istristate) {
+        MOV       ?V0,#0x1
+        MOV       ?V1,#0x0
+        MOVX      A,@DPTR
+        MOV       R0,#?V0
+        LCALL     ?S_SHL
+        MOV       A,?V0
+        MOV       R0,A
+        MOV       DPL,R2
+        MOV       DPH,R1
+        MOVX      A,@DPTR
+        JZ        ??KeusGPIOSetDirection_6
+//   25           P1INP |= BV(pin->bit);
+        MOV       A,R0
+        ORL       0xf6,A
+        LJMP      ??KeusGPIOSetDirection_4 & 0xFFFF
+//   26         } else {
+//   27           P1INP &= (~ BV(pin->bit));
+??KeusGPIOSetDirection_6:
+        MOV       A,R0
+        CPL       A
+        ANL       0xf6,A
+        LJMP      ??KeusGPIOSetDirection_4 & 0xFFFF
+//   28         }
+//   29         break;
+//   30       case 2:
+//   31         P2SEL &= (~ BV(pin->bit));
+??KeusGPIOSetDirection_3:
+        MOV       ?V0,#0x1
+        MOV       ?V1,#0x0
+        MOV       DPL,R4
+        MOV       DPH,R5
+        MOVX      A,@DPTR
+        MOV       R0,#?V0
+        LCALL     ?S_SHL
+        LCALL     ?Subroutine3 & 0xFFFF
+//   32         P2DIR &= (~ BV(pin->bit));
+??CrossCallReturnLabel_6:
+        LCALL     ?S_SHL
+        MOV       A,?V0
+        CPL       A
+        ANL       0xff,A
+//   33         
+//   34         if (pin->istristate) {
+        MOV       ?V0,#0x1
+        MOV       ?V1,#0x0
+        MOVX      A,@DPTR
+        MOV       R0,#?V0
+        LCALL     ?S_SHL
+        MOV       A,?V0
+        MOV       R0,A
+        MOV       DPL,R2
+        MOV       DPH,R1
+        MOVX      A,@DPTR
+        JZ        ??KeusGPIOSetDirection_7
+//   35           P2INP |= BV(pin->bit);
+        MOV       A,R0
+        ORL       0xf7,A
+        SJMP      ??KeusGPIOSetDirection_4
+//   36         } else {
+//   37           P2INP &= (~ BV(pin->bit));
+??KeusGPIOSetDirection_7:
+        MOV       A,R0
+        CPL       A
+        ANL       0xf7,A
+        SJMP      ??KeusGPIOSetDirection_4
+//   38         }
+//   39         break;
+//   40     }
+//   41   } else {
+//   42     switch (pin->port) {
+??KeusGPIOSetDirection_0:
+        MOV       A,R6
+        JZ        ??KeusGPIOSetDirection_8
+        DEC       A
+        JZ        ??KeusGPIOSetDirection_9
+        DEC       A
+        JZ        ??KeusGPIOSetDirection_10
+        SJMP      ??KeusGPIOSetDirection_4
+//   43       case 0:
+//   44         P0SEL &= (~ BV(pin->bit));
+??KeusGPIOSetDirection_8:
+        MOV       ?V0,#0x1
+        MOV       ?V1,#0x0
+        MOV       DPL,R4
+        MOV       DPH,R5
+        MOVX      A,@DPTR
+        MOV       R0,#?V0
+        LCALL     ?S_SHL
+        LCALL     ?Subroutine1 & 0xFFFF
+//   45         P0DIR |= BV(pin->bit);
+??CrossCallReturnLabel_1:
+        LCALL     ?S_SHL
+        MOV       A,?V0
+        ORL       0xfd,A
+//   46         break;
+        SJMP      ??KeusGPIOSetDirection_4
+//   47       case 1:
+//   48         P1SEL &= (~ BV(pin->bit));
+??KeusGPIOSetDirection_9:
+        MOV       ?V0,#0x1
+        MOV       ?V1,#0x0
+        MOV       DPL,R4
+        MOV       DPH,R5
+        MOVX      A,@DPTR
+        MOV       R0,#?V0
+        LCALL     ?S_SHL
+        LCALL     ?Subroutine2 & 0xFFFF
+//   49         P1DIR |= BV(pin->bit);
+??CrossCallReturnLabel_4:
+        LCALL     ?S_SHL
+        MOV       A,?V0
+        ORL       0xfe,A
+//   50         break;
+        SJMP      ??KeusGPIOSetDirection_4
+//   51       case 2:
+//   52         P2SEL &= (~ BV(pin->bit));
+??KeusGPIOSetDirection_10:
+        MOV       ?V0,#0x1
+        MOV       ?V1,#0x0
+        MOV       DPL,R4
+        MOV       DPH,R5
+        MOVX      A,@DPTR
+        MOV       R0,#?V0
+        LCALL     ?S_SHL
+        LCALL     ?Subroutine3 & 0xFFFF
+//   53         P2DIR |= BV(pin->bit);
+??CrossCallReturnLabel_7:
+        LCALL     ?S_SHL
+        MOV       A,?V0
+        ORL       0xff,A
+//   54         break;
+//   55     }
+//   56   }
+//   57 }
+??KeusGPIOSetDirection_4:
+        LJMP      ?Subroutine0 & 0xFFFF
+          CFI EndBlock cfiBlock0
+        REQUIRE P0SEL
+        REQUIRE P0DIR
+        REQUIRE P0INP
+        REQUIRE P1SEL
+        REQUIRE P1DIR
+        REQUIRE P1INP
+        REQUIRE P2SEL
+        REQUIRE P2DIR
+        REQUIRE P2INP
+//   58 
+
+        RSEG BANKED_CODE:HUGECODE:NOROOT(0)
+//   59 void KeusGPIOSetPinValue(KeusGPIOPin *pin) {
+KeusGPIOSetPinValue:
+          CFI Block cfiBlock1 Using cfiCommon0
+          CFI Function KeusGPIOSetPinValue
+        CODE
+        REQUIRE ?V0
+        REQUIRE ?V1
+        MOV       A,#-0xa
+        LCALL     ?BANKED_ENTER_XDATA
+          CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+          CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+          CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+          CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+          CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+          CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+          CFI V1 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+          CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+          CFI VB load(1, XDATA, add(CFA_XSP16, literal(-9)))
+          CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+          CFI CFA_SP SP+0
+          CFI CFA_XSP16 add(XSP16, 10)
+        ; Saved register size: 10
+        ; Auto size: 0
+//   60   if (pin->state == GPIO_LOW) {
+        MOV       DPL,R2
+        MOV       DPH,R3
+        MOVX      A,@DPTR
+        MOV       R0,A
+        INC       DPTR
+        INC       DPTR
+        INC       DPTR
+        INC       DPTR
+        MOVX      A,@DPTR
+        JNZ       ??KeusGPIOSetPinValue_0
+//   61     switch (pin->port) {
+        MOV       A,R0
+        JZ        ??KeusGPIOSetPinValue_1
+        DEC       A
+        JZ        ??KeusGPIOSetPinValue_2
+        DEC       A
+        JZ        ??KeusGPIOSetPinValue_3
+        LJMP      ??KeusGPIOSetPinValue_4 & 0xFFFF
+//   62       case 0:
+//   63         P0 &= (~ BV(pin->bit));
+??KeusGPIOSetPinValue_1:
+        MOV       ?V0,#0x1
+        MOV       ?V1,#0x0
+        MOV       DPL,R2
+        MOV       DPH,R3
+        INC       DPTR
+        MOVX      A,@DPTR
+        MOV       R0,#?V0
+        LCALL     ?S_SHL
+        MOV       A,?V0
+        CPL       A
+        ANL       0x80,A
+//   64         break;
+        SJMP      ??KeusGPIOSetPinValue_4
+//   65       case 1:
+//   66         P1 &= (~ BV(pin->bit));
+??KeusGPIOSetPinValue_2:
+        MOV       ?V0,#0x1
+        MOV       ?V1,#0x0
+        MOV       DPL,R2
+        MOV       DPH,R3
+        INC       DPTR
+        MOVX      A,@DPTR
+        MOV       R0,#?V0
+        LCALL     ?S_SHL
+        MOV       A,?V0
+        CPL       A
+        ANL       0x90,A
+//   67         break;
+        SJMP      ??KeusGPIOSetPinValue_4
+//   68       case 2:
+//   69         P2 &= (~ BV(pin->bit));
+??KeusGPIOSetPinValue_3:
+        MOV       ?V0,#0x1
+        MOV       ?V1,#0x0
+        MOV       DPL,R2
+        MOV       DPH,R3
+        INC       DPTR
+        MOVX      A,@DPTR
+        MOV       R0,#?V0
+        LCALL     ?S_SHL
+        MOV       A,?V0
+        CPL       A
+        ANL       0xa0,A
+//   70         break;
+        SJMP      ??KeusGPIOSetPinValue_4
+//   71     }
+//   72   } else {
+//   73     switch (pin->port) {
+??KeusGPIOSetPinValue_0:
+        MOV       A,R0
+        JZ        ??KeusGPIOSetPinValue_5
+        DEC       A
+        JZ        ??KeusGPIOSetPinValue_6
+        DEC       A
+        JZ        ??KeusGPIOSetPinValue_7
+        SJMP      ??KeusGPIOSetPinValue_4
+//   74       case 0:
+//   75         P0 |= BV(pin->bit);
+??KeusGPIOSetPinValue_5:
+        MOV       ?V0,#0x1
+        MOV       ?V1,#0x0
+        MOV       DPL,R2
+        MOV       DPH,R3
+        INC       DPTR
+        MOVX      A,@DPTR
+        MOV       R0,#?V0
+        LCALL     ?S_SHL
+        MOV       A,?V0
+        ORL       0x80,A
+//   76         break;
+        SJMP      ??KeusGPIOSetPinValue_4
+//   77       case 1:
+//   78         P1 |= BV(pin->bit);
+??KeusGPIOSetPinValue_6:
+        MOV       ?V0,#0x1
+        MOV       ?V1,#0x0
+        MOV       DPL,R2
+        MOV       DPH,R3
+        INC       DPTR
+        MOVX      A,@DPTR
+        MOV       R0,#?V0
+        LCALL     ?S_SHL
+        MOV       A,?V0
+        ORL       0x90,A
+//   79         break;
+        SJMP      ??KeusGPIOSetPinValue_4
+//   80       case 2:
+//   81         P2 |= BV(pin->bit);
+??KeusGPIOSetPinValue_7:
+        MOV       ?V0,#0x1
+        MOV       ?V1,#0x0
+        MOV       DPL,R2
+        MOV       DPH,R3
+        INC       DPTR
+        MOVX      A,@DPTR
+        MOV       R0,#?V0
+        LCALL     ?S_SHL
+        MOV       A,?V0
+        ORL       0xa0,A
+//   82         break;
+//   83     }
+//   84   }
+//   85 }
+??KeusGPIOSetPinValue_4:
+        SJMP      ?Subroutine0
+          CFI EndBlock cfiBlock1
+        REQUIRE _A_P0
+        REQUIRE _A_P1
+        REQUIRE _A_P2
+//   86 
+
+        RSEG BANKED_CODE:HUGECODE:NOROOT(0)
+//   87 void KeusGPIOReadPinValue(KeusGPIOPin *pin) {
+KeusGPIOReadPinValue:
+          CFI Block cfiBlock2 Using cfiCommon0
+          CFI Function KeusGPIOReadPinValue
+        CODE
+        REQUIRE ?V0
+        REQUIRE ?V1
+        MOV       A,#-0xa
+        LCALL     ?BANKED_ENTER_XDATA
+          CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+          CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+          CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+          CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+          CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+          CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+          CFI V1 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+          CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+          CFI VB load(1, XDATA, add(CFA_XSP16, literal(-9)))
+          CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+          CFI CFA_SP SP+0
+          CFI CFA_XSP16 add(XSP16, 10)
+        ; Saved register size: 10
+        ; Auto size: 0
+//   88   uint8 val = 0x02;
+        MOV       R0,#0x2
+//   89 
+//   90   switch (pin->port) {
+        MOV       DPL,R2
+        MOV       DPH,R3
+        MOVX      A,@DPTR
+        JZ        ??KeusGPIOReadPinValue_0
+        DEC       A
+        JZ        ??KeusGPIOReadPinValue_1
+        DEC       A
+        JZ        ??KeusGPIOReadPinValue_2
+        SJMP      ??KeusGPIOReadPinValue_3
+//   91     case 0:
+//   92       val = P0 & BV(pin->bit);
+??KeusGPIOReadPinValue_0:
+        MOV       ?V0,#0x1
+        MOV       ?V1,#0x0
+        INC       DPTR
+        MOVX      A,@DPTR
+        MOV       R0,#?V0
+        LCALL     ?S_SHL
+        MOV       A,?V0
+        ANL       A,0x80
+        SJMP      ??KeusGPIOReadPinValue_4
+//   93       break;
+//   94     case 1:
+//   95       val = P1 & BV(pin->bit);
+??KeusGPIOReadPinValue_1:
+        MOV       ?V0,#0x1
+        MOV       ?V1,#0x0
+        INC       DPTR
+        MOVX      A,@DPTR
+        MOV       R0,#?V0
+        LCALL     ?S_SHL
+        MOV       A,?V0
+        ANL       A,0x90
+        SJMP      ??KeusGPIOReadPinValue_4
+//   96       break;
+//   97     case 2:
+//   98       val = P2 & BV(pin->bit);
+??KeusGPIOReadPinValue_2:
+        MOV       ?V0,#0x1
+        MOV       ?V1,#0x0
+        INC       DPTR
+        MOVX      A,@DPTR
+        MOV       R0,#?V0
+        LCALL     ?S_SHL
+        MOV       A,?V0
+        ANL       A,0xa0
+??KeusGPIOReadPinValue_4:
+        MOV       R0,A
+//   99       break;
+//  100   }
+//  101   
+//  102   if (val == 0x00) {
+??KeusGPIOReadPinValue_3:
+        MOV       A,R2
+        ADD       A,#0x4
+        MOV       DPL,A
+        CLR       A
+        ADDC      A,R3
+        MOV       DPH,A
+        MOV       A,R0
+        JNZ       ??KeusGPIOReadPinValue_5
+//  103     pin->state = GPIO_LOW;
+        CLR       A
+        SJMP      ??KeusGPIOReadPinValue_6
+//  104   } else {
+//  105     pin->state = GPIO_HIGH;
+??KeusGPIOReadPinValue_5:
+        MOV       A,#0x1
+??KeusGPIOReadPinValue_6:
+        MOVX      @DPTR,A
+//  106   }
+//  107 }
+          CFI EndBlock cfiBlock2
+        REQUIRE ?Subroutine0
+        REQUIRE _A_P0
+        REQUIRE _A_P1
+        REQUIRE _A_P2
+        ; // Fall through to label ?Subroutine0
+
+        RSEG BANKED_CODE:HUGECODE:NOROOT(0)
+?Subroutine0:
+          CFI Block cfiBlock3 Using cfiCommon0
+          CFI NoFunction
+          CFI CFA_SP SP+0
+          CFI CFA_XSP16 add(XSP16, 10)
+          CFI VB load(1, XDATA, add(CFA_XSP16, literal(-9)))
+          CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+          CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+          CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+          CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+          CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+          CFI V1 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+          CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+          CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+          CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+        MOV       R7,#0x2
+        LJMP      ?BANKED_LEAVE_XDATA
+          CFI EndBlock cfiBlock3
+//  108 
+
+        RSEG BANKED_CODE:HUGECODE:NOROOT(0)
+//  109 uint8 KeusGPIOToggledState(uint8 state) {
+KeusGPIOToggledState:
+          CFI Block cfiBlock4 Using cfiCommon0
+          CFI Function KeusGPIOToggledState
+        CODE
+        ; Saved register size: 0
+        ; Auto size: 0
+        MOV       A,R1
+//  110   return (state == GPIO_LOW) ? GPIO_HIGH : GPIO_LOW;
+        JNZ       ??KeusGPIOToggledState_0
+        MOV       R1,#0x1
+        SJMP      ??KeusGPIOToggledState_1
+??KeusGPIOToggledState_0:
+        MOV       R1,#0x0
+??KeusGPIOToggledState_1:
+        LJMP      ?BRET
+//  111 }
+          CFI EndBlock cfiBlock4
+//  112 
+//  113 #ifndef KEUS_GPIO_INTERRUPT_HANDLER_DISABLE
+//  114 void KeusGPIOSetInterruptHandler(KeusGPIOPin *pin, uint8 num) {
+//  115   pins[num] = pin;
+//  116 }
+//  117 #endif
+//  118 
+
+        RSEG BANKED_CODE:HUGECODE:NOROOT(0)
+//  119 void KeusGPIOInterruptEnable (KeusGPIOPin *pin) {
+KeusGPIOInterruptEnable:
+          CFI Block cfiBlock5 Using cfiCommon0
+          CFI Function KeusGPIOInterruptEnable
+        CODE
+        REQUIRE ?V0
+        REQUIRE ?V1
+        MOV       A,#-0xa
+        LCALL     ?BANKED_ENTER_XDATA
+          CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+          CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+          CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+          CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+          CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+          CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+          CFI V1 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+          CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+          CFI VB load(1, XDATA, add(CFA_XSP16, literal(-9)))
+          CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+          CFI CFA_SP SP+0
+          CFI CFA_XSP16 add(XSP16, 10)
+        ; Saved register size: 10
+        ; Auto size: 0
+//  120   switch (pin->port) {
+        MOV       A,R2
+        ADD       A,#0x3
+        MOV       R0,A
+        CLR       A
+        ADDC      A,R3
+        MOV       R1,A
+        MOV       A,R0
+        MOV       R6,A
+        MOV       DPL,R2
+        MOV       DPH,R3
+        INC       DPTR
+        MOV       R4,DPL
+        MOV       R5,DPH
+        MOV       DPL,R2
+        MOV       DPH,R3
+        MOVX      A,@DPTR
+        JZ        ??KeusGPIOInterruptEnable_0
+        DEC       A
+        JZ        ??KeusGPIOInterruptEnable_1
+        DEC       A
+        JNZ       $+5
+        LJMP      ??KeusGPIOInterruptEnable_2 & 0xFFFF
+        LJMP      ??KeusGPIOInterruptEnable_3 & 0xFFFF
+//  121     case 0:
+//  122         P0SEL &= (~ BV(pin->bit));
+??KeusGPIOInterruptEnable_0:
+        MOV       ?V0,#0x1
+        MOV       ?V1,#0x0
+        MOV       DPL,R4
+        MOV       DPH,R5
+        MOVX      A,@DPTR
+        MOV       R0,#?V0
+        LCALL     ?S_SHL
+        LCALL     ?Subroutine1 & 0xFFFF
+//  123         P0DIR &= (~ BV(pin->bit));
+??CrossCallReturnLabel_2:
+        LCALL     ?S_SHL
+        MOV       A,?V0
+        CPL       A
+        ANL       0xfd,A
+//  124 
+//  125         if (pin->istristate) {
+        MOV       DPL,R6
+        MOV       DPH,R1
+        MOVX      A,@DPTR
+        JZ        ??KeusGPIOInterruptEnable_4
+//  126           P0INP |= BV(pin->bit);
+        MOV       ?V0,#0x1
+        MOV       ?V1,#0x0
+        MOV       DPL,R4
+        MOV       DPH,R5
+        MOVX      A,@DPTR
+        MOV       R0,#?V0
+        LCALL     ?S_SHL
+        MOV       A,?V0
+        ORL       0x8f,A
+//  127         }
+//  128 
+//  129         P0IEN |= BV(pin->bit);
+??KeusGPIOInterruptEnable_4:
+        MOV       ?V0,#0x1
+        MOV       ?V1,#0x0
+        MOV       DPL,R4
+        MOV       DPH,R5
+        MOVX      A,@DPTR
+        MOV       R0,#?V0
+        LCALL     ?S_SHL
+        MOV       A,?V0
+        ORL       0xab,A
+//  130 
+//  131         IEN1 |= BV(5);
+        SETB      0xb8.5
+//  132 
+//  133         P0IFG = ~(BV(pin->bit));
+        MOV       ?V0,#0x1
+        MOV       ?V1,#0x0
+        MOVX      A,@DPTR
+        MOV       R0,#?V0
+        LCALL     ?S_SHL
+        MOV       A,?V0
+        CPL       A
+        MOV       0x89,A
+//  134      break;
+        LJMP      ??KeusGPIOInterruptEnable_3 & 0xFFFF
+//  135       
+//  136     case 1:
+//  137         P1SEL &= (~ BV(pin->bit));
+??KeusGPIOInterruptEnable_1:
+        MOV       ?V0,#0x1
+        MOV       ?V1,#0x0
+        MOV       DPL,R4
+        MOV       DPH,R5
+        MOVX      A,@DPTR
+        MOV       R0,#?V0
+        LCALL     ?S_SHL
+        LCALL     ?Subroutine2 & 0xFFFF
+//  138         P1DIR &= (~ BV(pin->bit));
+??CrossCallReturnLabel_5:
+        LCALL     ?S_SHL
+        MOV       A,?V0
+        CPL       A
+        ANL       0xfe,A
+//  139 
+//  140         if (pin->istristate) {
+        MOV       DPL,R6
+        MOV       DPH,R1
+        MOVX      A,@DPTR
+        JZ        ??KeusGPIOInterruptEnable_5
+//  141           P1INP |= BV(pin->bit);
+        MOV       ?V0,#0x1
+        MOV       ?V1,#0x0
+        MOV       DPL,R4
+        MOV       DPH,R5
+        MOVX      A,@DPTR
+        MOV       R0,#?V0
+        LCALL     ?S_SHL
+        MOV       A,?V0
+        ORL       0xf6,A
+//  142         }
+//  143 
+//  144         P1IEN |= BV(pin->bit);
+??KeusGPIOInterruptEnable_5:
+        MOV       ?V0,#0x1
+        MOV       ?V1,#0x0
+        MOV       DPL,R4
+        MOV       DPH,R5
+        MOVX      A,@DPTR
+        MOV       R0,#?V0
+        LCALL     ?S_SHL
+        MOV       A,?V0
+        ORL       0x8d,A
+//  145 
+//  146         IEN2 |= BV(4);
+        ORL       0x9a,#0x10
+//  147 
+//  148         P1IFG = ~(BV(pin->bit));
+        MOV       ?V0,#0x1
+        MOV       ?V1,#0x0
+        MOVX      A,@DPTR
+        MOV       R0,#?V0
+        LCALL     ?S_SHL
+        MOV       A,?V0
+        CPL       A
+        MOV       0x8a,A
+//  149       break;
+        SJMP      ??KeusGPIOInterruptEnable_3
+//  150       
+//  151     case 2:
+//  152         P2SEL &= (~ BV(pin->bit));
+??KeusGPIOInterruptEnable_2:
+        MOV       ?V0,#0x1
+        MOV       ?V1,#0x0
+        MOV       DPL,R4
+        MOV       DPH,R5
+        MOVX      A,@DPTR
+        MOV       R0,#?V0
+        LCALL     ?S_SHL
+        LCALL     ?Subroutine3 & 0xFFFF
+//  153         P2DIR &= (~ BV(pin->bit));
+??CrossCallReturnLabel_8:
+        LCALL     ?S_SHL
+        MOV       A,?V0
+        CPL       A
+        ANL       0xff,A
+//  154 
+//  155         if (pin->istristate) {
+        MOV       DPL,R6
+        MOV       DPH,R1
+        MOVX      A,@DPTR
+        JZ        ??KeusGPIOInterruptEnable_6
+//  156           P2INP |= BV(pin->bit);
+        MOV       ?V0,#0x1
+        MOV       ?V1,#0x0
+        MOV       DPL,R4
+        MOV       DPH,R5
+        MOVX      A,@DPTR
+        MOV       R0,#?V0
+        LCALL     ?S_SHL
+        MOV       A,?V0
+        ORL       0xf7,A
+//  157         }
+//  158       
+//  159         P2IEN |= BV(pin->bit);
+??KeusGPIOInterruptEnable_6:
+        MOV       ?V0,#0x1
+        MOV       ?V1,#0x0
+        MOV       DPL,R4
+        MOV       DPH,R5
+        MOVX      A,@DPTR
+        MOV       R0,#?V0
+        LCALL     ?S_SHL
+        MOV       A,?V0
+        ORL       0xac,A
+//  160        
+//  161         IEN2 |= BV(1);
+        ORL       0x9a,#0x2
+//  162         
+//  163         P2IFG = ~(BV(pin->bit));
+        MOV       ?V0,#0x1
+        MOV       ?V1,#0x0
+        MOVX      A,@DPTR
+        MOV       R0,#?V0
+        LCALL     ?S_SHL
+        MOV       A,?V0
+        CPL       A
+        MOV       0x8b,A
+//  164       break;
+//  165   }
+//  166 }
+??KeusGPIOInterruptEnable_3:
+        LJMP      ?Subroutine0 & 0xFFFF
+          CFI EndBlock cfiBlock5
+        REQUIRE P0SEL
+        REQUIRE P0DIR
+        REQUIRE P0INP
+        REQUIRE P0IEN
+        REQUIRE _A_IEN1
+        REQUIRE P0IFG
+        REQUIRE P1SEL
+        REQUIRE P1DIR
+        REQUIRE P1INP
+        REQUIRE P1IEN
+        REQUIRE IEN2
+        REQUIRE P1IFG
+        REQUIRE P2SEL
+        REQUIRE P2DIR
+        REQUIRE P2INP
+        REQUIRE P2IEN
+        REQUIRE P2IFG
+
+        RSEG BANKED_CODE:HUGECODE:NOROOT(0)
+?Subroutine3:
+          CFI Block cfiCond6 Using cfiCommon0
+          CFI Function KeusGPIOSetDirection
+          CFI Conditional ??CrossCallReturnLabel_6
+          CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+          CFI VB load(1, XDATA, add(CFA_XSP16, literal(-9)))
+          CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+          CFI V1 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+          CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+          CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+          CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+          CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+          CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+          CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+          CFI CFA_SP SP+-2
+          CFI CFA_XSP16 add(XSP16, 10)
+          CFI Block cfiCond7 Using cfiCommon0
+          CFI (cfiCond7) Function KeusGPIOSetDirection
+          CFI (cfiCond7) Conditional ??CrossCallReturnLabel_7
+          CFI (cfiCond7) R6 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+          CFI (cfiCond7) VB load(1, XDATA, add(CFA_XSP16, literal(-9)))
+          CFI (cfiCond7) V0 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+          CFI (cfiCond7) V1 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+          CFI (cfiCond7) R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+          CFI (cfiCond7) ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+          CFI (cfiCond7) ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+          CFI (cfiCond7) ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+          CFI (cfiCond7) DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+          CFI (cfiCond7) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+          CFI (cfiCond7) CFA_SP SP+-2
+          CFI (cfiCond7) CFA_XSP16 add(XSP16, 10)
+          CFI Block cfiCond8 Using cfiCommon0
+          CFI (cfiCond8) Function KeusGPIOInterruptEnable
+          CFI (cfiCond8) Conditional ??CrossCallReturnLabel_8
+          CFI (cfiCond8) R6 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+          CFI (cfiCond8) VB load(1, XDATA, add(CFA_XSP16, literal(-9)))
+          CFI (cfiCond8) V0 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+          CFI (cfiCond8) V1 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+          CFI (cfiCond8) R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+          CFI (cfiCond8) ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+          CFI (cfiCond8) ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+          CFI (cfiCond8) ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+          CFI (cfiCond8) DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+          CFI (cfiCond8) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+          CFI (cfiCond8) CFA_SP SP+-2
+          CFI (cfiCond8) CFA_XSP16 add(XSP16, 10)
+          CFI Block cfiPicker9 Using cfiCommon1
+          CFI (cfiPicker9) NoFunction
+          CFI (cfiPicker9) Picker
+        MOV       A,?V0
+        CPL       A
+        ANL       0xf5,A
+        MOV       ?V0,#0x1
+        MOV       ?V1,#0x0
+        MOVX      A,@DPTR
+        MOV       R0,#?V0
+        RET
+          CFI EndBlock cfiCond6
+          CFI EndBlock cfiCond7
+          CFI EndBlock cfiCond8
+          CFI EndBlock cfiPicker9
+
+        RSEG BANKED_CODE:HUGECODE:NOROOT(0)
+?Subroutine2:
+          CFI Block cfiCond10 Using cfiCommon0
+          CFI Function KeusGPIOSetDirection
+          CFI Conditional ??CrossCallReturnLabel_3
+          CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+          CFI VB load(1, XDATA, add(CFA_XSP16, literal(-9)))
+          CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+          CFI V1 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+          CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+          CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+          CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+          CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+          CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+          CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+          CFI CFA_SP SP+-2
+          CFI CFA_XSP16 add(XSP16, 10)
+          CFI Block cfiCond11 Using cfiCommon0
+          CFI (cfiCond11) Function KeusGPIOSetDirection
+          CFI (cfiCond11) Conditional ??CrossCallReturnLabel_4
+          CFI (cfiCond11) R6 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+          CFI (cfiCond11) VB load(1, XDATA, add(CFA_XSP16, literal(-9)))
+          CFI (cfiCond11) V0 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+          CFI (cfiCond11) V1 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+          CFI (cfiCond11) R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+          CFI (cfiCond11) ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+          CFI (cfiCond11) ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+          CFI (cfiCond11) ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+          CFI (cfiCond11) DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+          CFI (cfiCond11) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+          CFI (cfiCond11) CFA_SP SP+-2
+          CFI (cfiCond11) CFA_XSP16 add(XSP16, 10)
+          CFI Block cfiCond12 Using cfiCommon0
+          CFI (cfiCond12) Function KeusGPIOInterruptEnable
+          CFI (cfiCond12) Conditional ??CrossCallReturnLabel_5
+          CFI (cfiCond12) R6 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+          CFI (cfiCond12) VB load(1, XDATA, add(CFA_XSP16, literal(-9)))
+          CFI (cfiCond12) V0 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+          CFI (cfiCond12) V1 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+          CFI (cfiCond12) R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+          CFI (cfiCond12) ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+          CFI (cfiCond12) ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+          CFI (cfiCond12) ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+          CFI (cfiCond12) DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+          CFI (cfiCond12) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+          CFI (cfiCond12) CFA_SP SP+-2
+          CFI (cfiCond12) CFA_XSP16 add(XSP16, 10)
+          CFI Block cfiPicker13 Using cfiCommon1
+          CFI (cfiPicker13) NoFunction
+          CFI (cfiPicker13) Picker
+        MOV       A,?V0
+        CPL       A
+        ANL       0xf4,A
+        MOV       ?V0,#0x1
+        MOV       ?V1,#0x0
+        MOVX      A,@DPTR
+        MOV       R0,#?V0
+        RET
+          CFI EndBlock cfiCond10
+          CFI EndBlock cfiCond11
+          CFI EndBlock cfiCond12
+          CFI EndBlock cfiPicker13
+
+        RSEG BANKED_CODE:HUGECODE:NOROOT(0)
+?Subroutine1:
+          CFI Block cfiCond14 Using cfiCommon0
+          CFI Function KeusGPIOSetDirection
+          CFI Conditional ??CrossCallReturnLabel_0
+          CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+          CFI VB load(1, XDATA, add(CFA_XSP16, literal(-9)))
+          CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+          CFI V1 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+          CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+          CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+          CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+          CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+          CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+          CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+          CFI CFA_SP SP+-2
+          CFI CFA_XSP16 add(XSP16, 10)
+          CFI Block cfiCond15 Using cfiCommon0
+          CFI (cfiCond15) Function KeusGPIOSetDirection
+          CFI (cfiCond15) Conditional ??CrossCallReturnLabel_1
+          CFI (cfiCond15) R6 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+          CFI (cfiCond15) VB load(1, XDATA, add(CFA_XSP16, literal(-9)))
+          CFI (cfiCond15) V0 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+          CFI (cfiCond15) V1 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+          CFI (cfiCond15) R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+          CFI (cfiCond15) ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+          CFI (cfiCond15) ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+          CFI (cfiCond15) ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+          CFI (cfiCond15) DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+          CFI (cfiCond15) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+          CFI (cfiCond15) CFA_SP SP+-2
+          CFI (cfiCond15) CFA_XSP16 add(XSP16, 10)
+          CFI Block cfiCond16 Using cfiCommon0
+          CFI (cfiCond16) Function KeusGPIOInterruptEnable
+          CFI (cfiCond16) Conditional ??CrossCallReturnLabel_2
+          CFI (cfiCond16) R6 load(1, XDATA, add(CFA_XSP16, literal(-10)))
+          CFI (cfiCond16) VB load(1, XDATA, add(CFA_XSP16, literal(-9)))
+          CFI (cfiCond16) V0 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+          CFI (cfiCond16) V1 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+          CFI (cfiCond16) R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+          CFI (cfiCond16) ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+          CFI (cfiCond16) ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+          CFI (cfiCond16) ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+          CFI (cfiCond16) DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+          CFI (cfiCond16) DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+          CFI (cfiCond16) CFA_SP SP+-2
+          CFI (cfiCond16) CFA_XSP16 add(XSP16, 10)
+          CFI Block cfiPicker17 Using cfiCommon1
+          CFI (cfiPicker17) NoFunction
+          CFI (cfiPicker17) Picker
+        MOV       A,?V0
+        CPL       A
+        ANL       0xf3,A
+        MOV       ?V0,#0x1
+        MOV       ?V1,#0x0
+        MOVX      A,@DPTR
+        MOV       R0,#?V0
+        RET
+          CFI EndBlock cfiCond14
+          CFI EndBlock cfiCond15
+          CFI EndBlock cfiCond16
+          CFI EndBlock cfiPicker17
+//  167 
+
+        RSEG BANKED_CODE:HUGECODE:NOROOT(0)
+//  168 void KeusGPIOEdgeConfiguration (KeusGPIOPin *pin, uint8 edgeConfig) {
+KeusGPIOEdgeConfiguration:
+          CFI Block cfiBlock18 Using cfiCommon0
+          CFI Function KeusGPIOEdgeConfiguration
+        CODE
+        PUSH      DPL
+          CFI DPL0 Frame(CFA_SP, 4)
+          CFI CFA_SP SP+-4
+        PUSH      DPH
+          CFI DPH0 Frame(CFA_SP, 5)
+          CFI CFA_SP SP+-5
+        ; Saved register size: 2
+        ; Auto size: 0
+//  169   switch (pin->port) {
+        MOV       DPL,R2
+        MOV       DPH,R3
+        MOVX      A,@DPTR
+        JZ        ??KeusGPIOEdgeConfiguration_0
+        DEC       A
+        JZ        ??KeusGPIOEdgeConfiguration_1
+        DEC       A
+        JZ        ??KeusGPIOEdgeConfiguration_2
+        SJMP      ??KeusGPIOEdgeConfiguration_3
+//  170     case 0:
+//  171       if (edgeConfig == GPIO_RISING_EDGE) {
+??KeusGPIOEdgeConfiguration_0:
+        MOV       A,#0x1
+        XRL       A,R1
+        JNZ       ??KeusGPIOEdgeConfiguration_4
+//  172         PICTL &= ~(BV(0));
+        ANL       0x8c,#0xfe
+        SJMP      ??KeusGPIOEdgeConfiguration_3
+//  173       } else {
+//  174         PICTL |= BV(0);
+??KeusGPIOEdgeConfiguration_4:
+        ORL       0x8c,#0x1
+        SJMP      ??KeusGPIOEdgeConfiguration_3
+//  175       }
+//  176       break;
+//  177       
+//  178     case 1:
+//  179       if (edgeConfig == GPIO_RISING_EDGE) {
+??KeusGPIOEdgeConfiguration_1:
+        MOV       A,#0x1
+        XRL       A,R1
+        JNZ       ??KeusGPIOEdgeConfiguration_5
+//  180         PICTL &= ~(BV(1));
+        ANL       0x8c,#0xfd
+//  181         PICTL &= ~(BV(2));
+        ANL       0x8c,#0xfb
+        SJMP      ??KeusGPIOEdgeConfiguration_3
+//  182       } else {
+//  183         PICTL |= BV(1);
+??KeusGPIOEdgeConfiguration_5:
+        ORL       0x8c,#0x2
+//  184         PICTL |= BV(2);
+        ORL       0x8c,#0x4
+        SJMP      ??KeusGPIOEdgeConfiguration_3
+//  185       }
+//  186       break;
+//  187       
+//  188     case 2:
+//  189       if (edgeConfig == GPIO_RISING_EDGE) {
+??KeusGPIOEdgeConfiguration_2:
+        MOV       A,#0x1
+        XRL       A,R1
+        JNZ       ??KeusGPIOEdgeConfiguration_6
+//  190         PICTL &= ~(BV(3));
+        ANL       0x8c,#0xf7
+        SJMP      ??KeusGPIOEdgeConfiguration_3
+//  191       } else {
+//  192         PICTL |= BV(3);
+??KeusGPIOEdgeConfiguration_6:
+        ORL       0x8c,#0x8
+//  193       }
+//  194       break;
+//  195   }
+//  196 }
+??KeusGPIOEdgeConfiguration_3:
+        POP       DPH
+          CFI DPH0 SameValue
+          CFI CFA_SP SP+-4
+        POP       DPL
+          CFI DPL0 SameValue
+          CFI CFA_SP SP+-3
+        LJMP      ?BRET
+          CFI EndBlock cfiBlock18
+        REQUIRE PICTL
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+`??KeusGPIOSetDirection::?relay`:
+        CODE
+        LCALL   ?BDISPATCH
+        DATA24
+        DC24    KeusGPIOSetDirection
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+`??KeusGPIOSetPinValue::?relay`:
+        CODE
+        LCALL   ?BDISPATCH
+        DATA24
+        DC24    KeusGPIOSetPinValue
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+`??KeusGPIOReadPinValue::?relay`:
+        CODE
+        LCALL   ?BDISPATCH
+        DATA24
+        DC24    KeusGPIOReadPinValue
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+`??KeusGPIOToggledState::?relay`:
+        CODE
+        LCALL   ?BDISPATCH
+        DATA24
+        DC24    KeusGPIOToggledState
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+`??KeusGPIOInterruptEnable::?relay`:
+        CODE
+        LCALL   ?BDISPATCH
+        DATA24
+        DC24    KeusGPIOInterruptEnable
+
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+`??KeusGPIOEdgeConfiguration::?relay`:
+        CODE
+        LCALL   ?BDISPATCH
+        DATA24
+        DC24    KeusGPIOEdgeConfiguration
+
+        END
+//  197 
+//  198 #ifndef KEUS_GPIO_INTERRUPT_HANDLER_DISABLE
+//  199 
+//  200 //hardcode the pins to configure for the application
+//  201 HAL_ISR_FUNCTION( halKeusPort0Isr, P0INT_VECTOR )
+//  202 {
+//  203   HAL_ENTER_ISR();
+//  204 
+//  205   if (P0IFG & BV(pins[0]->bit)) {
+//  206     pins[0]->handler();
+//  207   }
+//  208 
+//  209   /*
+//  210     Clear the CPU interrupt flag for Port_0
+//  211     PxIFG has to be cleared before PxIF
+//  212   */
+//  213   P0IFG = 0;
+//  214   P0IF = 0;
+//  215   
+//  216   CLEAR_SLEEP_MODE();
+//  217   HAL_EXIT_ISR();
+//  218 }
+//  219 
+//  220 #endif
+// 
+// 1 075 bytes in segment BANKED_CODE
+//    36 bytes in segment BANK_RELAYS
+//    21 bytes in segment SFR_AN
+// 
+//    36 bytes of CODE     memory
+//     0 bytes of DATA     memory (+ 21 bytes shared)
+// 1 075 bytes of HUGECODE memory
+//
+//Errors: none
+//Warnings: none

@@ -1,0 +1,529 @@
+###############################################################################
+#
+# IAR C/C++ Compiler V10.30.1.6000 for 8051               08/Jan/2020  12:48:54
+# Copyright 2004-2018 IAR Systems AB.
+# PC-locked license - IAR Embedded Workbench for 8051
+#
+#    Core               =  plain
+#    Code model         =  banked
+#    Data model         =  large
+#    Calling convention =  xdata reentrant
+#    Constant location  =  data_rom
+#    Dptr setup         =  1,16
+#                          
+#    Source file        =  
+#        D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack -
+#        Working TS Backup\ZMain\TI2530DB\Theme_switch\keusMain.c
+#    Command line       =  
+#        -f C:\Users\Souvik\AppData\Local\Temp\EWEFCD.tmp ("D:\VB_Shared\Zigbee
+#        Resources\CC2530 Development\Projects\zstack - Working TS
+#        Backup\ZMain\TI2530DB\Theme_switch\keusMain.c" -D SECURE=1 -D
+#        TC_LINKKEY_JOIN -D NV_INIT -D NV_RESTORE -D HAL_KEY=FALSE -D
+#        HAL_LCD=FALSE -D HAL_LED=FALSE -D MULTICAST_ENABLED=FALSE -D ZCL_READ
+#        -D ZCL_WRITE -D ZCL_BASIC -D ZCL_IDENTIFY -D
+#        KEUS_GPIO_INTERRUPT_HANDLER_DISABLE -D HAL_UART=TRUE -D HAL_UART_ISR=1
+#        -D HAL_UART_DMA=2 -D HAL_UART_DMA_RX_MAX=64 -D HAL_UART_DMA_TX_MAX=64
+#        -D INT_HEAP_LEN=3172 -lC "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack - Working TS
+#        Backup\HomeAutomation\Theme_Switch\CC2530DB\EndDeviceEB\List" -lA
+#        "D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack -
+#        Working TS
+#        Backup\HomeAutomation\Theme_Switch\CC2530DB\EndDeviceEB\List"
+#        --diag_suppress Pe001,Pa010 -o "D:\VB_Shared\Zigbee Resources\CC2530
+#        Development\Projects\zstack - Working TS
+#        Backup\HomeAutomation\Theme_Switch\CC2530DB\EndDeviceEB\Obj" -e
+#        --debug --core=plain --dptr=16,1 --data_model=large
+#        --code_model=banked --calling_convention=xdata_reentrant
+#        --place_constants=data_rom --nr_virtual_regs 16 -f
+#        "D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack -
+#        Working TS
+#        Backup\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\Tools\CC2530DB\f8wEndev.cfg"
+#        (-DCPU32MHZ -DROOT=__near_func -DMAC_CFG_TX_DATA_MAX=3
+#        -DMAC_CFG_TX_MAX=6 -DMAC_CFG_RX_MAX=3) -f "D:\VB_Shared\Zigbee
+#        Resources\CC2530 Development\Projects\zstack - Working TS
+#        Backup\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\Tools\CC2530DB\f8wConfig.cfg"
+#        (-DZIGBEEPRO -DSECURE=1 -DZG_SECURE_DYNAMIC=0 -DREFLECTOR
+#        -DDEFAULT_CHANLIST=0x00000800 -DZDAPP_CONFIG_PAN_ID=0xFFFF
+#        -DNWK_START_DELAY=100 -DEXTENDED_JOINING_RANDOM_MASK=0x007F
+#        -DBEACON_REQUEST_DELAY=100 -DBEACON_REQ_DELAY_MASK=0x00FF
+#        -DLINK_STATUS_JITTER_MASK=0x007F -DROUTE_EXPIRY_TIME=30
+#        -DAPSC_ACK_WAIT_DURATION_POLLED=3000 -DNWK_INDIRECT_MSG_TIMEOUT=7
+#        -DMAX_RREQ_ENTRIES=8 -DAPSC_MAX_FRAME_RETRIES=3
+#        -DNWK_MAX_DATA_RETRIES=2 -DMAX_POLL_FAILURE_RETRIES=2 -DMAX_BCAST=9
+#        -DAPS_MAX_GROUPS=16 -DMAX_RTG_ENTRIES=40 -DNWK_MAX_BINDING_ENTRIES=4
+#        -DMAX_BINDING_CLUSTER_IDS=4 -DDEFAULT_KEY={0} -DMAC_MAX_FRAME_SIZE=116
+#        -DZDNWKMGR_MIN_TRANSMISSIONS=20 "-DCONST=const __code"
+#        -DGENERIC=__generic -DRFD_RCVC_ALWAYS_ON=FALSE -DPOLL_RATE=1000
+#        -DQUEUED_POLL_RATE=100 -DRESPONSE_POLL_RATE=100 -DREJOIN_POLL_RATE=440
+#        -DREJOIN_BACKOFF=900000 -DREJOIN_SCAN=900000 -DENABLE_LED4_DISABLE_S1)
+#        -f "D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack -
+#        Working TS
+#        Backup\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\Tools\CC2530DB\f8wZCL.cfg"
+#        -I "D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack -
+#        Working TS Backup\HomeAutomation\Theme_Switch\CC2530DB\" -I
+#        "D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack -
+#        Working TS Backup\HomeAutomation\Theme_Switch\CC2530DB\..\Source\" -I
+#        "D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack -
+#        Working TS Backup\HomeAutomation\Theme_Switch\CC2530DB\..\..\Source\"
+#        -I "D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack -
+#        Working TS
+#        Backup\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\ZMain\TI2530DB\"
+#        -I "D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack -
+#        Working TS
+#        Backup\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\hal\include\"
+#        -I "D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack -
+#        Working TS
+#        Backup\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\hal\target\CC2530EB\"
+#        -I "D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack -
+#        Working TS
+#        Backup\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\mac\include\"
+#        -I "D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack -
+#        Working TS
+#        Backup\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\mac\high_level\"
+#        -I "D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack -
+#        Working TS
+#        Backup\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\mac\low_level\srf04\"
+#        -I "D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack -
+#        Working TS
+#        Backup\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\mac\low_level\srf04\single_chip\"
+#        -I "D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack -
+#        Working TS
+#        Backup\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\mt\"
+#        -I "D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack -
+#        Working TS
+#        Backup\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\osal\include\"
+#        -I "D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack -
+#        Working TS
+#        Backup\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\services\saddr\"
+#        -I "D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack -
+#        Working TS
+#        Backup\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\services\sdata\"
+#        -I "D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack -
+#        Working TS
+#        Backup\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\stack\af\"
+#        -I "D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack -
+#        Working TS
+#        Backup\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\stack\bdb\"
+#        -I "D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack -
+#        Working TS
+#        Backup\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\stack\gp\"
+#        -I "D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack -
+#        Working TS
+#        Backup\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\stack\nwk\"
+#        -I "D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack -
+#        Working TS
+#        Backup\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\stack\sapi\"
+#        -I "D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack -
+#        Working TS
+#        Backup\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\stack\sec\"
+#        -I "D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack -
+#        Working TS
+#        Backup\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\stack\sys\"
+#        -I "D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack -
+#        Working TS
+#        Backup\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\stack\zcl\"
+#        -I "D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack -
+#        Working TS
+#        Backup\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\stack\zdo\"
+#        -I "D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack -
+#        Working TS
+#        Backup\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\zmac\"
+#        -I "D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack -
+#        Working TS
+#        Backup\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\zmac\f8w\"
+#        -I "D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack -
+#        Working TS
+#        Backup\HomeAutomation\Theme_Switch\CC2530DB\..\..\..\..\..\Components\keus\"
+#        -Ohz --require_prototypes)
+#    Locale             =  English_USA.1252
+#    List file          =  
+#        D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack -
+#        Working TS
+#        Backup\HomeAutomation\Theme_Switch\CC2530DB\EndDeviceEB\List\keusMain.lst
+#    Object file        =  
+#        D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack -
+#        Working TS
+#        Backup\HomeAutomation\Theme_Switch\CC2530DB\EndDeviceEB\Obj\keusMain.r51
+#
+###############################################################################
+
+D:\VB_Shared\Zigbee Resources\CC2530 Development\Projects\zstack - Working TS Backup\ZMain\TI2530DB\Theme_switch\keusMain.c
+      1          #include "hal_adc.h"
+      2          #include "hal_flash.h"
+      3          #include "hal_lcd.h"
+      4          #include "hal_led.h"
+      5          #include "hal_uart.h"
+      6          #include "hal_drivers.h"
+      7          #include "OnBoard.h"
+      8          #include "OSAL.h"
+      9          #include "OSAL_Nv.h"
+     10          #include "ZComDef.h"
+     11          #include "ZMAC.h"
+     12          #include "keus_gpio_util.h"
+     13          #include "keus_timer_util.h"
+     14          #include "keusconstants.h"
+     15          
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
+     16          volatile uint32 keusAppEvents = 0;
+   \                     keusAppEvents:
+   \   000000                DS 4
+   \   000004                REQUIRE __INIT_XDATA_Z
+     17          
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
+     18          uint8 KEUS_taskID = 0;
+   \                     KEUS_taskID:
+   \   000000                DS 1
+   \   000001                REQUIRE __INIT_XDATA_Z
+     19          
+     20          // //Event bit masks
+     21          // #define KEUS_BUTTON1 0x1
+     22          // #define KEUS_BUTTON2 0x2
+     23          // #define KEUS_BUTTON3 0x4
+     24          // #define KEUS_BUTTON4 0x8
+     25          // #define KEUS_UART 0x10
+     26          // #define KEUS_APP_EVT1 0X20
+     27          // #define KEUS_APP_EVT2 0X40
+     28          // #define KEUS_APP_EVT3 0X80
+     29          // #define KEUS_APP_EVT4 0X100
+     30          
+     31          // #define BUTTON1_ID 1
+     32          // #define BUTTON2_ID 2
+     33          // #define BUTTON3_ID 3
+     34          // #define BUTTON4_ID 4
+     35          
+     36          extern void keusButtonInit(void);
+     37          extern void exitDebugMode(void);
+     38          
+     39          extern void parseUart(void);
+     40          extern void initUart(void);
+     41          extern void keusLEDInit(void);
+     42          void buttonPressAction(uint8 buttonId);
+     43          
+     44          //void KEUS_delayms(uint16 ms);
+     45          //extern void KEUS_init(uin);
+     46          void KEUS_init(uint8 taskID);
+     47          void KEUS_loop(void); //the actual polling
+     48          
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     49          void KEUS_init(uint8 taskID)
+   \                     KEUS_init:
+     50          {
+   \   000000                REQUIRE ?V0
+   \   000000                REQUIRE ?V2
+   \   000000                REQUIRE ?V3
+   \   000000   74F4         MOV       A,#-0xc
+   \   000002   12....       LCALL     ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 12
+   \   000005                ; Auto size: 0
+     51            KEUS_taskID = taskID;
+   \   000005   E9           MOV       A,R1
+   \   000006   90....       MOV       DPTR,#KEUS_taskID
+   \   000009   F0           MOVX      @DPTR,A
+     52            initUart();
+   \   00000A                ; Setup parameters for call to function initUart
+   \   00000A   12....       LCALL     `??initUart::?relay`; Banked call to: initUart
+     53            keusButtonInit();
+   \   00000D                ; Setup parameters for call to function keusButtonInit
+   \   00000D   12....       LCALL     `??keusButtonInit::?relay`; Banked call to: keusButtonInit
+     54            keusLEDInit();
+   \   000010                ; Setup parameters for call to function keusLEDInit
+   \   000010   12....       LCALL     `??keusLEDInit::?relay`; Banked call to: keusLEDInit
+     55          
+     56            KeusTimerUtilInit();
+   \   000013                ; Setup parameters for call to function KeusTimerUtilInit
+   \   000013   12....       LCALL     `??KeusTimerUtilInit::?relay`; Banked call to: KeusTimerUtilInit
+     57            KeusTimerUtilStartTimer();
+   \   000016                ; Setup parameters for call to function KeusTimerUtilStartTimer
+   \   000016   12....       LCALL     `??KeusTimerUtilStartTimer::?relay`; Banked call to: KeusTimerUtilStartTimer
+     58            //initStatus = KeusThemeSwitchMiniMemoryInit();
+     59            //osal_nv_item_init(SCN_ARR_NVIC_LOCATION, sizeof(arr_scene), (void *)arr_scene);
+     60            //readStatus = KeusThemeSwitchMiniReadConfigDataIntoMemory();
+     61            //restoring scenes back to memory at startup
+     62            //osal_nv_read(SCN_ARR_NVIC_LOCATION, 0, sizeof(arr_scene), (void *)arr_scene);
+     63            HalUARTWrite(HAL_UART_PORT_0, "KEUS INIT", (byte)osal_strlen("KEUS INIT"));
+   \   000019                ; Setup parameters for call to function osal_strlen
+   \   000019   7A..         MOV       R2,#`?<Constant "KEUS INIT">` & 0xff
+   \   00001B   7B..         MOV       R3,#(`?<Constant "KEUS INIT">` >> 8) & 0xff
+   \   00001D   12....       LCALL     `??osal_strlen::?relay`; Banked call to: osal_strlen
+   \   000020   8A..         MOV       ?V2,R2
+   \   000022                ; Setup parameters for call to function HalUARTWrite
+   \   000022   AC..         MOV       R4,?V2
+   \   000024   7D00         MOV       R5,#0x0
+   \   000026   7A..         MOV       R2,#`?<Constant "KEUS INIT">` & 0xff
+   \   000028   7B..         MOV       R3,#(`?<Constant "KEUS INIT">` >> 8) & 0xff
+   \   00002A   7900         MOV       R1,#0x0
+   \   00002C   12....       LCALL     `??HalUARTWrite::?relay`; Banked call to: HalUARTWrite
+     64          }
+   \   00002F   7F04         MOV       R7,#0x4
+   \   000031   02....       LJMP      ?BANKED_LEAVE_XDATA
+     65          
+     66          
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     67          void KEUS_loop()
+   \                     KEUS_loop:
+     68          {
+   \   000000                REQUIRE ?V0
+   \   000000                REQUIRE ?V1
+   \   000000                REQUIRE ?V2
+   \   000000                REQUIRE ?V3
+   \   000000   74F4         MOV       A,#-0xc
+   \   000002   12....       LCALL     ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 12
+   \   000005                ; Auto size: 0
+   \   000005   8013         SJMP      ??KEUS_loop_0
+     69            while (1)
+     70            {
+     71              HalUARTPoll();
+     72              //KEUS_delayms(1000);
+     73          
+     74              if (keusAppEvents & KEUS_UART)
+     75              {
+     76                parseUart();
+   \                     ??KEUS_loop_1:
+   \   000007                ; Setup parameters for call to function parseUart
+   \   000007   12....       LCALL     `??parseUart::?relay`; Banked call to: parseUart
+     77                keusAppEvents ^= KEUS_UART;
+   \   00000A   90....       MOV       DPTR,#__Constant_10
+   \                     ??KEUS_loop_2:
+   \   00000D   78..         MOV       R0,#?V0
+   \   00000F   12....       LCALL     ?L_MOV_X
+   \   000012   90....       MOV       DPTR,#keusAppEvents
+   \   000015   78..         MOV       R0,#?V0
+   \   000017   12....       LCALL     ?L_XOR_TO_X
+     78              }
+   \                     ??KEUS_loop_0:
+   \   00001A                ; Setup parameters for call to function HalUARTPoll
+   \   00001A   12....       LCALL     `??HalUARTPoll::?relay`; Banked call to: HalUARTPoll
+   \   00001D   90....       MOV       DPTR,#keusAppEvents
+   \   000020   78..         MOV       R0,#?V0
+   \   000022   12....       LCALL     ?L_MOV_X
+   \   000025   E5..         MOV       A,?V0
+   \   000027   5410         ANL       A,#0x10
+   \   000029   70DC         JNZ       ??KEUS_loop_1
+     79              else if (keusAppEvents & KEUS_BUTTON1)
+   \   00002B   90....       MOV       DPTR,#keusAppEvents
+   \   00002E   78..         MOV       R0,#?V0
+   \   000030   12....       LCALL     ?L_MOV_X
+   \   000033   E5..         MOV       A,?V0
+   \   000035   A2E0         MOV       C,0xE0 /* A   */.0
+   \   000037   500A         JNC       ??KEUS_loop_3
+     80              {
+     81                buttonPressAction(BUTTON1_ID);
+   \   000039                ; Setup parameters for call to function buttonPressAction
+   \   000039   7901         MOV       R1,#0x1
+   \   00003B   12....       LCALL     `??buttonPressAction::?relay`; Banked call to: buttonPressAction
+     82                keusAppEvents ^= KEUS_BUTTON1;
+   \   00003E   90....       MOV       DPTR,#__Constant_1
+   \   000041   80CA         SJMP      ??KEUS_loop_2
+     83              }
+     84              else if (keusAppEvents & KEUS_BUTTON2)
+   \                     ??KEUS_loop_3:
+   \   000043   90....       MOV       DPTR,#keusAppEvents
+   \   000046   78..         MOV       R0,#?V0
+   \   000048   12....       LCALL     ?L_MOV_X
+   \   00004B   E5..         MOV       A,?V0
+   \   00004D   5402         ANL       A,#0x2
+   \   00004F   600A         JZ        ??KEUS_loop_4
+     85              {
+     86                buttonPressAction(BUTTON2_ID);
+   \   000051                ; Setup parameters for call to function buttonPressAction
+   \   000051   7902         MOV       R1,#0x2
+   \   000053   12....       LCALL     `??buttonPressAction::?relay`; Banked call to: buttonPressAction
+     87                keusAppEvents ^= KEUS_BUTTON2;
+   \   000056   90....       MOV       DPTR,#__Constant_2
+   \   000059   80B2         SJMP      ??KEUS_loop_2
+     88              }
+     89              else if (keusAppEvents & KEUS_BUTTON3)
+   \                     ??KEUS_loop_4:
+   \   00005B   90....       MOV       DPTR,#keusAppEvents
+   \   00005E   78..         MOV       R0,#?V0
+   \   000060   12....       LCALL     ?L_MOV_X
+   \   000063   E5..         MOV       A,?V0
+   \   000065   5404         ANL       A,#0x4
+   \   000067   600A         JZ        ??KEUS_loop_5
+     90              {
+     91                buttonPressAction(BUTTON3_ID);
+   \   000069                ; Setup parameters for call to function buttonPressAction
+   \   000069   7903         MOV       R1,#0x3
+   \   00006B   12....       LCALL     `??buttonPressAction::?relay`; Banked call to: buttonPressAction
+     92                keusAppEvents ^= KEUS_BUTTON3;
+   \   00006E   90....       MOV       DPTR,#__Constant_4
+   \   000071   809A         SJMP      ??KEUS_loop_2
+     93              }
+     94              else if (keusAppEvents & KEUS_BUTTON4)
+   \                     ??KEUS_loop_5:
+   \   000073   90....       MOV       DPTR,#keusAppEvents
+   \   000076   78..         MOV       R0,#?V0
+   \   000078   12....       LCALL     ?L_MOV_X
+   \   00007B   E5..         MOV       A,?V0
+   \   00007D   5408         ANL       A,#0x8
+   \   00007F   600A         JZ        ??KEUS_loop_6
+     95              {
+     96                buttonPressAction(BUTTON4_ID);
+   \   000081                ; Setup parameters for call to function buttonPressAction
+   \   000081   7904         MOV       R1,#0x4
+   \   000083   12....       LCALL     `??buttonPressAction::?relay`; Banked call to: buttonPressAction
+     97                keusAppEvents ^= KEUS_BUTTON4;
+   \   000086   90....       MOV       DPTR,#__Constant_8
+   \   000089   8082         SJMP      ??KEUS_loop_2
+     98              }
+     99              else if (keusAppEvents & KEUS_APP_EVT1)
+   \                     ??KEUS_loop_6:
+   \   00008B   90....       MOV       DPTR,#keusAppEvents
+   \   00008E   78..         MOV       R0,#?V0
+   \   000090   12....       LCALL     ?L_MOV_X
+   \   000093   E5..         MOV       A,?V0
+   \   000095   5420         ANL       A,#0x20
+   \   000097   6006         JZ        ??KEUS_loop_7
+    100              {
+    101                //action here
+    102                keusAppEvents ^= KEUS_APP_EVT1;
+   \   000099   90....       MOV       DPTR,#__Constant_20
+   \   00009C   02....       LJMP      ??KEUS_loop_2 & 0xFFFF
+    103              }
+    104              else if (keusAppEvents & KEUS_APP_EVT2)
+   \                     ??KEUS_loop_7:
+   \   00009F   90....       MOV       DPTR,#keusAppEvents
+   \   0000A2   78..         MOV       R0,#?V0
+   \   0000A4   12....       LCALL     ?L_MOV_X
+   \   0000A7   E5..         MOV       A,?V0
+   \   0000A9   5440         ANL       A,#0x40
+   \   0000AB   6006         JZ        ??KEUS_loop_8
+    105              {
+    106                //action here
+    107                keusAppEvents ^= KEUS_APP_EVT2;
+   \   0000AD   90....       MOV       DPTR,#__Constant_40
+   \   0000B0   02....       LJMP      ??KEUS_loop_2 & 0xFFFF
+    108              }
+    109              else if (keusAppEvents & KEUS_APP_EVT3)
+   \                     ??KEUS_loop_8:
+   \   0000B3   90....       MOV       DPTR,#keusAppEvents
+   \   0000B6   78..         MOV       R0,#?V0
+   \   0000B8   12....       LCALL     ?L_MOV_X
+   \   0000BB   E5..         MOV       A,?V0
+   \   0000BD   5480         ANL       A,#0x80
+   \   0000BF   6006         JZ        ??KEUS_loop_9
+    110              {
+    111                //action here
+    112                keusAppEvents ^= KEUS_APP_EVT3;
+   \   0000C1   90....       MOV       DPTR,#__Constant_80
+   \   0000C4   02....       LJMP      ??KEUS_loop_2 & 0xFFFF
+    113              }
+    114              else if (keusAppEvents & KEUS_APP_EVT4)
+   \                     ??KEUS_loop_9:
+   \   0000C7   90....       MOV       DPTR,#keusAppEvents
+   \   0000CA   78..         MOV       R0,#?V0
+   \   0000CC   12....       LCALL     ?L_MOV_X
+   \   0000CF   E5..         MOV       A,?V1
+   \   0000D1   5401         ANL       A,#0x1
+   \   0000D3   7003         JNZ       $+5
+   \   0000D5   02....       LJMP      ??KEUS_loop_0 & 0xFFFF
+    115              {
+    116                exitDebugMode();
+   \   0000D8                ; Setup parameters for call to function exitDebugMode
+   \   0000D8   12....       LCALL     `??exitDebugMode::?relay`; Banked call to: exitDebugMode
+    117                keusAppEvents ^= KEUS_APP_EVT4;
+   \   0000DB   90....       MOV       DPTR,#__Constant_100
+   \   0000DE   02....       LJMP      ??KEUS_loop_2 & 0xFFFF
+    118              }
+    119            }
+    120          }
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     `?<Constant "KEUS INIT">`:
+   \   000000   4B455553     DB "KEUS INIT"
+   \            20494E49
+   \            5400    
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     __Constant_10:
+   \   000000   10000000     DD 16
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     __Constant_1:
+   \   000000   01000000     DD 1
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     __Constant_2:
+   \   000000   02000000     DD 2
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     __Constant_4:
+   \   000000   04000000     DD 4
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     __Constant_8:
+   \   000000   08000000     DD 8
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     __Constant_20:
+   \   000000   20000000     DD 32
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     __Constant_40:
+   \   000000   40000000     DD 64
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     __Constant_80:
+   \   000000   80000000     DD 128
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     __Constant_100:
+   \   000000   00010000     DD 256
+
+   Maximum stack usage in bytes:
+
+   XSTACK Function
+   ------ --------
+     12   KEUS_init
+       12   -> HalUARTWrite
+       12   -> KeusTimerUtilInit
+       12   -> KeusTimerUtilStartTimer
+       12   -> initUart
+       12   -> keusButtonInit
+       12   -> keusLEDInit
+       12   -> osal_strlen
+     12   KEUS_loop
+       12   -> HalUARTPoll
+       12   -> buttonPressAction
+       12   -> exitDebugMode
+       12   -> parseUart
+
+
+   Segment part sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+      10  ?<Constant "KEUS INIT">
+      52  KEUS_init
+     225  KEUS_loop
+       1  KEUS_taskID
+       4  __Constant_1
+       4  __Constant_10
+       4  __Constant_100
+       4  __Constant_2
+       4  __Constant_20
+       4  __Constant_4
+       4  __Constant_40
+       4  __Constant_8
+       4  __Constant_80
+       4  keusAppEvents
+      12  -- Other
+
+ 
+ 277 bytes in segment BANKED_CODE
+  12 bytes in segment BANK_RELAYS
+  46 bytes in segment XDATA_ROM_C
+   5 bytes in segment XDATA_Z
+ 
+  12 bytes of CODE     memory
+  10 bytes of CONST    memory (+ 36 bytes shared)
+ 277 bytes of HUGECODE memory
+   5 bytes of XDATA    memory
+
+Errors: none
+Warnings: none

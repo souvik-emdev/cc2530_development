@@ -1,0 +1,39 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "C:\\Users\\Souvik\\AppData\\Local\\Arduino15\\packages\\esp8266\\tools\\**",
+                "C:\\Users\\Souvik\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.4.2\\**"
+            ],
+            "defines": [
+                "ZIGBEEPRO",
+                "ZIGBEE_FREQ_AGILITY",
+                "SECURE=1",
+                "TC_LINKKEY_JOIN",
+                "NV_INIT",
+                "NV_RESTORE",
+                "MULTICAST_ENABLED=FALSE",
+                "ZCL_READ",
+                "ZCL_BASIC",
+                "ZCL_IDENTIFY",
+                "HAL_KEY=FALSE",
+                "HAL_LCD=FALSE",
+                "HAL_LED=FALSE",
+                "HAL_UART=TRUE",
+                "HAL_UART_ISR=1",
+                "HAL_UART_DMA=2",
+                "HAL_UART_DMA_RX_MAX=64",
+                "HAL_UART_DMA_TX_MAX=64",
+                "KEUS_DEVICE_TYPE=0x02",
+                "KEUS_GPIO_INTERRUPT_HANDLER_DISABLE",
+                "NWK_AUTO_POLL",
+                "ZCL_KEUS_THEME_SWITCHMINI",
+                "OSC32K_CRYSTAL_INSTALLED=FALSE"      
+            ],
+            "forcedInclude": [],
+            "intelliSenseMode": "msvc-x64"
+        }
+    ],
+    "version": 4
+}
